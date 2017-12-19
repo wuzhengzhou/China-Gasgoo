@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="api.css"/>
+    <style>
+        body{
+            background-color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div>一级类目页</div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript">
+    apiready = function(){
+        openFrame();
+    };
+
+	function openFrame(){
+		api.openFrame({
+		    name: 'firstCategory_frame',
+		    url: './firstCategory_frame.html',
+		    rect: {
+		        x: 0,
+		        y: 30,
+		        w: 'auto',
+		        h: 'auto'
+		    },
+		    bounces: true,
+		    // bgColor: 'rgba(0,0,0,0)',
+		    // vScrollBarEnabled: true,
+		    // hScrollBarEnabled: true
+		});
+	}
+
+
+	function gotoHomepage(){
+		api.historyBack({
+		    frameName:'mb'
+		},function(ret,err){
+		    if(!ret.status){
+		        api.closeWin();
+		    }
+		});
+	}
+
+
+
+</script>
+</html>

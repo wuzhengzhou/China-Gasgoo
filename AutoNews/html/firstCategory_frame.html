@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="api.css"/>
+    <style>
+        body{
+            
+        }
+    </style>
+</head>
+<body>
+    <div id="categoryList"></div>
+</body>
+
+<script type="text/template" id="templateCategory">
+	{{~it:value:index}}
+	<div>
+		<ul>
+			<li onclick="openSecondCategory({{=value.ID}})"><a>{{=value.Title}}<a></li>
+		</ul>
+	</div>
+	{{~}}
+</script>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/doT.min.js"></script>
+<script type="text/javascript">
+    apiready = function(){
+        getFirstCategory();
+    };
+
+    function getFirstCategory(){
+    	api.ajax({
+    	    url: 'http://192.168.40.20:8090/api/mbgasgoo/get_First_Category',
+    	    method: 'get',
+    	},function(ret, err){
+    	    if (ret) {
+    	       showFirstCategory(ret);
+    	    } else {
+    	        alert( JSON.stringify( err ) );
+    	    }
+    	});
+    }
+
+    function showFirstCategory(category){
+		var tempEn=doT.template($api.byId('templateCategory').innerHTML);
+		$api.html($api.byId('categoryList'),tempEn(category));
+		api.parseTapmode();
+    }
+
+
+    function openSecondCategory(parentID){
+    	api.openWin({
+    	    name: 'secondCategory',
+    	    url: './secondCategory.html',
+    	    pageParam: {
+    	        parentID: parentID
+    	    }
+    	});
+    }
+</script>
+</html>

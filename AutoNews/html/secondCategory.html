@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="api.css"/>
+    <style>
+        body{
+            background-color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <header>二级类目页</header>
+</body>
+<script type="text/javascript" src="api.js"></script>
+<script type="text/javascript">
+	var headerH, winHeight;
+    apiready = function(){
+
+    	var parentID=api.pageParam.parentID;
+        openFrame(parentID);
+    };
+
+    function Init(){
+
+     // var header = $api.byId('header');
+     //    headerH = $api.offset(header).h;
+     //    winHeight = api.winHeight;
+     //    var systemType = api.systemType;
+
+     //    $api.fixStatusBar(header);
+     //    if (systemType == "ios") {
+     //        headerH += 20;
+     //    } else {
+     //        headerH += 26;
+     //    }
+    }
+
+    function openFrame(parentID){
+    	api.openFrame({
+    	    name: 'secondCategory_frame',
+    	    url: './secondCategory_frame.html',
+    	    rect: {
+    	        x: 0,
+    	        y: 40,
+    	        w: 'auto',
+    	        h: 'auto'
+    	    },
+    	    pageParam: {
+    	        parentID:parentID
+    	    },
+    	    bounces: true,
+    	    // bgColor: 'rgba(0,0,0,0)',
+    	    // vScrollBarEnabled: true,
+    	    // hScrollBarEnabled: true
+    	});
+    }
+</script>
+</html>

@@ -8,11 +8,14 @@
     <title>main</title>
     <link rel="stylesheet" type="text/css" href="../css/api.css" />
     <style>
+
+
         .header {
             background-color: #fff;
             height: 44px;
         }
 
+       
         .header ul {
             display: -webkit-box;
             /* Chrome 4+, Safari 3.1, iOS Safari 3.2+ */
@@ -33,12 +36,12 @@
             box-sizing: border-box;
         }
 
-        .header .search {
+        .news .search {
             width: 55px;
             margin-top: 5px;
         }
 
-        .header .search a {
+        .news .search a {
             background: url(../image/menu.png) no-repeat center;
             background-size: 18px;
             width: 30px;
@@ -81,7 +84,7 @@
             color: #99a5ae;
         }
 
-        .header .searchMagnifier {
+        .news .searchMagnifier {
             width: 55px;
             background: url(../image/search.png) no-repeat center;
             background-size: 16px;
@@ -91,6 +94,20 @@
         .hide {
             display: none;
         }
+        
+        /*头部*/
+       
+        .b2b .searchMagnifier{
+            width:55px; background:url(../image/searchTU.png) no-repeat center; 
+            background-size:16px; 
+            margin-top:5px;
+        }
+
+        .b2b .search {
+            width: 10px;
+            margin-top: 5px;
+        }
+
     </style>
 </head>
 
@@ -110,14 +127,17 @@
             </ul>
         </div>
         <div class="header b2b">
-            <!-- <ul>
-                <li class="searchKuan" style="margin-left:20px;" onclick="openSeachBar('b2b')">
-                    <div class="inputSear"><a> search</a></div>
-                </li>
-                <li class="searchMagnifier" onclick="openSeachBar('b2b')">
+            <ul>
+                <li class="search">
                     <a></a>
                 </li>
-            </ul> -->
+                <li class="searchKuan">
+                    <div class="inputSear"><a>Search Gasgoo...</a></div>
+                </li>
+                <li class="searchMagnifier">
+                    <a></a>
+                </li>
+            </ul>
         </div>
         <div class="header mine"></div>
     </header>
@@ -142,6 +162,7 @@
 
         // init.
         function init() {
+
             headerH = $api.offset($api.dom($api.byId('header'), '.header')).h + 25;
 
             $api.fixStatusBar($api.byId('header'));
