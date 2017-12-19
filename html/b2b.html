@@ -9,32 +9,282 @@
     <link rel="stylesheet" type="text/css" href="../css/api.css" />
     <style>
 
+        body{
+        background-color: #eeeeee;
+        }
+
+        .banner{ width:100%;}
+        .banner .bannerTU img{ width:100%; vertical-align:top;}
+        .option{ width:100%;}
+        .option li{ width:50%; height:2px; background:#e5e5e5; float:left;}
+        .option li.red{ background:#c4020c;}
+
+        .categories{ border-bottom:1px solid #f1f1f1; padding:0.1em 0.8em 0.3em 0.8em; background:#fff;}
+        .categories h2 a{ font-size:14px; color:#006699; display:block; padding:15px 0px 10px;}
+        .categories h2 a span{ background:url(../image/seeA.png) no-repeat right; background-size:8PX; font-size:14px; display:block; float: right; padding-right:15px;color:#869199; font-weight:normal;}
+
+
+        .product{ width:100%; background:#FFF; overflow:hidden; margin-bottom:0.5em;}
+        .product .productTU{ width:40%; float:left; text-align:center; }
+        .product .productTU .picProduct{  font-size:16px; padding:0.2em 0em;  display: table;width: 100%;height: 100%;table-layout: fixed;}
+        .product .productTU .picProduct  img{ max-width:4.3em; vertical-align:top;}
+        .product .productTU .picProduct a{ color:#333; font-weight:bold; display: table-cell; vertical-align: middle;}
+        .product .productTU .picProduct a p{ margin: 0;padding: 0.05em 0.2em 0.05em; padding-bottom: 1px;font-size:12px;line-height: 1.2em;display: -webkit-box;overflow: hidden;-webkit-line-clamp: 2;-webkit-box-orient: vertical; }
+        .product .productWord{ width:60%; float:left; overflow: hidden; height:110px;}
+        .product .productWord .productKey{ width:100%; height:110px;}
+        .product .productWord .productKey  p{ width:50%; height:100%; float:left; height:55px; display:block;border-bottom:1px solid #f1f1f1;display:table;   -webkit-line-clamp: 2; }
+        .product .productWord .productKey  p a{border-left:1px solid #f1f1f1;   padding:0.5em; color:#666; font-size:12px;font-weight:bold; display:table-cell; vertical-align:middle; font-weight:normal; }
+        .product .productWord .productKey  p:nth-child(n+4) { border-bottom: 0;}
+        .product .productWord .productKey  p:nth-child(n+3) { border-bottom: 0;}      
     </style>
 </head>
 
 <body>
+
+<article class="categories" style="margin-top: 135px;">
+<h2>
+<a onclick="openWin('firstCategory')"> <span>See All</span> Categories </a>
+</h2>
+</article>
+
+
+<div id="HomeRecommendCategory"></div>
+
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
 <script>
-    apiready = function() {
-        api.lockSlidPane();
-        api.openFrame({
-            name: 'mb',
-            url: 'http://mb.gasgoo.com/',
+    var BannerImage,ImageArray;
+    apiready = function(){
+
+        refreshPage();
+        getBannerImage();
+        getHomeRecommendCategory();
+    };
+   function getBannerImage(){
+        api.ajax({
+                url: 'http://192.168.40.20:8090/api/mbgasgoo/get_Home_BannerImage',
+                cache:true,
+                method: 'get',
+            },function(ret, err){
+                if (ret) {
+                    // alert(JSON.stringify(ret));
+                    BannerImage=ret;
+                    ImageArray = new Array(BannerImage.length);
+
+                    getImageArray(BannerImage);
+
+                    showBannerImage(ImageArray);
+                    for (var i = 0; i  <ImageArray.length; i++) {
+                        insertImageToCache(ImageArray[i])
+                    }
+                } else {
+                    alert(JSON.stringify(err));
+                }
+            });
+    }
+
+     function getImageArray(BannerImage){
+
+        for (var i = 0,len=BannerImage.length; i <len; i++) {
+            ImageArray[i]=BannerImage[i].Pic;
+        }
+    }
+     function showBannerImage(imageArray){
+
+        var UIScrollPicture = api.require('UIScrollPicture');
+        UIScrollPicture.setCurrentIndex({
+            index: 0
+        });
+        UIScrollPicture.open({
             rect: {
                 x: 0,
-                y: 20,
-                w: 'auto',
-                h: api.winHeight - 70
+                y: 0,
+                w: api.winWidth,
+                h: 140
             },
-            bounces: false,
-            bgColor: 'rgba(0,0,0,0)',
-            useWKWebView: true,
-            historyGestureEnabled: true,
-            vScrollBarEnabled: false,
-            hScrollBarEnabled: false
+            data: {
+                paths:imageArray
+            },
+            styles: {
+                caption: {
+                    height: 35,
+                    color: '#E0FFFF',
+                    size: 13,
+                    bgColor: '#696969',
+                    position: 'bottom'
+                },
+                indicator: {
+                   dot:{
+                     w:6,
+                     h:6,
+                     r:2,
+                     margin:5
+                  },
+                    align: 'center',
+                    color: '#FFFFFF',
+                    activeColor: '#DA70D6'
+                }
+            },
+            placeholderImg: 'widget://res/slide1.jpg',
+            contentMode: 'scaleToFill',
+            interval: 3,
+            fixedOn: api.frameName,
+            loop: true,
+            fixed: false
+        }, function(ret, err) {
+            if (ret) {
+               if (ret.eventType == 'click') {
+                  RedirectUrl(ret.index);
+               }
+            } else {
+                
+            }
         });
     }
+
+    function RedirectUrl(index){
+
+     var url=BannerImage[index].Link;
+     
+     //alert(url);
+     api.openFrame({
+         name: 'page2',
+         url: url,
+         rect: {
+             x: 0,
+             y: 0,
+             w: 'auto',
+             h: 'auto'
+         },
+         
+         bounces: true,
+         bgColor: 'rgba(0,0,0,0)',
+         vScrollBarEnabled: true,
+         hScrollBarEnabled: true
+     });
+   }
+
+
+   function refreshPage() {
+        // 监听页面下拉刷新事件
+        api.setRefreshHeaderInfo({
+            visible: true,
+            loadingImg: 'widget://image/refresh.png',
+            bgColor: '#f0f0f0',
+            textColor: '#888',
+            textDown: 'Pull-down refresh...',
+            textUp: 'Loosen the refresh...',
+            textLoading: 'loading...',
+            showTime: false
+        }, function(ret, err) {
+           getBannerImage();
+           getHomeRecommendCategory();
+           api.parseTapmode();
+        });
+    }
+
+
+   // 缓存图片
+    function loadingImgCache(_this) {
+        var data_url = $api.attr(_this, 'data-url');
+        if (data_url) {
+            api.imageCache({
+                url: data_url,
+                thumbnail: false,
+                policy: 'cache_only'
+            }, function(ret, err) {
+                if (ret) {
+                    _this.src = ret.url;
+                    $api.attr(_this, 'data-url', '');
+                }
+            });
+        }
+    }
+
+
+    function insertImageToCache(url){
+        if(url){
+            api.imageCache({
+                url: url,
+                thumbnail:false,
+                policy:'cache_only'
+            }, function(ret, err){
+            });
+        }
+    }
+
+    function getHomeRecommendCategory(){
+        api.ajax({
+            url: 'http://192.168.40.20:8090/api/mbgasgoo/get_Home_Category',
+            method: 'get',
+        },function(ret, err){
+            if (ret) {
+                HomeRecommendCategory=ret;
+                showHomeRecommendCategory(HomeRecommendCategory);
+            } else {
+                alert( JSON.stringify( err ) );
+            }
+        });
+   }
+
+   function showHomeRecommendCategory(category){
+        var htmlTotal="";
+        var html;
+        for(var i=1;i<=category.length/5;i++){
+            html="";
+            var currentList=new Array(5);
+            var k=0;
+            for (var j = 0; j <category.length; j++) {
+                if (category[j].GroupID==i) {
+                    currentList[k]=category[j];
+                    k+=1;
+                }
+            }
+            for (var h = 0; h<currentList.length;h++) {
+                if(h==0){
+                    html+="<article class='product'>";
+                    html+="<section class='productTU'><section class='picProduct'>";
+                    html+="<a onclick='openSecendCategory("+currentList[h].CategoryID+")' target='_blank'>";
+                    html+="<img onload='loadingImgCache(this)' src='../image/error.png' data-url='"+currentList[h].Pic+"' alt='' />";
+                    html+="<p>"+currentList[h].Title+"</p></a></section></section>";
+                    html+="<section class='productWord'><section class='productKey'>";
+                }else{
+                    html+="<p><a onclick='openProductList("+currentList[h].CategoryID+")' target='_blank'>"+currentList[h].Title+"</a></p>";
+                }
+            }
+            html+="</section></section></article>";
+            htmlTotal+=html;
+        }
+        $api.html($api.byId('HomeRecommendCategory'),htmlTotal); 
+        api.refreshHeaderLoadDone(); 
+   }
+
+
+   function openWin(pagename){
+    if(pagename){
+        api.openWin({
+            name: pagename,
+            url: './'+pagename+'.html',
+        });
+    }
+   }   
+
+   function openSecendCategory(parentID){
+    api.openWin({
+        name: 'secondCategory',
+        url: './secondCategory.html',
+        pageParam: {
+            parentID:parentID
+        }
+    });
+   }
+
+
+   function openProductList(CategoryID){
+    alert(CategoryID);
+
+   }
+
 </script>
 
 </html>
