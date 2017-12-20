@@ -4,24 +4,28 @@
     <meta charset="utf-8">
     <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
     <title>title</title>
-    <link rel="stylesheet" type="text/css" href="api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
     <style>
-        body{
-           
-        }
+        .seeall{ background:#fff; }
+        .seeall ul{ padding-left:0.5em;}
+        .seeall li:nth-last-child(1){ border:none;}
+        .seeall li{ border-bottom:1px solid #f2f3f7; height:3.8em; line-height:3.8em; position:relative; -webkit-box-sizing:border-box; font-size:14px; font-weight:normal; width:100%; position: relative;}
+        .seeall li a{ color:#333; display:block;}
+        .seeall li .iconReturn{ position: absolute; right:0em; background:url(../image/iconPngforward.png) no-repeat; background-size:0.8em; width:1.5em; height:30px; margin-top:1.2em;}
+        /*导航图标*/
+
     </style>
 </head>
 <body>
-    <div id="categoryList"></div>
+    <article class="seeall">
+        <ul id="categoryList">
+        </ul>
+    </article>
 </body>
 
 <script type="text/template" id="templateCategory">
 	{{~it:value:index}}
-	<div>
-		<ul>
-			<li><a>{{=value.Title}}<a></li>
-		</ul>
-	</div>
+	<li><a>     <i class="iconReturn"></i> {{=value.Title}}</a></li>
 	{{~}}
 </script>
 
