@@ -78,7 +78,7 @@
                         insertImageToCache(ImageArray[i])
                     }
                 } else {
-                    alert(JSON.stringify(err));
+                    showToast();
                 }
             });
     }
@@ -145,11 +145,11 @@
     function RedirectUrl(index){
      var url=BannerImage[index].Link;
      api.openFrame({
-         name: 'page2',
+         name: 'weburl',
          url: url,
          rect: {
              x: 0,
-             y: 0,
+             y: 50,
              w: 'auto',
              h: 'auto'
          },
@@ -206,6 +206,7 @@
                 thumbnail:false,
                 policy:'cache_only'
             }, function(ret, err){
+
             });
         }
     }
@@ -214,12 +215,13 @@
         api.ajax({
             url: 'http://192.168.40.20:8090/api/mbgasgoo/get_Home_Category',
             method: 'get',
+            cache:true
         },function(ret, err){
             if (ret) {
                 HomeRecommendCategory=ret;
                 showHomeRecommendCategory(HomeRecommendCategory);
             } else {
-                alert( JSON.stringify( err ) );
+                showToast();
             }
         });
    }
@@ -280,6 +282,14 @@
    function openProductList(CategoryID){
     alert(CategoryID);
    }
+
+   function showToast() {
+        api.toast({
+            msg: 'Error',
+            duration: 4000,
+            location: 'bottom'
+        });
+    }
 
 </script>
 
