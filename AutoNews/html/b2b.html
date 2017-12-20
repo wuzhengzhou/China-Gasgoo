@@ -48,17 +48,17 @@
 </article>
 
 
-<div id="HomeRecommendCategory"></div>
-
+ <div id="HomeRecommendCategory"></div>
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
 <script>
     var BannerImage,ImageArray;
     apiready = function(){
-
-        refreshPage();
+        api.lockSlidPane();
         getBannerImage();
         getHomeRecommendCategory();
+        refreshPage();
+        api.parseTapmode();
     };
    function getBannerImage(){
         api.ajax({
@@ -143,10 +143,7 @@
     }
 
     function RedirectUrl(index){
-
      var url=BannerImage[index].Link;
-     
-     //alert(url);
      api.openFrame({
          name: 'page2',
          url: url,
@@ -282,7 +279,6 @@
 
    function openProductList(CategoryID){
     alert(CategoryID);
-
    }
 
 </script>
