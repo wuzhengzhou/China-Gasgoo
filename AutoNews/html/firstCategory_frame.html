@@ -17,16 +17,15 @@
 
 <script type="text/template" id="templateCategory">
 	{{~it:value:index}}
-	<div>
-		<ul>
-			<li onclick="openSecondCategory({{=value.ID}})"><a>{{=value.Title}}<a></li>
-		</ul>
-	</div>
+	<ul>
+		<li onclick="openSecondCategory({{=value.ID}})"><a>{{=value.Title}}<a></li>
+	</ul>
 	{{~}}
 </script>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript" src="../script/doT.min.js"></script>
 <script type="text/javascript">
+    var iconImage=["iconBody", "iconBraking", "iconCar", "iconDrivetrain", "iconElectricity", "iconEngine", "iconMaterial", "iconProcessing", "iconSteering", "iconUniversal"];
     apiready = function(){
         getFirstCategory();
     };
