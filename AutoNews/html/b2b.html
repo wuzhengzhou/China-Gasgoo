@@ -230,7 +230,7 @@
     apiready = function(){
         api.lockSlidPane();
         showBannerImage();
-        getHomeRecommendCategory();
+        
         refreshPage();
         api.parseTapmode();
     };
@@ -271,6 +271,7 @@
                 $api.html($api.dom('.bannerTU'), tmp_focusImg(ret));
                 $api.html($api.byId('swipeIndicator'), tmp_focusIndicator(ret));
                 swipeInit();
+                getHomeRecommendCategory();
             });
     }
 
