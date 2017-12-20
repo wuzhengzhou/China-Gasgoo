@@ -171,19 +171,20 @@
             api.addEventListener({
                 name: 'keyback'
             }, function(ret, err) {
-                var js = 'api.historyBack(function(ret, err){if(ret.status){}else{api.closeWidget();}});';
-                api.execScript({
-                    frameName: 'mb',
-                    script: js
-                });
-                api.execScript({
-                    frameName: 'news',
-                    script: js
-                });
-                api.execScript({
-                    frameName: 'mine',
-                    script: js
-                });
+                // var js = 'api.historyBack(function(ret, err){if(ret.status){}else{api.closeWidget();}});';
+                // api.execScript({
+                //     frameName: 'b2b',
+                //     script: js
+                // });
+                // api.execScript({
+                //     frameName: 'news',
+                //     script: js
+                // });
+                // api.execScript({
+                //     frameName: 'mine',
+                //     script: js
+                // });
+                api.closeWidget();
             });
 
             // 窗口宽高
@@ -353,6 +354,8 @@
                 },
                 bounces: bounces,
                 bgColor: 'rgba(0,0,0,0)',
+                useWKWebView: true,
+                historyGestureEnabled: true,
                 vScrollBarEnabled: false,
                 hScrollBarEnabled: false,
                 scrollToTop: true,
