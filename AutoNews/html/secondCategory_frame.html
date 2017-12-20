@@ -7,7 +7,7 @@
     <link rel="stylesheet" type="text/css" href="api.css"/>
     <style>
         body{
-            background-color: #fff;
+           
         }
     </style>
 </head>
@@ -38,20 +38,21 @@
     function getCategoryByParentID(parentID){
     	//友好加载
     	// api.showProgress({
-     //        style: 'default',
-     //        animationType: 'fade',
-     //        title: 'Loading...',
-     //        text: 'Wait a moment...',
-     //        modal: false
-     //    });
+        // style: 'default',
+        // animationType: 'fade',
+        // title: 'Loading...',
+        // text: 'Wait a moment...',
+        // modal: false
+        // });
     	api.ajax({
     	    url: 'http://192.168.40.20:8090/api/mbgasgoo/get_Second_Category/'+parentID,
     	    method: 'get',
+            cache:true
     	},function(ret, err){
     	    if (ret) {
     	        showCategory(ret);
     	    } else {
-    	        alert( JSON.stringify( err ) );
+    	        showToast();
     	    }
     	});
     	//关闭加载状态
@@ -63,6 +64,14 @@
     	var tempEn=doT.template($api.byId('templateCategory').innerHTML);
 		$api.html($api.byId('categoryList'),tempEn(category));
 		api.parseTapmode();
+    }
+
+    function showToast() {
+        api.toast({
+            msg: 'Error',
+            duration: 4000,
+            location: 'bottom'
+        });
     }
 </script>
 </html>

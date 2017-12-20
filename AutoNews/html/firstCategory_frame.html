@@ -35,11 +35,12 @@
     	api.ajax({
     	    url: 'http://192.168.40.20:8090/api/mbgasgoo/get_First_Category',
     	    method: 'get',
+            cache:true
     	},function(ret, err){
     	    if (ret) {
     	       showFirstCategory(ret);
     	    } else {
-    	        alert( JSON.stringify( err ) );
+    	       showToast();
     	    }
     	});
     }
@@ -59,6 +60,14 @@
     	        parentID: parentID
     	    }
     	});
+    }
+
+    function showToast() {
+        api.toast({
+            msg: 'Error',
+            duration: 4000,
+            location: 'bottom'
+        });
     }
 </script>
 </html>
