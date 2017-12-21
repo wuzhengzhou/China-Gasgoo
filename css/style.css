@@ -626,10 +626,10 @@ a {
     src: url('../fonts/iconfont.eot?#iefix') format('embedded-opentype'), url('../fonts/iconfont.woff') format('woff'), url('../fonts/iconfont.ttf') format('truetype'), url('../fonts/iconfont.svg#iconfont') format('svg');
 }
 
-.HUI_Icons_down:before {
+/*.HUI_Icons_down:before {
     font-family: "iconfont" !important;
     content: "\e78a";
-}
+}*/
 
 .HUI_Toast {
     font-size: 12px;
