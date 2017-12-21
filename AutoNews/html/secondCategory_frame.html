@@ -7,7 +7,7 @@
     <link rel="stylesheet" type="text/css" href="../css/api.css"/>
     <style>
         .seeall{ background:#fff; }
-        .seeall ul{ padding-left:2.0em;}
+        .seeall ul{ padding-left:1.0em;}
         .seeall li:nth-last-child(1){ border:none;}
         .seeall li{ border-bottom:1px solid #f2f3f7; height:3.8em; line-height:3.8em; position:relative; -webkit-box-sizing:border-box; font-size:14px; font-weight:normal; width:100%; position: relative;}
         .seeall li a{ color:#333; display:block;}
@@ -25,7 +25,7 @@
 
 <script type="text/template" id="templateCategory">
 	{{~it:value:index}}
-	<li><a>     <i class="iconReturn"></i> {{=value.Title}}</a></li>
+	<li onclick="openList({{=value.ID}})"><a>     <i class="iconReturn"></i> {{=value.Title}}</a></li>
 	{{~}}
 </script>
 
@@ -75,6 +75,16 @@
             msg: 'Error',
             duration: 4000,
             location: 'bottom'
+        });
+    }
+
+    function openList(categoryID){
+        api.openWin({
+            name: 'productList',
+            url: './b2b_product_list.html',
+            pageParam: {
+                categoryID:categoryID
+            }
         });
     }
 </script>
