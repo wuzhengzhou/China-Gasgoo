@@ -65,7 +65,10 @@
 <script src="../script/api.js"></script>
 <script>
     var headerH,
-        winHeight;
+        winHeight,
+        articleId,
+        title,
+        logo;
 
     apiready = function() {
         init();
@@ -84,6 +87,13 @@
         } else {
             headerH += 26;
         }
+
+        articleId = api.pageParam.ArticleId;
+        title = api.pageParam.Title;
+        logo = api.pageParam.Logo;
+        if (logo == 'undefined') {
+            logo = "widget://image/logo.jpg";
+        }
     }
 
     function openDetailFrame() {
@@ -97,16 +107,30 @@
                 h: winHeight - headerH
             },
             pageParam: {
-                ArticleId: api.pageParam.ArticleId,
-                Title: api.pageParam.Title,
-                Logo: api.pageParam.Logo
+                ArticleId: articleId,
+                Title: title,
+                Logo: logo
             },
             bounces: true
         });
     }
 
+    // 分享
     function showShare() {
-        alert("分享");
+        var mobSharePlus = api.require('mobSharePlus');
+        mobSharePlus.share({
+            title: title,
+            titleUrl: 'http://autonews.gasgoo.com/m/Detail/' + articleId + '.html',
+            text: title,
+            imgPaths: [logo],
+            url: 'http://autonews.gasgoo.com/m/Detail/' + articleId + '.html',
+        }, function(ret, err) {
+            if (ret.status) {
+                api.alert({
+                    msg: JSON.stringify(ret)
+                });
+            }
+        });
     }
 
     // 关闭当前窗口
