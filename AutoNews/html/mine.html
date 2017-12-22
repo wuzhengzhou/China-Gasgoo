@@ -134,6 +134,9 @@
 
     apiready = function() {
         api.lockSlidPane();
+        api.setStatusBarStyle({
+            style: 'dark'
+        });
 
         $api.css($api.dom('body'), 'height:' + (api.winHeight - 50) + 'px;');
 

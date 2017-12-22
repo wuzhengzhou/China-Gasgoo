@@ -89,10 +89,10 @@
             background:#fff;
         }
         .categories h2 a{ 
-            font-size:14px; 
-            color:#006699; 
+            font-size:16px; 
+            color:#000; 
             display:block; 
-            padding:15px 0px 10px;
+            padding:14px 0px 10px; 
         }
         .categories h2 a span{ 
             background:url(../image/seeA.png) no-repeat right; 
@@ -101,8 +101,10 @@
             display:block; 
             float: right; 
             padding-right:15px;
+
             color:#869199; 
-            font-weight:normal;}
+            /*font-weight:bold;*/
+            font-weight:normal;margin-top:2px}
 
 
         .product{ 
@@ -137,7 +139,7 @@
             margin: 0;
             padding: 0.05em 0.2em 0.05em; 
             padding-bottom: 1px;
-            font-size:12px;
+            font-size:13px;
             line-height: 1.2em;
             display: -webkit-box;
             overflow: hidden;
@@ -148,15 +150,15 @@
             width:60%; 
             float:left; 
             overflow: hidden; 
-            height:110px;}
+            height:95px;}
         .product .productWord .productKey{ 
             width:100%; 
-            height:110px;}
+            height:95px;}
         .product .productWord .productKey  p{ 
             width:50%; 
             height:100%; 
             float:left; 
-            height:55px; 
+            height:47.5px; 
             display:block;
             border-bottom:1px solid #f1f1f1;
             display:table;   
@@ -166,7 +168,7 @@
             border-left:1px solid #f1f1f1;   
             padding:0.5em; 
             color:#666; 
-            font-size:12px;
+            font-size:14px;
             font-weight:bold; 
             display:table-cell; 
             vertical-align:middle; 
@@ -192,7 +194,7 @@
 
 <article class="categories">
 <h2>
-<a onclick="openWin('firstCategory')"> <span>SEE ALL</span> Categories </a>
+<a onclick="openWin('firstCategory')"> <span style="font-weight: bold;">SEE ALL</span>CATEGORIES </a>
 </h2>
 </article>
  <div id="HomeRecommendCategory" style="background-color: #eeeeee;"></div>
@@ -231,7 +233,7 @@
         api.lockSlidPane();
         showBannerImage();
         
-        refreshPage();
+        // refreshPage();
         api.parseTapmode();
     };
 
@@ -375,23 +377,23 @@
    // }
 
 
-   function refreshPage() {
-        // 监听页面下拉刷新事件
-        api.setRefreshHeaderInfo({
-            visible: true,
-            loadingImg: 'widget://image/refresh.png',
-            bgColor: '#f0f0f0',
-            textColor: '#888',
-            textDown: 'Pull-down refresh...',
-            textUp: 'Loosen the refresh...',
-            textLoading: 'loading...',
-            showTime: false
-        }, function(ret, err) {
-           showBannerImage();
-           getHomeRecommendCategory();
-           api.parseTapmode();
-        });
-    }
+   // function refreshPage() {
+   //      // 监听页面下拉刷新事件
+   //      api.setRefreshHeaderInfo({
+   //          visible: true,
+   //          loadingImg: 'widget://image/refresh.png',
+   //          bgColor: '#f0f0f0',
+   //          textColor: '#888',
+   //          textDown: 'Pull-down refresh...',
+   //          textUp: 'Loosen the refresh...',
+   //          textLoading: 'loading...',
+   //          showTime: false
+   //      }, function(ret, err) {
+   //         showBannerImage();
+   //         getHomeRecommendCategory();
+   //         api.parseTapmode();
+   //      });
+   //  }
 
 
    // 缓存图片

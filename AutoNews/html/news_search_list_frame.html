@@ -98,6 +98,9 @@
         .hide {
             display: none;
         }
+        .red {
+            color: #fe7a18;
+        }
     </style>
 </head>
 
@@ -127,7 +130,7 @@
                 </dt> {{?}}
                 <dd>
                     {{=value.Title}}
-                    <p><span style="color:{{=value.TimeColor}}">{{=value.IssueTime}}</span></p>
+                    <p><span class="{{=value.TimeColor}}">{{=value.IssueTime}}</span></p>
                 </dd>
             </dl>
         </a>
@@ -137,7 +140,7 @@
 <script src="../script/api.js"></script>
 <script src="../script/doT.min.js"></script>
 <script>
-    var page = 5,
+    var page = 1,
         keyword,
         isMore = true,
         refresh = true,
@@ -161,7 +164,7 @@
                 style: 'default',
                 animationType: 'fade',
                 title: 'Loading...',
-                text: 'Wait a moment...',
+                text: ' ',
                 modal: false
             });
         }
