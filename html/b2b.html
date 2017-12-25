@@ -88,12 +88,13 @@
             padding:0.1em 0.8em 0.3em 0.8em; 
             background:#fff;
         }
-        .categories h2 a{ 
+     /*   .categories h2 a{ 
             font-size:16px; 
             color:#000; 
             display:block; 
             padding:14px 0px 10px; 
-        }
+        }*/
+        .categories h2{ margin-top: 20px }
         .categories h2 a span{ 
             background:url(../image/seeA.png) no-repeat right; 
             background-size:8PX; 
@@ -104,7 +105,19 @@
 
             color:#869199; 
             /*font-weight:bold;*/
-            font-weight:normal;margin-top:2px}
+            font-weight:normal;margin-top:2px;
+        }
+
+        .categories h2 a{ 
+            font-size:16px; 
+            color:#000;
+            display:block; 
+            margin:5px 0px 10px; 
+            border-left:7px solid #2092d8; 
+            height:15px; 
+            padding-left:5px; 
+           /* line-height: 10px;*/
+        }
 
 
         .product{ 
@@ -150,15 +163,15 @@
             width:60%; 
             float:left; 
             overflow: hidden; 
-            height:95px;}
+            height:110px;}
         .product .productWord .productKey{ 
             width:100%; 
-            height:95px;}
+            height:110px;}
         .product .productWord .productKey  p{ 
             width:50%; 
             height:100%; 
             float:left; 
-            height:47.5px; 
+            height:55px; 
             display:block;
             border-bottom:1px solid #f1f1f1;
             display:table;   
@@ -173,6 +186,7 @@
             display:table-cell; 
             vertical-align:middle; 
             font-weight:normal; 
+            word-break: break-all;
         }
         .product .productWord .productKey  p:nth-child(n+4) { 
             border-bottom: 0;
@@ -237,29 +251,6 @@
         api.parseTapmode();
     };
 
-   // function getBannerImage(){
-   //      api.ajax({
-   //              url: 'http://192.168.40.20:8090/api/mbgasgoo/get_Home_BannerImage',
-   //              cache:true,
-   //              method: 'get',
-   //          },function(ret, err){
-   //              if (ret) {
-   //                  // alert(JSON.stringify(ret));
-   //                  BannerImage=ret;
-   //                  ImageArray = new Array(BannerImage.length);
-
-   //                  getImageArray(BannerImage);
-
-   //                  showBannerImageTest(ImageArray);
-   //                  for (var i = 0; i  <ImageArray.length; i++) {
-   //                      insertImageToCache(ImageArray[i])
-   //                  }
-   //              } else {
-   //                  showToast();
-   //              }
-   //          });
-   //  }
-
     function showBannerImage(){
             api.ajax({
                 url: 'http://192.168.40.20:8090/api/mbgasgoo/get_Home_BannerImage',
@@ -297,104 +288,6 @@
             }
         });
     };
-
-    //  function getImageArray(BannerImage){
-
-    //     for (var i = 0,len=BannerImage.length; i <len; i++) {
-    //         ImageArray[i]=BannerImage[i].Pic;
-    //     }
-    // }
-    //  function showBannerImageTest(imageArray){
-
-    //     var UIScrollPicture = api.require('UIScrollPicture');
-    //     UIScrollPicture.setCurrentIndex({
-    //         index: 0
-    //     });
-    //     UIScrollPicture.open({
-    //         rect: {
-    //             x: 0,
-    //             y: 0,
-    //             w: api.winWidth,
-    //             h: 140
-    //         },
-    //         data: {
-    //             paths:imageArray
-    //         },
-    //         styles: {
-    //             caption: {
-    //                 height: 35,
-    //                 color: '#E0FFFF',
-    //                 size: 13,
-    //                 bgColor: '#696969',
-    //                 position: 'bottom'
-    //             },
-    //             indicator: {
-    //                dot:{
-    //                  w:6,
-    //                  h:6,
-    //                  r:2,
-    //                  margin:5
-    //               },
-    //                 align: 'center',
-    //                 color: '#FFFFFF',
-    //                 activeColor: '#DA70D6'
-    //             }
-    //         },
-    //         placeholderImg: 'widget://res/slide1.jpg',
-    //         contentMode: 'scaleToFill',
-    //         interval: 3,
-    //         fixedOn: api.frameName,
-    //         loop: true,
-    //         fixed: false
-    //     }, function(ret, err) {
-    //         if (ret) {
-    //            if (ret.eventType == 'click') {
-    //               RedirectUrl(ret.index);
-    //            }
-    //         } else {
-                
-    //         }
-    //     });
-    // }
-
-   //  function RedirectUrl(index){
-   //   var url=BannerImage[index].Link;
-   //   api.openFrame({
-   //       name: 'weburl',
-   //       url: url,
-   //       rect: {
-   //           x: 0,
-   //           y: 50,
-   //           w: 'auto',
-   //           h: 'auto'
-   //       },
-         
-   //       bounces: true,
-   //       bgColor: 'rgba(0,0,0,0)',
-   //       vScrollBarEnabled: true,
-   //       hScrollBarEnabled: true
-   //   });
-   // }
-
-
-   // function refreshPage() {
-   //      // 监听页面下拉刷新事件
-   //      api.setRefreshHeaderInfo({
-   //          visible: true,
-   //          loadingImg: 'widget://image/refresh.png',
-   //          bgColor: '#f0f0f0',
-   //          textColor: '#888',
-   //          textDown: 'Pull-down refresh...',
-   //          textUp: 'Loosen the refresh...',
-   //          textLoading: 'loading...',
-   //          showTime: false
-   //      }, function(ret, err) {
-   //         showBannerImage();
-   //         getHomeRecommendCategory();
-   //         api.parseTapmode();
-   //      });
-   //  }
-
 
    // 缓存图片
     function loadingImgCache(_this) {

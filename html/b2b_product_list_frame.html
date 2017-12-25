@@ -6,8 +6,31 @@
     <title>title</title>
     <link rel="stylesheet" type="text/css" href="./css/api.css"/>
     <style>
-        body{
-            
+         .loading_more {
+            display: block;
+            width: 100%;
+            text-align: center;
+            padding: 3px 0px 5px;
+        }
+
+        .loading_more i {
+            display: inline-block;
+            vertical-align: text-bottom;
+            height: 15px;
+            width: 15px;
+            margin-right: 4px;
+            background: url(../image/loading.gif) no-repeat center;
+            background-size: 15px;
+        }
+
+        .loading_more span {
+            font-size: 12px;
+            line-height: 15px;
+            color: #b4b4b4;
+        }
+
+        .red {
+            color: #fe7a18;
         }
     </style>
 </head>
@@ -17,6 +40,9 @@
             
         </ul>
     </div>
+    <section class="loading_more" id="loadingMoreSection">
+        
+    </section>
 </body>
 <script type="text/template" id="productListTemplate">
     {{~it:value:index}}
@@ -32,6 +58,8 @@
     apiready = function(){
         categoryID=api.pageParam.categoryID;
         getList(categoryID);
+        refreshPage();
+        loadingMore();
     };
 
 
@@ -66,11 +94,17 @@
                     else{
                         //页面绑定新的内容
                         $api.html($api.byId('productList'), tempEn(ret));
+                        var loadingHtml="<div><i id='loadImg'></i>";
+                        loadingHtml+="<span id='pushStatus'>loading...</span></div>";
+                        $api.append($api.byId('loadingMoreSection'), loadingHtml);
                     }
                     page++;
                     refresh=false;
-                    if(ret.length<10){
+                    if(ret.length<16){
                         //无更多数据
+                        var status = $api.byId('pushStatus');
+                        status.innerHTML = "No more";
+                        $api.css($api.byId('loadImg'), 'display:none');
                         isMore=false;
                     }
                     api.hideProgress();
@@ -101,7 +135,8 @@
         }, function(ret, err) {
             page = 1;
             isMore = true;
-            getList();
+            $api.html($api.byId('loadingMoreSection'),"");
+            getList(categoryID);
         });
     }
 
@@ -114,7 +149,7 @@
                 threshold: 300 //设置距离底部多少距离时触发
             }
         }, function(ret, err) {
-            getList();
+            getList(categoryID);
         });
 
     }
