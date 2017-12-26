@@ -36,7 +36,7 @@
 <body>
      <header class="header" id="header">
         <div class="refh" tapmode="hover" onclick="closeWin()"></div>
-        <div class="title"></div>
+        <div class="title" onclick="openSearchList()">查询结果页</div>
     </header>
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
@@ -84,6 +84,20 @@
 
     function closeWin(){
         api.closeWin();
+    }
+
+    function openSearchList(){
+        api.openWin({
+            name: 'search_List',
+            url: './b2b_search_list.html',
+            pageParam: {
+                keyword:'pad',
+                applicationID:0,
+                categoryID:0,
+                provinceID:0,
+                headerH:headerH
+            }
+        });
     }
 </script>
 </html>

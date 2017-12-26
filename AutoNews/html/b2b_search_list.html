@@ -40,10 +40,16 @@
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript">
     var headerH, winHeight,keyword;
+    var  applicationID=0,
+         categoryID=0,
+         provinceID=0;
     apiready = function(){
         keyword=api.pageParam.keyword;
+        applicationID=api.pageParam.applicationID;
+        categoryID=api.pageParam.categoryID;
+        provinceID=api.pageParam.provinceID;
         Init();
-        openFrame(keyword);
+        openFrame(keyword,applicationID,categoryID,provinceID);
     };
 
     function Init(){
@@ -60,7 +66,7 @@
             }
     }
 
-    function openFrame(keyword){
+    function openFrame(keyword,applicationID,categoryID,provinceID){
         api.openFrame({
             name: 'search_productList_'+keyword,
             url: './b2b_search_list_frame.html',
@@ -71,7 +77,11 @@
                 h: winHeight-headerH
             },
             pageParam: {
-                keyword: keyword
+                keyword: keyword,
+                headerH: headerH,
+                applicationID:applicationID,
+                categoryID:categoryID,
+                provinceID:provinceID,
             },
             bounces: true,
         });

@@ -35,13 +35,15 @@
     </style>
 </head>
 <body>
+    <div onclick="closeRefine()" id="Occlusion" style="position: fixed;height: 100%;width: 100%;display: none;z-index: 1100;"></div>
+    <div onclick="openRefine()">refine</div>
     <div>
         <ul id="productList">
             
         </ul>
     </div>
      <section class="loading_more" id="loadingMoreSection">
-        <div><i id="loadImg"></i><span id="pushStatus">loading...</span></div>
+        
     </section>
 </body>
 <script type="text/template" id="productListTemplate">
@@ -53,8 +55,17 @@
 <script type="text/javascript" src="../script/doT.min.js"></script>
 <script type="text/javascript">
     var keyword,page=1,refresh=true,isMore=true;
+    var headerH;
+    var application,productCategory,province;
+    var applicationID=0,
+        categoryID=0,
+        provinceID=0;
     apiready = function(){
         keyword=api.pageParam.keyword;
+        headerH=api.pageParam.headerH;
+        applicationID=api.pageParam.applicationID;
+        categoryID=api.pageParam.categoryID;
+        provinceID=api.pageParam.provinceID;
         refreshPage();
         loadingMore();
         getList();
@@ -72,15 +83,19 @@
        }
        if(isMore){
         api.ajax({
-            url: 'http://192.168.40.20:8090/api/mbgasgoo/get_Search_Product_List/'+page+'/'+keyword+'/0/0/0/',
+            url: 'http://192.168.40.20:8090/api/mbgasgoo/get_Search_Product_List/'+page+'/'+keyword+'/'+applicationID+'/'+categoryID+'/'+provinceID,
             method: 'get',
             cache:true
         },function(ret, err){
             if (ret) {
+                
                 var tempEn=doT.template($api.byId('productListTemplate').innerHTML);
                 if(page!=1){
                     $api.append( $api.byId('productList'), tempEn(ret[0].ProductList));
                 }else{
+                    application=ret[0].AppWords;
+                    productCategory=ret[0].CategoryList;
+                    province=ret[0].ProvinceList;
                     $api.html( $api.byId('productList'), tempEn(ret[0].ProductList));
                     var loadingHtml="<div><i id='loadImg'></i>";
                     loadingHtml+="<span id='pushStatus'>loading...</span></div>";
@@ -88,7 +103,7 @@
                 }
                 page++;
                 refresh=false;
-                if(ret[0].ProductList.length<10){
+                if(ret[0].ProductList.length<16){
                     //无更多数据
                     var status = $api.byId('pushStatus');
                     status.innerHTML = "No more";
@@ -139,7 +154,6 @@
         }, function(ret, err) {
             getList();
         });
-
     }
 
      // 缓存图片
@@ -176,6 +190,41 @@
             animation:{
                 type: "fade"
             }
+        });
+    }
+
+    function openRefine(){
+        $api.css($api.byId('Occlusion'), 'display:block;');
+        api.openFrame({
+            name: 'refine',
+            url: './b2b_search_refine_frame.html',
+            rect: {
+                x: 40,
+                y: headerH,
+                w: api.winWidth-40,
+                h: api.winHeight-headerH
+            },
+            animation: {
+                    type: "movein",
+                    subType: "from_right",
+                    duration: 200
+            },
+            pageParam: {
+                headerH:headerH,
+                keyword:keyword,
+                application:application,
+                productCategory:productCategory,
+                province:province
+            },
+            bounces: true,
+        });
+    }
+
+
+    function closeRefine(){
+        $api.css($api.byId('Occlusion'), 'display:none;');
+        api.closeFrame({
+            name: 'refine'
         });
     }
 </script>
