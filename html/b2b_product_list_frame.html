@@ -6,6 +6,12 @@
     <title>title</title>
     <link rel="stylesheet" type="text/css" href="./css/api.css"/>
     <style>
+        body{
+                background: #f2f2f2;
+        }
+        a{
+                text-decoration: none;
+        }
          .loading_more {
             display: block;
             width: 100%;
@@ -32,21 +38,145 @@
         .red {
             color: #fe7a18;
         }
+
+        .list .title{ 
+            font-size:14px; 
+            padding:0.7em; 
+            display:block;
+        }
+        .list .title b{ 
+            font-weight:normal; 
+            color:#c4020c;
+        }
+        .list .title a{ 
+            float:right; 
+            background:url(../image/refine.png) no-repeat; 
+            background-size:1.2em; 
+            padding-left:30px; 
+            height:1.5em; 
+            color:#333;
+        }
+
+        .product{ 
+            background:#fff; 
+            padding:0.7em; 
+            position:relative; 
+            overflow:hidden; 
+            margin-bottom:0.5em;
+            display:-webkit-box; 
+            display:-webkit-flex; 
+            display:flex; 
+            -webkit-box-orient:horizontal;  
+            -webkit-flex-flow:row; 
+            flex-flow:row;
+        }
+        .product .picProduct{
+            display:block;/* position:absolute;*/
+            width:76px; 
+            height:92px;
+        }
+        .product .productTu{
+            width:3.75em; 
+            height:4.5em; 
+            border:1px solid #e0e0e0; 
+            display:table-cell;
+            vertical-align:middle;
+            text-align:center;
+            *display:block;*
+            font-size:87px;
+        }
+        .product .productTu img{ 
+            width:100%; 
+            vertical-align:middle;
+        }
+        .product .til{ 
+            -webkit-box-flex:1; 
+            -webkit-flex:1; 
+            flex:1; 
+        }
+        .product .til h2{ 
+            font-size:14px; 
+        }
+        .product .til h2 a{ 
+            color:#333;
+        }
+        .product .til p{ 
+            font-size:14px; 
+            color:#b3373c; 
+            margin-top:0.3em; 
+        }
+        .product .til a.button{ 
+            border-radius:6px; 
+            color:#333; 
+            padding:9px 8px; 
+            font-size:14px; 
+            border:1px solid #E8E8E8; 
+            margin-top:3px;
+        }
+        .product .til .medal{ 
+            background:url(../image/medal.png) no-repeat; 
+            padding-left:1.3em;
+        }
+        .product .til .diamonds{ 
+            background:url(../image/member.gif) no-repeat 0em 0.2em; 
+            padding-left:1.3em;
+        }
+        .product .til .nd,.product .til .rd,.product .til .st,.product .til .th{ 
+            width:2.2em;
+            padding-right:4.4em;  
+            height:2em; 
+            display:inline-block; 
+            padding-left:1.3em; 
+            font-size:0.8em; 
+            line-height:1.6em; 
+            text-align:center;
+        }
+        .product .til .nd{ 
+            background:url(../image/nd.png) no-repeat; 
+        }
+        .product .til .rd{ 
+            background:url(../image/rd.png) no-repeat;
+        }
+        .product .til .st{ 
+            background:url(../image/st.png) no-repeat;
+        }
+        .product .til .th{ 
+            background:url(../image/th.png) no-repeat;
+        }
+        .product .til .iconVer{ 
+            background:url(../image/member.gif) no-repeat 0em -70px; 
+            padding-left:1.3em;
+        }
+        .product .til .iconVerifiedSupplier{ 
+            background:url(../image/member.gif) no-repeat 0em -281px; 
+            padding-left:1.3em;
+        }
     </style>
 </head>
 <body>
-    <div>
-        <ul id="productList">
+    <article class="list">
+        <div class="title" id="Count"></div>
+        <div id="productList">
             
-        </ul>
-    </div>
+        </div>
+    </article>
     <section class="loading_more" id="loadingMoreSection">
         
     </section>
 </body>
 <script type="text/template" id="productListTemplate">
     {{~it:value:index}}
-    <li onclick="openDetail({{=value.ProductID}})">{{=value.ProductNameFormat}}</li>
+    <section class="product">
+        <section class="picProduct">
+            <a onclick="openDetail({{=value.ProductID}})" href="javascript:void(0);" class="productTu"><img onload="loadingImgCache(this)" onerror="onErrorHandle(this)" data-url="{{=value.FilePath}}" src="../image/error.png" alt=""/></a>
+        </section>
+        <section class="til">
+            <h2><a onclick="openDetail({{=value.ProductID}})" href="javascript:void(0);">{{=value.ProductNameFormat}}</a></h2>
+            {{=value.MemberTypeHtml}}
+            {{=value.VerifiedLevelHtml}}
+            <a onclick="conctactSupplier({{=value.ProductID}})" href="javascript:void(0);" class="button">Contact Supplier</a>
+        </section>
+    </section>
     {{~}}
 </script>
 <script type="text/javascript" src="../script/api.js"></script>
@@ -94,6 +224,9 @@
                     else{
                         //页面绑定新的内容
                         $api.html($api.byId('productList'), tempEn(ret));
+                        //获取当前类目产品数量
+                        $api.html($api.byId('Count'), '<b id="Count">'+ret[0].Count+'</b> Products');
+                        //添加loadingmore模块
                         var loadingHtml="<div><i id='loadImg'></i>";
                         loadingHtml+="<span id='pushStatus'>loading...</span></div>";
                         $api.append($api.byId('loadingMoreSection'), loadingHtml);
@@ -187,6 +320,17 @@
             },
             animation:{
                 type: "fade"
+            }
+        });
+    }
+
+    //联系卖家
+    function conctactSupplier(productID){
+        api.openWin({
+            name: 'conctactSupplier_'+productID,
+            url: './contact_supplier.html',
+            pageParam: {
+                productID: productID
             }
         });
     }

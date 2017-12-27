@@ -162,16 +162,16 @@
             });
 
             hui.ready(function () { hui.formInit(); });
-            function submitNow() {
-                if (huiFormCheck('#form1')) {
-                    hui.centerLoading();
-                    $$("#form1").submit();
-                }
-            }
+            // function submitNow() {
+            //     if (huiFormCheck('#form1')) {
+            //         hui.centerLoading();
+            //         $$("#form1").submit();
+            //     }
+            // }
 
-            $$("#btnSubmit").click(function () {
-                submitNow();
-            });
+            // $$("#btnSubmit").click(function () {
+            //     submitNow();
+            // });
 
             $$(function () {
 
@@ -262,7 +262,7 @@
             }
         },function(ret, err){
             if (ret) {
-                
+                //发送成功
             } else {
                 api.toast({
                     msg: 'Error',
@@ -271,7 +271,6 @@
                 });
             }
         });
-
     }
 </script>
 <!-- <script type="text/javascript" src="../script/proiqr.js"></script> -->
