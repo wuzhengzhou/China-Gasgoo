@@ -40,9 +40,12 @@
 </script>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript" src="../script/doT.min.js"></script>
+<script type="text/javascript" src="../script/jquery-1.10.2.min.js"></script>
+
 <script type="text/javascript">
     apiready = function(){
         getPopularWords();
+
     };
 
 
@@ -93,5 +96,13 @@
             }
         });
     }
+
+    //回车键开始搜索
+    document.onkeydown = function (event) {
+    var e = event || window.event || arguments.callee.caller.arguments[0];
+    if (e && e.keyCode === 13) { // enter
+        searchButton();
+    }
+};
 </script>
 </html>
