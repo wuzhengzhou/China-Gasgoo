@@ -46,17 +46,17 @@
         openFrame(productID);
     };
     function Init(){
-	            var header = $api.byId('header');
-	            headerH = $api.offset(header).h;
-	            winHeight = api.winHeight;
-	            var systemType = api.systemType;
+	    var header = $api.byId('header');
+	    headerH = $api.offset(header).h;
+	    winHeight = api.winHeight;
+	    var systemType = api.systemType;
 
-	            $api.fixStatusBar(header);
-	            if (systemType == "ios") {
-	                headerH += 20;
-	            } else {
-	                headerH += 26;
-	            }
+	    $api.fixStatusBar(header);
+	    if (systemType == "ios") {
+	       headerH += 20;
+	    } else {
+	       headerH += 26;
+	    }
 	 }
 
 
