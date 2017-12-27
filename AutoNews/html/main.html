@@ -149,10 +149,10 @@
                 <li class="search">
                     <a></a>
                 </li>
-                <li class="searchKuan">
+                <li class="searchKuan" onclick="openB2BSearch()">
                     <div class="inputSear"><a>Search Gasgoo...</a></div>
                 </li>
-                <li class="searchMagnifier">
+                <li class="searchMagnifier" onclick="openB2BSearch()">
                     <a></a>
                 </li>
             </ul>
@@ -464,6 +464,14 @@
                 animation: {
                     trpe: 'fade'
                 }
+            });
+        }
+
+
+        function openB2BSearch(){
+            api.openWin({
+                name: 'b2b_search',
+                url: './b2b_search.html',
             });
         }
     </script>
