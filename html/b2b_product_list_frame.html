@@ -7,9 +7,9 @@
     <link rel="stylesheet" type="text/css" href="../css/api.css"/>
     <style>
 
-        body{
+        /*body{
             background: #f2f2f2;
-        }
+        }*/
          .loading_more {
             display: block;
             width: 100%;
@@ -64,7 +64,7 @@
 </head>
 <body>
     <article class="list">
-        <div class="title" id="Count"></div>
+        <div class="title" id="Count" style="display: none;"></div>
         <div id="productList">
             
         </div>
@@ -135,6 +135,8 @@
                         $api.html($api.byId('productList'), tempEn(ret));
                         //获取当前类目产品数量
                         $api.html($api.byId('Count'), '<b id="Count">'+ret[0].Count+'</b> Products');
+                        $api.css($api.byId('Count'), 'display:block;');
+                        $api.css($api.dom('body'), 'background: #f2f2f2;');
                         //添加loadingmore模块
                         var loadingHtml="<div><i id='loadImg'></i>";
                         loadingHtml+="<span id='pushStatus'>loading...</span></div>";

@@ -6,9 +6,9 @@
     <title>title</title>
     <link rel="stylesheet" type="text/css" href="../css/api.css"/>
     <style>
-        body{
+        /*body{
             background: #f2f2f2;
-        }
+        }*/
          .loading_more {
             display: block;
             width: 100%;
@@ -63,7 +63,7 @@
 <body>
     <!-- <div onclick="closeRefine()" id="Occlusion" style="position: fixed;height: 100%;width: 100%;display: none;z-index: 1100;"></div> -->
     <article class="list">
-        <div class="title" id="Count"></div>
+        <div class="title" id="Count" style="display: none;"></div>
         <div id="productList">
             
         </div>
@@ -122,12 +122,11 @@
        }
        if(isMore){
         api.ajax({
-            url: 'http://192.168.40.20:8090/api/mbgasgoo/get_Search_Product_List/'+page+'/'+encodeURI(keyWord)+'/'+applicationID+'/'+categoryID+'/'+provinceID,
+            url: 'http://192.168.40.20:8090/api/mbgasgoo/get_Search_Product_List/'+page+'/'+encodeURI(keyword)+'/'+applicationID+'/'+categoryID+'/'+provinceID,
             method: 'get',
             cache:true
         },function(ret, err){
             if (ret) {
-                
                 var tempEn=doT.template($api.byId('productListTemplate').innerHTML);
                 if(page!=1){
                     $api.append( $api.byId('productList'), tempEn(ret[0].ProductList));
@@ -138,6 +137,8 @@
                     $api.html( $api.byId('productList'), tempEn(ret[0].ProductList));
 
                     $api.html($api.byId('Count'), '<b id="Count">'+ret[0].ProductList[0].totalCount+'</b>  '+keyword+' Products');
+                    $api.css($api.byId('Count'), 'display:block;');
+                    $api.css($api.dom('body'), 'background: #f2f2f2;');
                     var loadingHtml="<div><i id='loadImg'></i>";
                     loadingHtml+="<span id='pushStatus'>loading...</span></div>";
                     $api.append($api.byId('loadingMoreSection'), loadingHtml);
