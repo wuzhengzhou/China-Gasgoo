@@ -6,10 +6,15 @@
     <title>title</title>
     <link rel="stylesheet" type="text/css" href="../css/api.css"/>
     <style>
-        .banner{ 
-           /* width:320px;
-            height: 320px;*/
+        body{
+                background-color: #eeeeee;
         }
+
+      /*  .pic{  height:340px; }
+        .photo{ background:#fff; height:340px; overflow:hidden; text-align:center;width: 100%;display: table;font-size: 300px;}
+        .photo img{ width:100%;}
+
+*/
         .banner .bannerTU img{ 
             /*width:320px; */
             vertical-align:top;
@@ -19,27 +24,27 @@
             overflow: hidden;
             /*这两行不能移除，不然会滑出屏幕*/
             visibility: hidden;
-            position: relative;
-            
-            height:340px; 
-            padding-top:5px;
+            /*position: relative;*/
+            height:340px;
         }
 
         .bannerTU{
-           
-            overflow:hidden; 
+            height:340px; 
             text-align:center;
-            position: relative;
+            /*overflow:hidden; */
+            /*position: relative;*/
+            width: 100%;
         }
 
         .bannerTU>div {
             float: left;
             width: 100%;
             position: relative;
+            width: 100%;
         }
 
         .bannerTU>div>a {
-            display: block;
+            /*display: block;*/
         }
 
         .bannerTU>div>a>img {
@@ -71,22 +76,85 @@
             background-color: #df3031;
         }
 
+
+
+        .proname{ font-size:16px; padding:10px; border-bottom:1px solid #eee; background:#fff; line-height:22px; margin-top:10px;}
+
+        .box{ margin-top:10px; border-top:1px solid #eee; border-bottom:1px solid #eee; background:#fff; padding:0 15px 15px;}
+        .btitle{ display:block; border-bottom:1px solid #eee; height:45px; line-height:45px; font-size:20px; font-weight:bold;}
+        .cname{ margin-top:5px;}
+        .cname b{ font-weight:normal; font-size:16px; margin:15px 0; margin-bottom:0px; display:block;}
+        .grade ul{ width:100%;}
+        .grade ul li{ width:50%; font-size:16px; float:left;}
+        .box img{ width:95%; margin:0 auto;}
+
+        .cname dl{ font-size:16px; color:#333; display: -webkit-box; margin-top:10px;}
+        .cname dl dt{ color:#666; width:120px; font-size:14px;}
+        .cname dl dd{ width: 100%; -webkit-box-flex: 1; }
+        .cname strong{ display:block; border-left:5px solid #333; height:16px; overflow:hidden; padding-left:8px; font-size:16px; line-height:16px; margin-top:20px;}
+        .cname ul ,.cname p{ margin-top:3px; overflow:hidden;}
+        .cname ul li{line-height:26px;font-size:16px;}
+        .cname p{ font-size:16px;line-height:28px; }
+
+        footer{ height:48px;}
+        footer .but{ position:fixed; bottom:0; text-align:center;  width:100%;}
+        footer .but a{ background:#c7000a; height:45px; font-size:18px; font-weight:bold; line-height:45px; display:block; color:#fff; margin:0 auto;}
+
+        .top{ position:fixed; right:5px;bottom:50px;  }
+        .top a{ background:url(../image/top.png) no-repeat; background-size:32px; height:32px; width:32px; display:block;}
+        .grade ul li span.diamond {background: url(../image/member.gif) no-repeat 0 8px; padding-left: 20px;color: #6391bd; font-size:12px;}
+        .grade ul li.supp {background: url(../image/member.gif) no-repeat 0 -274px; font-size:12px; color:#b33737;}
+        .grade ul li.supp i { padding-left: 20px;}
+        .grade ul li.supp i em {font: bold 12px/16px "arial";color: #b33737;}
+        .grade ul li.supp i em:after { content: 'YR';vertical-align: top; -webkit-transform: scale(0.6,.8);transform: scale(0.6,.8);display: inline-block;-webkit-transform-origin: 50% 20%;transform-origin: 50% 20%;
+        box-sizing: border-box;}
+        .grade ul li span.gold { background: url(../image/member.gif) no-repeat 0 -25px;padding-left: 20px;color: #b33737; font-size:12px; }
+        .grade span.basic {background: url(../image/member.gif) no-repeat 0 -71px;padding-left: 20px;color: #787878;font-size: 12px;line-height: 16px;}
+
+
     </style>
 </head>
 <body>
+    <!-- 轮播图 -->
+    <a name="top" style="display: none;"></a>
     <article id="swipe" class="banner" tapmode="hover">
         <div class="bannerTU">
+		
         </div>
         <ul id="swipeIndicator" class="ulyq">
         </ul>
     </article> 
-    <div id="contactsupplier"></div>
+    <!-- 产品名称 -->
+    <section class="proname"></section>
+    <!-- 公司信息 -->
+    <section class="box" id="companyBox">
+    
+    </section><!--box-->
+    <!-- 产品信息 -->
+    <section class="box" id="productBox">
+         <p class="btitle">Product Details</p>
+         <div class="cname" id="AllInfo">
+           <strong>Quick Details</strong>
+           <ul id="productInfo">
+            
+           </ul>
+         </div><!--cname-->
+    </section><!--box-->
+    <!-- 联系卖家 -->
+    <footer>
+        <div class="but" id="contactsupplier">
+            
+        </div>
+    </footer>
+    <!-- 回到顶部 -->
+    <div class="top"><a href="#"></a></div>
+    
 </body>
 
 
 <script type="text/template" id="tmp_focusImg">
     {{~it:value:index}}
-    <div>
+    <div class="innerDiv">
         <a  data-article-logo="{{=value.ImagePath}}">
             <img  onload="loadingImgCache(this)" data-url="{{=value.ImagePath}}" src="../image/focus_error.png">
         </a>
@@ -102,16 +170,85 @@
     {{?}} {{~}}
 </script>
 
-<script type="text/template" id="Contact">
+<script type="text/template" id="tem_Contact">
     {{~it:value:index}}
-    <div>
-        <a onclick="contactsupplier({{=value.Product.ProductID}})">
-            Contact Supplier
-        </a>
-    </div>
+    <a onclick="contactsupplier({{=value.Product.ProductID}})" href="javascript:void(0);">Contact Supplier</a>
     {{~}}
 </script>
 
+<script type="text/template" id="tem_CompanyInfo">
+ {{~it:value:index}}
+     <p class="btitle">Supplier Details</p>
+     <div class="cname">
+      <b>{{=value.Company.CompanyName}}</b>
+      <div class="grade"><ul>{{=value.Company.MemberTypeHtml}}{{=value.Company.VerifiedLevelHtml}}</ul></div>
+      <dl><dt>Market Type:</dt><dd>{{=value.Product.MarketType}}</dd></dl>
+      <dl><dt>Business Type:</dt><dd>{{=value.Product.BusinessType}}</dd></dl>
+      <dl><dt>Main Product:</dt><dd>{{=value.Company.MainProduct}}</dd></dl>
+     </div><!--cname-->
+  {{~}}
+</script>
+
+
+<script type="text/template" id="tem_ProductInfo">
+    {{~it:value:index}}
+        {{?value.Product.PlaceOfOrigin!=""}}
+        <li><span>Place of Origin: </span>{{=value.Product.PlaceOfOrigin}}</li>
+        {{?}}
+
+        {{?value.Product.Samples!=""}}
+        <li><span>Samples:</span>{{=value.Product.Samples}}</li>
+        {{?}}
+
+        {{?value.Product.DeliveryTime!=""}}
+        <li><span>Delivery Time: </span>{{=value.Product.DeliveryTime}}</li>
+        {{?}}
+
+        {{?value.Product.Packing!=""}}
+        <li><span>Packing:</span>{{=value.Product.Packing}}</li>
+        {{?}}
+
+        {{?value.Product.Port!=""}}
+        <li><span>Delivery Port: </span>{{=value.Product.Port}}</li>
+        {{?}}
+
+        {{?value.Product.ExportRatioTitle!=""}}
+        <li><span>Export Ratio: </span>{{=value.Product.ExportRatioTitle}}</li>
+        {{?}}
+
+        {{?value.Product.SupplyAbility!=""}}
+        <li><span>Max. Production Capacity:</span>{{=value.Product.SupplyAbility}}</li>
+        {{?}}
+
+        {{?value.Product.OeExprience!=""}}
+        <li><span>OE Experience:</span>{{=value.Product.OeExprience}}</li>
+        {{?}}
+
+        {{?value.Product.OEMNO!=""}}
+        <li><span>OEM No/Model:</span>{{=value.Product.OEMNO}}</li>
+        {{?}}
+    {{~}}
+</script>
+
+
+<!-- 产品属性 -->
+<script type="text/template" id="tem_productProerty">
+    {{~it:value:index}}
+    <li><span>{{=value.ProductProperyName}}: </span>{{=value.ProductProperyValue}}</li>
+    {{~}}
+</script>
+
+<script type="text/template" id="tem_application">
+    {{~it:value:index}}
+    <strong>Application</strong>
+           <ul>
+            <li>{{=value.Product.Application}}</li>
+           </ul>
+           <!-- <div class="more"><a href="#">View All</a></div> -->
+    <strong>Product Description</strong>
+    <div>{{=value.Product.ProductDesc}}</div>
+    {{~}}
+</script>
 
 
 <script type="text/javascript" src="../script/api.js"></script>
@@ -144,10 +281,30 @@
                 // 绑定数据
                 $api.html($api.dom('.bannerTU'), tmp_focusImg(ret[0].Images));
                 $api.html($api.byId('swipeIndicator'), tmp_focusIndicator(ret[0].Images));
-
-                var tmp_contactsupplier = doT.template($api.byId('Contact').innerHTML);
                 
-                $api.html($api.byId('contactsupplier'), tmp_contactsupplier(ret));
+                //产品名称
+                $api.html($api.dom('.proname'),ret[0].Product.ProductName);
+                //公司信息
+                var tem_CompanyInfo=doT.template($api.byId('tem_CompanyInfo').innerHTML);
+                $api.html($api.byId('companyBox'),tem_CompanyInfo(ret));
+                if(ret[0].Product.Properties!=""){
+                    var ProductProerty=ret[0].Product.ProductProertyList;
+                    var tem_productProerty=doT.template($api.byId('tem_productProerty').innerHTML);
+                    $api.html($api.byId('productInfo'), tem_productProerty(ProductProerty));
+                    
+                    var tem_ProductInfo=doT.template($api.byId('tem_ProductInfo').innerHTML);
+                    $api.append($api.byId('productInfo'), tem_ProductInfo(ret));
+                }else{
+                    var tem_ProductInfo=doT.template($api.byId('tem_ProductInfo').innerHTML);
+                    $api.html($api.byId('productInfo'), tem_ProductInfo(ret));
+                }
+                //获取application  productdescription
+                var tem_application=doT.template($api.byId('tem_application').innerHTML);
+                $api.append($api.byId('AllInfo'), tem_application(ret));
+                 
+                //联系卖家
+                var tem_Contact=doT.template($api.byId('tem_Contact').innerHTML);
+                $api.html($api.byId('contactsupplier'), tem_Contact(ret));
                 //轮播产品图片
                 swipeInit();
             } else {
@@ -213,6 +370,12 @@
                 type: "fade"
           }
       });
+    }
+
+
+    function scrollToTop(){
+        alert("回到顶部");
+        $("html,body").animate({scrollTop:0}, 500);
     }
 </script>
 </html>
