@@ -628,7 +628,7 @@ a {
 
 .HUI_Icons_down:before {
     font-family: "iconfont" !important;
-    content: "\e78a";
+    /*content: "\e78a";*/
 }
 
 .HUI_Toast {
