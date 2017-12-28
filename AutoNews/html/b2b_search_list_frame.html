@@ -269,5 +269,16 @@
             name: 'refine'
         });
     }
+    
+    function conctactSupplier(productID){
+        api.openWin({
+            name: 'conctactSupplier_'+productID,
+            url: './contact_supplier.html',
+            pageParam: {
+                productID: productID
+            }
+        });
+    }
+
 </script>
 </html>
