@@ -6,7 +6,10 @@
     <title>title</title>
     <link rel="stylesheet" type="text/css" href="../css/api.css"/>
     <style>
-    .header {
+    	body {
+            background-color: #eeeeee;
+        }
+        .header {
             position: relative;
             width: 100%;
             height: 44px;
@@ -29,56 +32,35 @@
             background-size: 11px 19px;
             z-index: 2;
         }
+        .inqury{margin-top:120px; text-align:center;}
+		.inqury em{ background:url(../image/cop.png) no-repeat top center; background-size:110px 80px; width:110px; height:80px; margin:20px auto 5px; display:block;}
+		.inqury b{ color:#00568f; font-size:30px; display:block;}
+		.inqury span{ display:block; font-size:14px; margin-top:10px;}
+		.inqury a{ width:60%; margin:30px auto; background:#eaf4ff; border:1px solid #005490; border-radius:10px; height:32px; line-height:32px; display:block; color:#005490; font-size:16px; }
+
     </style>
 </head>
 <body>
-    <header class="header" id="header">
+     <header class="header" id="header">
         <div class="refh" tapmode="hover" onclick="closeWin()"></div>
         <div class="title"></div>
     </header>
+    <section class="inqury">
+	 <em></em>
+	 <b>Thank you!</b>
+	 <span>Your message has been sent the supplier(s).</span>
+	 <a href="javascript:void(0);">Return to Homepage</a>
+	</section>
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript">
-	var headerH, winHeight,productID;
     apiready = function(){
-        Init();
-        productID=api.pageParam.productID;
-        openFrame(productID);
+        $api.fixStatusBar($api.byId('header'));
+        $api.css($api.dom('body'), 'height:' + (api.winHeight) + 'px;');
     };
-    function Init(){
-	    var header = $api.byId('header');
-	    headerH = $api.offset(header).h;
-	    winHeight = api.winHeight;
-	    var systemType = api.systemType;
 
-	    $api.fixStatusBar(header);
-	    if (systemType == "ios") {
-	       headerH += 20;
-	    } else {
-	       headerH += 26;
-	    }
-	 }
-
-
-	 function openFrame(productID){
-	 	api.openFrame({
-	 	    name: 'contactsupplier_'+productID,
-	 	    url: './contact_supplier_frame.html',
-	 	    rect: {
-	 	        x: 0,
-	 	        y: headerH,
-	 	        w: 'auto',
-	 	        h: winHeight-headerH
-	 	    },
-	 	    pageParam: {
-	 	        productID: productID
-	 	    },
-	 	    bounces: false,
-	 	});
-	 }
-
-     function closeWin(){
-        api.closeWin();
-     }
+    function closeWin(){
+    	api.closeWin();
+    }
 </script>
 </html>
