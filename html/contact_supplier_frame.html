@@ -12,6 +12,9 @@
     <link rel="stylesheet" type="text/css" href="../css/mui.poppicker.css"/>
     <link rel="stylesheet" type="text/css" href="../css/hui.css"/>
     <style>
+    .qtitle{ height:40px; background:#005490; padding:0 10px; font-size:14px; color:#fff; line-height:40px;}
+    .qtitle span{ float:right;}
+    .qtitle b{ font-size:16px;}
     .qbox{ background:#fff;}
     .qbox dl{display: -webkit-box; padding:10px; border-bottom:1px solid #eee; font-size:14px;}
     .qbox dl dt{ width:110px; line-height:40px;}
@@ -52,6 +55,10 @@
     </dl>
     <div class="qbut"><a onclick="sendMessage()" href="javascript:void(0);">Send</a></div>
     </div> -->
+    <section class="qtitle" id="header">
+        <span>* Required information</span>
+        <b>Send Inquiry</b>
+    </section>
     <section class="qbox">
     <div id="emptyBox" style="display: none;">
      <dl class="project">
@@ -226,17 +233,6 @@
             });
 
             hui.ready(function () { hui.formInit(); });
-            // function submitNow() {
-            //     if (huiFormCheck('#form1')) {
-            //         hui.centerLoading();
-            //         $$("#form1").submit();
-            //     }
-            // }
-
-            // $$("#btnSubmit").click(function () {
-            //     submitNow();
-            // });
-
             $$(function () {
 
                 if ($$.cookie('gs-mb-prodiqy-email') != undefined && $$.cookie('gs-mb-prodiqy-email') != "") {
@@ -314,8 +310,6 @@
             return;
         }
 
-        var obj = new Object();
-       
         api.ajax({
             url: 'http://192.168.40.20:8090/api/mbgasgoo/add_ContactMessageQueue',
             method: 'post',
@@ -328,7 +322,10 @@
             }
         },function(ret, err){
             if (ret) {
-                alert("发送成功")
+                api.openWin({
+                    name: 'contact_supplier_success',
+                    url: './contact_supplier_success.html',
+                });
             } else {
                 api.toast({
                     msg: 'Error',
