@@ -49,7 +49,7 @@
 	 <em></em>
 	 <b>Thank you!</b>
 	 <span>Your message has been sent the supplier(s).</span>
-	 <a href="javascript:void(0);">Return to Homepage</a>
+	 <a href="javascript:void(0);" onclick="gotoHome()">Return to Homepage</a>
 	</section>
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
@@ -61,6 +61,16 @@
 
     function closeWin(){
     	api.closeWin();
+    }
+
+    function gotoHome(){
+        api.historyBack({
+                frameName: 'b2b'
+            }, function(ret, err) {
+                if (ret.status) {} else {
+                    api.closeWidget();
+                }
+            });
     }
 </script>
 </html>
