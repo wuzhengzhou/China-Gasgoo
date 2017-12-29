@@ -249,7 +249,7 @@
         api.lockSlidPane();
         showBannerImage();
         
-        // refreshPage();
+        refreshPage();
         api.parseTapmode();
     };
 
@@ -403,6 +403,23 @@
         // }
     });
    }
+
+
+   function refreshPage() {
+        api.setRefreshHeaderInfo({
+            visible: true,
+            loadingImg: 'widget://image/refresh.png',
+            bgColor: '#f0f0f0',
+            textColor: '#888',
+            textDown: 'Pull-down refresh...',
+            textUp: 'Loosen the refresh...',
+            textLoading: 'loading...',
+            showTime: false
+        }, function(ret, err) {
+            showBannerImage();
+            api.parseTapmode();
+        });
+    }
 </script>
 
 </html>
