@@ -6,49 +6,49 @@
     <title>title</title>
     <link rel="stylesheet" type="text/css" href="../css/api.css"/>
     <style>
-        body{
-                background-color: #eeeeee;
+        
+
+
+         body{
+        background-color: #eeeeee;
         }
 
-      /*  .pic{  height:340px; }
-        .photo{ background:#fff; height:340px; overflow:hidden; text-align:center;width: 100%;display: table;font-size: 300px;}
-        .photo img{ width:100%;}
-
-*/
+        .banner{ width:100%;height: 370px;background-color: #fff;}
         .banner .bannerTU img{ 
-            /*width:320px; */
-            vertical-align:top;
+            width:100%; 
+            /*vertical-align:top;*/
         }
 
         .banner {
             overflow: hidden;
             /*这两行不能移除，不然会滑出屏幕*/
             visibility: hidden;
-            /*position: relative;*/
-            height:340px;
+            position: relative;
         }
 
         .bannerTU{
-            height:340px; 
-            text-align:center;
-            /*overflow:hidden; */
-            /*position: relative;*/
-            width: 100%;
+            overflow: hidden;
+            position: relative;
         }
 
         .bannerTU>div {
             float: left;
             width: 100%;
             position: relative;
-            width: 100%;
+            height: 370px;
+            display: table;
+            text-align: center;
         }
 
+
         .bannerTU>div>a {
-            /*display: block;*/
+            display: table-cell;
+            vertical-align: middle;
         }
 
         .bannerTU>div>a>img {
             width: 100%;
+
         }
 
         .ulyq {
