@@ -116,7 +116,7 @@
     <header id="header">
         <div class="header news">
             <ul>
-                <li class="search" tapmode onclick="openSlid()">
+                <li tapmode="hover" class="search" tapmode onclick="openSlid()">
                     <a></a>
                 </li>
                 <li class="searchKuan" onclick="openSeachBar('news')">
@@ -132,10 +132,10 @@
                 <li class="search">
                     <a></a>
                 </li>
-                <li class="searchKuan" onclick="openB2BSearch()">
+                <li class="searchKuan" onclick="openSeachBar('b2b')">
                     <div class="inputSear"><a> Search Gasgoo B2B</a></div>
                 </li>
-                <li class="searchMagnifier" onclick="openB2BSearch()">
+                <li class="searchMagnifier" onclick="openSeachBar('b2b')">
                     <a></a>
                 </li>
             </ul>
@@ -202,7 +202,7 @@
 
     function getNavList() {
         api.ajax({
-            url: 'http://192.168.40.111:89/api/autonews/get_nav_list',
+            url: 'https://api.gasgoo.com/api/autonews/get_nav_list',
             cache: true,
             method: 'get'
         }, function(ret, err) {
@@ -370,7 +370,7 @@
                 }
             });
         } else {
-            openSearchList('', 'b2b_search_list');
+            openSearchList('', 'b2b_search');
         }
     }
 
@@ -385,14 +385,6 @@
             animation: {
                 trpe: 'fade'
             }
-        });
-    }
-
-
-    function openB2BSearch(){
-        api.openWin({
-            name: 'b2b_search',
-            url: './b2b_search.html',
         });
     }
 </script>

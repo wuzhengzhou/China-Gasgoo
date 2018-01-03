@@ -56,7 +56,7 @@
 
     function getPopularWords(){
         api.ajax({
-            url: 'http://192.168.40.20:8090/api/mbgasgoo/get_Search_HotKeyWord',
+            url: 'https://api.gasgoo.com/api/mbgasgoo/get_Search_HotKeyWord',
             method: 'get',
         },function(ret, err){
             if (ret) {

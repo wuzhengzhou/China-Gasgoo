@@ -118,7 +118,7 @@
         if(isMore){
 
             api.ajax({
-                url: 'http://192.168.40.20:8090/api/mbgasgoo/get_Product_List/'+categoryID+'/-1/-1/-1/-1/value/'+page,
+                url: 'https://api.gasgoo.com/api/mbgasgoo/get_Product_List/'+categoryID+'/-1/-1/-1/-1/value/'+page,
                 method: 'get',
             },function(ret, err){
                 if (ret) {

@@ -122,7 +122,7 @@
        }
        if(isMore){
         api.ajax({
-            url: 'http://192.168.40.20:8090/api/mbgasgoo/get_Search_Product_List/'+page+'/'+encodeURI(keyword)+'/'+applicationID+'/'+categoryID+'/'+provinceID,
+            url: 'https://api.gasgoo.com/api/mbgasgoo/get_Search_Product_List/'+page+'/'+encodeURI(keyword)+'/'+applicationID+'/'+categoryID+'/'+provinceID,
             method: 'get',
             cache:true
         },function(ret, err){
