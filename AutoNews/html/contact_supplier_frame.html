@@ -175,6 +175,13 @@
                  Countries[i]=country;
                }
                showCountry(Countries);
+               alert($.cookie('emailCookie'));
+               if($.cookie('emailCookie')!=undefined && $.cookie('emailCookie')!=""){
+                  $api.val($api.byId('email'), $.cookie('emailCookie'));
+               }
+               if ($.cookie('nameCookie')!=undefined && $.cookie('nameCookie')!="") {
+                  $api.val($api.byId('name'), $.cookie('nameCookie'));
+               }
             } else {
                 api.toast({
                     msg: 'Error',
@@ -224,33 +231,45 @@
                     });
                 }, false);
 
-                if ($$.cookie('gs-mb-prodiqy-country') != undefined && $$.cookie('gs-mb-prodiqy-country') != "") {
-                    userPicker.pickers[0].setSelectedValue($$.cookie('gs-mb-prodiqy-country'));
-                    if (!!userPicker.getSelectedItems()[0])
-                    $$('#countryPicker').text(userPicker.getSelectedItems()[0].text);
-                    $$("#hiddenValue").val($$.cookie('gs-mb-prodiqy-country'));
-                }
+                // if ($$.cookie('gs-mb-prodiqy-country') != undefined && $$.cookie('gs-mb-prodiqy-country') != "") {
+                //     userPicker.pickers[0].setSelectedValue($$.cookie('gs-mb-prodiqy-country'));
+                //     if (!!userPicker.getSelectedItems()[0])
+                //     $$('#countryPicker').text(userPicker.getSelectedItems()[0].text);
+                //     $$("#hiddenValue").val($$.cookie('gs-mb-prodiqy-country'));
+                // }
             });
 
             hui.ready(function () { hui.formInit(); });
             $$(function () {
 
-                if ($$.cookie('gs-mb-prodiqy-email') != undefined && $$.cookie('gs-mb-prodiqy-email') != "") {
-                    $$("#txtEmail").val($$.cookie('gs-mb-prodiqy-email'));
-                }
-                if ($$.cookie('gs-mb-prodiqy-uname') != undefined && $$.cookie('gs-mb-prodiqy-uname') != "") {
-                    $$("#txtName").val($$.cookie('gs-mb-prodiqy-uname'));
-                }
+                // if ($$.cookie('gs-mb-prodiqy-email') != undefined && $$.cookie('gs-mb-prodiqy-email') != "") {
+                //     $$("#email").val($$.cookie('gs-mb-prodiqy-email'));
+                // }
+                // if ($$.cookie('gs-mb-prodiqy-uname') != undefined && $$.cookie('gs-mb-prodiqy-uname') != "") {
+                //     $$("#name").val($$.cookie('gs-mb-prodiqy-uname'));
+                // }
 
-                $$("#txtEmail").on("input propertychange", function() { changeCookie(this.value,"gs-mb-prodiqy-email") });
-                $$("#txtName").on("input propertychange", function() { changeCookie(this.value,"gs-mb-prodiqy-uname") });
+                // $$("#email").on("input propertychange", function() { changeCookie(this.value,"gs-mb-prodiqy-email") });
+                // $$("#name").on("input propertychange", function() { changeCookie(this.value,"gs-mb-prodiqy-uname") });
                
             });
            
         })(mui, document, jQuery);
     }
 
+    function addCookie(_userName,_userEmail,_nameCookie,_emailCookie){
+        if (_userEmail!=null && _userEmail!="") {
+            $.cookie(_emailCookie, _userEmail, { expires: 1000 });
+        } else if ($.cookie(_emailCookie) != undefined && $.cookie(_emailCookie) != "") {
+            $.removeCookie(_emailCookie);
+        }
 
+        if(_userName != null && _userName != ""){
+            $.cookie(_nameCookie, _userName, { expires: 1000 });
+        }else if ($.cookie(_nameCookie) != undefined && $.cookie(_nameCookie) != "") {
+            $.removeCookie(_nameCookie);
+        }
+    }
 
     function sendMessage(){
         var  Subject=$api.val($api.byId('subject'));
@@ -284,7 +303,7 @@
             return;
         }else{
             var r_email = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
-            if(!r_email.test(Email)){
+            if(!r_email.test(Email.trim())){
                 api.toast({
                     msg: 'Please enter your valid email address',
                     duration: 2000,
@@ -322,10 +341,12 @@
             }
         },function(ret, err){
             if (ret) {
+                addCookie(userName,Email,'nameCookie','emailCookie');
                 api.openWin({
                     name: 'contact_supplier_success',
                     url: './contact_supplier_success.html',
                 });
+                
             } else {
                 api.toast({
                     msg: 'Error',
@@ -336,6 +357,9 @@
         });
         
     }
+
+
+   
 </script>
 <!-- <script type="text/javascript" src="../script/proiqr.js"></script> -->
 </html>
