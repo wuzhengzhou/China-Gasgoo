@@ -9,7 +9,7 @@
         
 
 
-         body{
+        body{
         background-color: #eeeeee;
         }
 
@@ -141,11 +141,11 @@
          </div><!--cname-->
     </section><!--box-->
     <!-- 联系卖家 -->
-    <footer>
+    <!-- <footer>
         <div class="but" id="contactsupplier">
             
         </div>
-    </footer>
+    </footer> -->
     <!-- 回到顶部 -->
     <div class="top"><a href="#"></a></div>
     
@@ -155,7 +155,7 @@
 <script type="text/template" id="tmp_focusImg">
     {{~it:value:index}}
     <div class="innerDiv">
-        <a  data-article-logo="{{=value.ImagePath}}">
+        <a href="javascript:void(0);" data-article-logo="{{=value.ImagePath}}">
             <img  onload="loadingImgCache(this)" data-url="{{=value.ImagePath}}" src="../image/focus_error.png">
         </a>
     </div>
@@ -303,38 +303,9 @@
                 $api.append($api.byId('AllInfo'), tem_application(ret));
                  
 
-
-                
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                 //联系卖家
-                var tem_Contact=doT.template($api.byId('tem_Contact').innerHTML);
-                $api.html($api.byId('contactsupplier'), tem_Contact(ret));
+                // var tem_Contact=doT.template($api.byId('tem_Contact').innerHTML);
+                // $api.html($api.byId('contactsupplier'), tem_Contact(ret));
                 //轮播产品图片
                 swipeInit();
             } else {
