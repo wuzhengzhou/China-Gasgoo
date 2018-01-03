@@ -61,6 +61,13 @@
     }
 
     function openFrame(){
+        api.showProgress({
+            style: 'default',
+            animationType: 'fade',
+            title: 'loading...',
+            text: ' ',
+            modal: false
+        });
     	api.openFrame({
     	    name: 'webUrl',
     	    url: webUrl,
