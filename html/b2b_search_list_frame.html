@@ -93,7 +93,7 @@
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript" src="../script/doT.min.js"></script>
 <script type="text/javascript">
-    var keyword,page=1,refresh=true,isMore=true;
+    var keyword,page=0,refresh=true,isMore=true;
     var headerH;
     var application,productCategory,province;
     var applicationID=0,
@@ -128,7 +128,7 @@
         },function(ret, err){
             if (ret) {
                 var tempEn=doT.template($api.byId('productListTemplate').innerHTML);
-                if(page!=1){
+                if(page!=0){
                     $api.append( $api.byId('productList'), tempEn(ret[0].ProductList));
                 }else{
                     application=ret[0].AppWords;
@@ -178,7 +178,7 @@
             textLoading: 'loading...',
             showTime: false
         }, function(ret, err) {
-            page = 1;
+            page = 0;
             isMore = true;
             $api.html($api.byId('loadingMoreSection'),"");
             getList();
@@ -272,7 +272,7 @@
     
     function conctactSupplier(productID){
         api.openWin({
-            name: 'conctactSupplier_'+productID,
+            name: 'conctactSupplier',
             url: './contact_supplier.html',
             pageParam: {
                 productID: productID
