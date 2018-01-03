@@ -175,7 +175,6 @@
                  Countries[i]=country;
                }
                showCountry(Countries);
-               alert($.cookie('emailCookie'));
                if($.cookie('emailCookie')!=undefined && $.cookie('emailCookie')!=""){
                   $api.val($api.byId('email'), $.cookie('emailCookie'));
                }
@@ -231,12 +230,12 @@
                     });
                 }, false);
 
-                // if ($$.cookie('gs-mb-prodiqy-country') != undefined && $$.cookie('gs-mb-prodiqy-country') != "") {
-                //     userPicker.pickers[0].setSelectedValue($$.cookie('gs-mb-prodiqy-country'));
-                //     if (!!userPicker.getSelectedItems()[0])
-                //     $$('#countryPicker').text(userPicker.getSelectedItems()[0].text);
-                //     $$("#hiddenValue").val($$.cookie('gs-mb-prodiqy-country'));
-                // }
+                if ($$.cookie('gs-mb-prodiqy-country') != undefined && $$.cookie('gs-mb-prodiqy-country') != "") {
+                    userPicker.pickers[0].setSelectedValue($$.cookie('gs-mb-prodiqy-country'));
+                    if (!!userPicker.getSelectedItems()[0])
+                    $$('#countryPicker').text(userPicker.getSelectedItems()[0].text);
+                    $$("#hiddenValue").val($$.cookie('gs-mb-prodiqy-country'));
+                }
             });
 
             hui.ready(function () { hui.formInit(); });
