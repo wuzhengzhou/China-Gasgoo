@@ -159,7 +159,7 @@
             modal: false
         });
         api.ajax({
-            url: 'http://192.168.40.20:8090/api/mbgasgoo/get_ContactSupplier_Product/'+productID,
+            url: 'https://api.gasgoo.com/api/mbgasgoo/get_ContactSupplier_Product/'+productID,
             method: 'get',
         },function(ret, err){
             if (ret) {
@@ -329,7 +329,7 @@
         }
 
         api.ajax({
-            url: 'http://192.168.40.20:8090/api/mbgasgoo/add_ContactMessageQueue',
+            url: 'https://api.gasgoo.com/api/mbgasgoo/add_ContactMessageQueue',
             method: 'post',
             dataType: 'text',
             headers: {

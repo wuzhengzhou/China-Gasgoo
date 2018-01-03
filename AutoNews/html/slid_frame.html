@@ -19,37 +19,27 @@
 
         li a {
             display: block;
-            padding: 10px 30px;
+            padding: 10px 20px;
         }
 
-        .homeIcon {
-            background: url(../image/homeIcon.png) no-repeat 20px;
-            background-size: 25px;
-            padding-left: 30px
+        .icon {
+            line-height: 15px;
+            overflow: hidden;
         }
 
-        .newsIcon {
-            background: url(../image/newsIcon.png) no-repeat 20px;
-            background-size: 25px;
-            padding-left: 30px
+        .icon span {
+            height: 30px;
+            line-height: 25px;
+            display: block;
+            float: left;
         }
 
-        .energyIcon {
-            background: url(../image/energyIcon.png) no-repeat 20px;
-            background-size: 25px;
-            padding-left: 30px
+        .icon span.img {
+            width: 30px;
         }
 
-        .commentaryIcon {
-            background: url(../image/commentaryIcon.png) no-repeat 20px;
-            background-size: 25px;
-            padding-left: 30px
-        }
-
-        .repotIcon {
-            background: url(../image/repotIcon.png) no-repeat 20px;
-            background-size: 25px;
-            padding-left: 30px
+        .icon img {
+            width: 25px;
         }
     </style>
 </head>
@@ -57,37 +47,58 @@
 <body>
     <nav>
         <ul>
-            <li tapmode="hover" onclick="gotoHome()" class="homeIcon"><a>Home</a></li>
-            <li tapmode="hover" onclick="openList(2)" class="newsIcon"><a>China News</a></li>
-            <li tapmode="hover" onclick="openList(7)" class="energyIcon"><a>New Energy</a></li>
-            <li tapmode="hover" onclick="openList(8)" class="commentaryIcon"><a>Interview & Commentary</a></li>
-            <li tapmode="hover" onclick="openList(9)" class="repotIcon"><a>Report</a></li>
         </ul>
     </nav>
 </body>
-<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/template" id="tmp_list">
+    {{~it:value:index}}
+    <li tapmode="hover" onclick="openList({{=value.ClassId}})" class="icon">
+      <a>
+        <span class="img"><img src="{{=value.IconUrl}}"/></span>
+        <span>{{=value.Name}}</span>
+      </a>
+    </li>
+    {{~}}
+</script>
+<script src="../script/api.js"></script>
+<script src="../script/doT.min.js"></script>
 <script>
     apiready = function() {
         $api.fixStatusBar($api.dom('nav'));
+        getCategoryList();
     }
 
-    // 跳转到首页
-    function gotoHome() {
-        api.closeSlidPane();
-    }
-
-    // 打开列表页
     function openList(classId) {
-        gotoHome();
-        api.openWin({
-            name: 'news_list',
-            url: './news_list.html',
-            pageParam: {
-                classId: classId
-            },
-            animation: {
-                trpe: 'fade',
-                duration: 300
+        if (classId != 0) {
+            api.closeSlidPane();
+            api.openWin({
+                name: 'news_list',
+                url: './news_list.html',
+                pageParam: {
+                    classId: classId
+                },
+                animation: {
+                    trpe: 'fade',
+                    duration: 300
+                }
+            });
+        } else {
+            api.closeSlidPane();
+        }
+    }
+
+    function getCategoryList() {
+        api.ajax({
+            url: 'https://api.gasgoo.com/api/autonews/get_category_list',
+            cache: true,
+            method: 'get'
+        }, function(ret, err) {
+            if (ret) {
+                // 获取模板
+                var tmp_list = doT.template($api.byId('tmp_list').innerHTML);
+                // 绑定数据
+                $api.html($api.dom('nav ul'), tmp_list(ret.data));
+                api.parseTapmode();
             }
         });
     }
