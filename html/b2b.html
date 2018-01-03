@@ -396,11 +396,11 @@
 
    function openBannerURL(url){
     api.openWin({
-        name: 'mburl',
-        url: url,
-        // pageParam: {
-        //     name: 'test'
-        // }
+        name: 'web_url',
+        url: './webUrl.html',
+        pageParam: {
+            webUrl:url
+        }
     });
    }
 
