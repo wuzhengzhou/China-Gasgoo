@@ -147,18 +147,14 @@
                 method: 'get',
             }, function(ret, err) {
                 if (ret) {
-                    var str = $api.jsonToStr(ret).replace("’", "\’").replace("'", "\’");
-                    var data = $api.strToJson(str);
-
                     var list = $api.dom('.list ul');
                     var tmp_list = doT.template($api.byId('tmp_list').innerHTML);
-                    var result = tmp_list(data);
+                    var result = tmp_list(ret);
                     if (page != 1) {
                         $api.append(list, result);
                     } else {
                         $api.html(list, result);
                     }
-                    page++;
                     refresh = false;
                     if (ret.length < 10) {
                         var status = $api.byId('pushStatus');
@@ -194,6 +190,9 @@
         }, function(ret, err) {
             page = 1;
             isMore = true;
+            var status = $api.byId('pushStatus');
+            status.innerHTML = "loading...";
+            $api.css($api.byId('loadImg'), 'display:inline-block');
             getList();
         });
     }
@@ -203,12 +202,14 @@
         api.addEventListener({
             name: 'scrolltobottom',
             extra: {
-                threshold: 300 //设置距离底部多少距离时触发
+                threshold: 100 //设置距离底部多少距离时触发
             }
         }, function(ret, err) {
-            getList();
+            setTimeout(function() {
+                page++;
+                getList();
+            }, 500)
         });
-
     }
 
     // 缓存图片

@@ -206,6 +206,11 @@
             border-bottom: 1px solid #ededed;
             font-size: 14px;
             padding: 0.5em;
+            height: 28px;
+            line-height: 28px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
 
         .center p span {
@@ -216,6 +221,7 @@
             text-align: center;
             font-size: 12px;
             margin-right: 5px;
+            line-height: 17px;
         }
 
         .center p span.center_1 {
@@ -330,7 +336,7 @@
     <section class="list">
         <p class="title"><span class="orange"></span>Data Center</p>
         <div class="center"></div>
-        <a class="more" tapmode="hover" onclick="openList(9)">MORE</a>
+        <a class="more" style="margin-bottom:20px" tapmode="hover" onclick="openList(9)">MORE</a>
     </section>
 </body>
 <script type="text/template" id="tmp_focusImg">
@@ -393,11 +399,6 @@
 <script>
     // Init
     apiready = function() {
-        // 解锁侧滑
-        api.unlockSlidPane();
-        api.setStatusBarStyle({
-            style: 'dark'
-        });
         // 焦点大图
         getBigFocus();
         // 焦点两小图
@@ -549,7 +550,6 @@
                 showToast();
             }
         });
-
     }
 
     function getSmallFocus() {

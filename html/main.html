@@ -9,7 +9,8 @@
     <link rel="stylesheet" type="text/css" href="../css/api.css" />
     <style>
         .header {
-            height: 44px;
+            height: 50px;
+            background-color: #fff;
         }
 
         .header ul {
@@ -131,8 +132,8 @@
                 <li class="search">
                     <a></a>
                 </li>
-                <li class="searchKuan">
-                    <div class="inputSear" onclick="openB2BSearch()"><a> Search Gasgoo B2B</a></div>
+                <li class="searchKuan" onclick="openB2BSearch()">
+                    <div class="inputSear"><a> Search Gasgoo B2B</a></div>
                 </li>
                 <li class="searchMagnifier" onclick="openB2BSearch()">
                     <a></a>
@@ -141,34 +142,47 @@
         </div>
         <div class="header mine hide"></div>
     </header>
+    <footer>
+        <div class="footerNav">
+            <ul>
+            </ul>
+        </div>
+    </footer>
 </body>
+<script type="text/template" id="tmp_NavList">
+    {{~it:value:index}}
+    <li tapmode>
+        <a tapmode onclick="randomSwitchBtn(this)" style="color:{{=value.Color}}" data-Color="{{=value.Color}}" data-selectedColor="{{=value.SelectedColor}}">
+            <span></span> {{=value.Name}}
+        </a>
+    </li>
+    {{~}}
+</script>
 <script src="../script/api.js"></script>
+<script src="../script/doT.min.js"></script>
 <script>
     // 公共变量
     var headerH,
         footerH = 50,
         winWidth,
-        winHeight,
-        selectedIndex = 0;
+        winHeight;
 
-    // NVTabBar底部导航模块
-    var NVTabBar;
     // UISearchBar独立搜索模块
     var UISearchBar;
 
     apiready = function() {
         init();
+        getNavList();
         openFrameGroup();
     };
 
     // init.
     function init() {
-        headerH = $api.offset($api.dom($api.byId('header'), '.header')).h + 25;
+        headerH = $api.offset($api.dom($api.byId('header'), '.header')).h + 20;
 
         $api.fixStatusBar($api.byId('header'));
         api.setStatusBarStyle({
-            style: 'dark',
-            color: '#fff'
+            style: 'dark'
         });
 
         // 监听返回键
@@ -184,10 +198,23 @@
 
         // 导入搜索模块
         UISearchBar = api.require("UISearchBar");
+    }
 
-        // 导入底部导航模块
-        NVTabBar = api.require('NVTabBar');
-        openTabBar();
+    function getNavList() {
+        api.ajax({
+            url: 'http://192.168.40.111:89/api/autonews/get_nav_list',
+            cache: true,
+            method: 'get'
+        }, function(ret, err) {
+            if (ret) {
+                // 获取模板
+                var tmp_NavList = doT.template($api.byId('tmp_NavList').innerHTML);
+                // 绑定数据
+                $api.html($api.dom('.footerNav ul'), tmp_NavList(ret.data));
+                $api.addCls($api.dom('.footerNav ul li:nth-child(1) a'), 'active');
+                api.parseTapmode();
+            }
+        });
     }
 
     // FrameGroup
@@ -229,101 +256,33 @@
         });
     }
 
-    // TabBar
-    function openTabBar() {
-        NVTabBar.open({
-            styles: {
-                bg: '#f2f2f2',
-                h: footerH,
-                dividingLine: {
-                    width: 0.5,
-                    color: '#e2e2e2'
-                }
-            },
-            items: [{
-                w: winWidth / 3.0,
-                bg: {
-                    marginB: -2,
-                    image: 'rgba(0,0,0,0)'
-                },
-                iconRect: {
-                    w: 25.0,
-                    h: 25.0,
-                },
-                icon: {
-                    normal: 'widget://image/news.png',
-                    highlight: 'widget://image/news_active.png',
-                    selected: 'widget://image/news_active.png'
-                },
-                title: {
-                    text: 'News',
-                    size: 13.0,
-                    normal: '#a4b0b9',
-                    selected: '#00568f',
-                    marginB: 3.0
-                }
-            }, {
-                w: winWidth / 3.0,
-                bg: {
-                    marginB: -2,
-                    image: 'rgba(0,0,0,0)'
-                },
-                iconRect: {
-                    w: 25.0,
-                    h: 25.0,
-                },
-                icon: {
-                    normal: 'widget://image/b2b.png',
-                    highlight: 'widget://image/b2b_active.png',
-                    selected: 'widget://image/b2b_active.png'
-                },
-                title: {
-                    text: 'B2B',
-                    size: 13.0,
-                    normal: '#a4b0b9',
-                    selected: '#00568f',
-                    marginB: 3.0
-                }
-            }, {
-                w: winWidth / 3.0,
-                bg: {
-                    marginB: -2,
-                    image: 'rgba(0,0,0,0)'
-                },
-                iconRect: {
-                    w: 25.0,
-                    h: 25.0,
-                },
-                icon: {
-                    normal: 'widget://image/mine.png',
-                    highlight: 'widget://image/mine_active.png',
-                    selected: 'widget://image/mine_active.png'
-                },
-                title: {
-                    text: 'Me',
-                    size: 13.0,
-                    normal: '#a4b0b9',
-                    selected: '#00568f',
-                    marginB: 3.0
-                }
-            }],
-            selectedIndex: selectedIndex
-        }, function(ret, err) {
-            if (ret) {
-                setCurrentFrame(ret);
+    function randomSwitchBtn(tag) {
+        var footList = $api.domAll('.footerNav ul li a'),
+            index = 0;
+        var color = $api.attr(tag, 'data-Color');
+        var selectedColor = $api.attr(tag, 'data-selectedColor');
+        for (var i = 0; i < footList.length; i++) {
+            if (tag == footList[i]) {
+                index = i;
+            } else {
+                $api.removeCls(footList[i], 'active');
+                $api.css(footList[i], 'color:' + color + '');
             }
-        });
-
-        NVTabBar.bringToFront();
+        }
+        $api.addCls(footList[index], 'active');
+        $api.css(footList[index], 'color:' + selectedColor + '');
+        setCurrentFrame(index)
     }
 
     // 设置FrameGroup属性
-    function setCurrentFrame(ret) {
-        if (ret.eventType == "show") {
-            api.setFrameGroupIndex({
-                name: 'group',
-                index: selectedIndex
-            });
+    function setCurrentFrame(index) {
+        api.setFrameGroupIndex({
+            name: 'group',
+            index: index,
+        });
+        if (index == 0) {
+            $api.removeCls($api.dom('.news'), 'hide');
+            $api.addCls($api.dom('.b2b'), 'hide');
             api.setFrameGroupAttr({
                 name: 'group',
                 rect: {
@@ -333,49 +292,31 @@
                     h: winHeight - headerH - footerH
                 },
             });
-        } else {
-            api.setFrameGroupIndex({
+            api.unlockSlidPane();
+        } else if (index == 1) {
+            $api.removeCls($api.dom('.b2b'), 'hide');
+            $api.addCls($api.dom('.news'), 'hide');
+            api.setFrameGroupAttr({
                 name: 'group',
-                index: ret.index,
+                rect: {
+                    x: 0,
+                    y: headerH,
+                    w: 'auto',
+                    h: winHeight - headerH - footerH
+                },
             });
-            if (ret.index == 0) {
-                $api.removeCls($api.dom('.news'), 'hide');
-                $api.addCls($api.dom('.b2b'), 'hide');
-                api.setFrameGroupAttr({
-                    name: 'group',
-                    rect: {
-                        x: 0,
-                        y: headerH,
-                        w: 'auto',
-                        h: winHeight - headerH - footerH
-                    },
-                });
-                api.unlockSlidPane();
-            } else if (ret.index == 1) {
-                $api.removeCls($api.dom('.b2b'), 'hide');
-                $api.addCls($api.dom('.news'), 'hide');
-                api.setFrameGroupAttr({
-                    name: 'group',
-                    rect: {
-                        x: 0,
-                        y: headerH,
-                        w: 'auto',
-                        h: winHeight - headerH - footerH
-                    },
-                });
-                api.lockSlidPane();
-            } else {
-                api.setFrameGroupAttr({
-                    name: 'group',
-                    rect: {
-                        x: 0,
-                        y: 0,
-                        w: 'auto',
-                        h: winHeight - footerH
-                    },
-                });
-                api.lockSlidPane();
-            }
+            api.lockSlidPane();
+        } else {
+            api.setFrameGroupAttr({
+                name: 'group',
+                rect: {
+                    x: 0,
+                    y: 0,
+                    w: 'auto',
+                    h: winHeight - footerH
+                },
+            });
+            api.lockSlidPane();
         }
     }
 
@@ -393,10 +334,10 @@
                 styles: {
                     navBar: {
                         bgColor: '#fff',
-                        borderColor: '#edf1f4'
+                        borderColor: '#fff'
                     },
                     searchBox: {
-                        bgImg: '',
+                        bgImg: 'widget://image/searchbg.png',
                         color: '#000',
                         height: 40
                     },
