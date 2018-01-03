@@ -39,6 +39,10 @@
             background: url(../image/partake.png) no-repeat 0px center;
             background-size: 20px;
         }
+
+        footer{ height:48px;}
+        footer .but{ position:fixed; bottom:0; text-align:center;  width:100%;}
+        footer .but a{ background:#c7000a; height:45px; font-size:18px; font-weight:bold; line-height:45px; display:block; color:#fff; margin:0 auto;}
     </style>
 </head>
 <body>
@@ -47,13 +51,20 @@
         <div class="title"></div>
         <div class="goshare" tapmode="hover" onclick="showShare()"></div>
     </header>
+    <footer id="footer">
+        <div class="but" id="contactsupplier">
+            
+        </div>
+    </footer>
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
+
+
 <script type="text/javascript">
-	var headerH, winHeight,productID,title,logo;
+	var headerH, winHeight,productID,title,logo,footerH;
     apiready = function(){
-        Init();
         productID=api.pageParam.productID;
+        Init();
         title=api.pageParam.title;
         logo=api.pageParam.logo;
         if (logo == 'undefined') {
@@ -74,6 +85,9 @@
 	            } else {
 	                headerH += 26;
 	            }
+                $api.html($api.byId('contactsupplier'), "<a onclick='contactsupplier("+productID+")' href='javascript:void(0);'>Contact Supplier</a>");
+                // var footer=$api.byId('footer');
+                // footerH=$api.offset(footerH).h;
 	 }
 
 	 function openFrame(productID){
@@ -84,12 +98,12 @@
 	 	        x: 0,
 	 	        y: headerH,
 	 	        w: 'auto',
-	 	        h: winHeight-headerH
+	 	        h: winHeight-headerH-48
 	 	    },
 	 	    pageParam: {
 	 	        productID:productID
 	 	    },
-	 	    bounces: false,
+	 	    bounces: true,
 	 	});
 	 }
 
@@ -115,6 +129,20 @@
 
      function closeWin(){
         api.closeWin();
+     }
+
+
+     function contactsupplier(productID){
+        api.openWin({
+          name: 'contactsupplier',
+          url: './contact_supplier.html',
+          pageParam: {
+              productID:productID
+          },
+           animation:{
+                type: "fade"
+          }
+      });
      }
 
 </script>
