@@ -1,5 +1,5 @@
 html {
-    font-family: sans-serif;
+    font-family: -apple-system, PingFang SC, Hiragino Sans GB, Arial, Microsoft YaHei, Helvetica Neue, sans-serif;
 }
 
 html, body, header, section, footer, div, ul, ol, li, img, a, span, em, del, legend, center, strong, var, fieldset, form, label, dl, dt, dd, cite, input, hr, time, mark, code, figcaption, figure, textarea, h1, h2, h3, h4, h5, h6, p {
@@ -66,4 +66,105 @@ table {
 
 td, th {
     padding: 0;
+}
+
+.hover{
+  opacity: .5;
+}
+
+/*导航*/
+
+footer {
+    height: 52px;
+    background: #f2f2f2;
+}
+
+.footerNav {
+    height: 52px;
+    background: #f2f2f2;
+    border-top: 1px solid #e2e2e2;
+    position: fixed;
+    width: 100%;
+    bottom: 0px;
+}
+
+.footerNav ul {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-flex-flow: row;
+    flex-flow: row;
+}
+
+.footerNav ul li {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    flex: 1;
+    text-align: center;
+    font-size: 13px;
+}
+
+.footerNav ul li a {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-flex-flow: column;
+    flex-flow: column;
+    /*color: #a4b0b9;*/
+    display: block;
+}
+
+
+/*.footerNav ul li a.active {
+    color: #00568f;
+}*/
+
+.footerNav ul li:nth-child(1) a span {
+    background: url(http://c2.gasgoo.com/app/en/image/nav/news.png) no-repeat center;
+    height: 29px;
+    background-size: 25px;
+    display: block;
+    margin-top: 3px;
+}
+
+.footerNav ul li:nth-child(2) a span {
+    background: url(http://c2.gasgoo.com/app/en/image/nav/b2b.png) no-repeat center;
+    height: 29px;
+    background-size: 25px;
+    display: block;
+    margin-top: 3px;
+}
+
+.footerNav ul li:nth-child(3) a span {
+    background: url(http://c2.gasgoo.com/app/en/image/nav/mine.png) no-repeat center;
+    height: 29px;
+    background-size: 25px;
+    display: block;
+    margin-top: 3px;
+}
+
+.footerNav ul li:nth-child(1) a.active span {
+    background: url(http://c2.gasgoo.com/app/en/image/nav/news_active.png) no-repeat center;
+    height: 29px;
+    background-size: 25px;
+    display: block;
+    margin-top: 3px;
+}
+
+.footerNav ul li:nth-child(2) a.active span {
+    background: url(http://c2.gasgoo.com/app/en/image/nav/b2b_active.png) no-repeat center;
+    height: 29px;
+    background-size: 25px;
+    display: block;
+    margin-top: 3px;
+}
+
+.footerNav ul li:nth-child(3) a.active span {
+    background: url(http://c2.gasgoo.com/app/en/image/nav/mine_active.png) no-repeat center;
+    height: 29px;
+    background-size: 25px;
+    display: block;
+    margin-top: 3px;
 }

@@ -18,8 +18,23 @@
     <preference name="fullScreen" value="false"/>
     <preference name="autoUpdate" value="true"/>
     <preference name="smartUpdate" value="false"/>
-    <preference name="debug" value="false"/>
+    <preference name="debug" value="true"/>
     <preference name="statusBarAppearance" value="true"/>
-    <permission name="readPhoneState"/>
+    <preference name="urlScheme" value="autonews"/>
     <permission name="internet"/>
+    <preference name="querySchemes" value="fbauth2,fbauth,wechat,weixin"/>
+    <feature name="mobSharePlus">
+        <param name="android_api_key" value="2330c3893daa8"/>
+        <param name="android_api_secret" value="6115bf438366cc7ecdc2576318b33bad"/>
+        <param name="ios_api_key" value="2330c3893daa8"/>
+        <param name="ios_api_secret" value="6115bf438366cc7ecdc2576318b33bad"/>
+        <param name="urlScheme" value="fb391376804623006"/>
+        <param name="urlScheme" value="wx819b02614b8b2748"/>
+    </feature>
+    <feature name="baiduMTJ">
+        <param name="android_appkey" value="8f855a5c7c"/>
+        <param name="ios_appkey" value="af3080e30a"/>
+        <param name="android_channel" value="apicloud"/>
+        <param name="ios_channel" value="appstore"/>
+    </feature>
 </widget>

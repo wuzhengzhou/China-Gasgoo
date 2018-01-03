@@ -12,7 +12,7 @@ html {
 
 body {
     background: #f2f3f7;
-    font-family: Arial, Helvetica, sans-serif; 
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 body, input, button, textarea, select, option {
@@ -171,10 +171,10 @@ a {
 
     .cname ul li, .cname p {
         font-size: 16px;
-        line-height: 28px;padding-top: 3px; 
+        line-height: 28px;padding-top: 3px;
     }
     #prodContent{ padding-top: 15px;padding-bottom: 10px; }
- 
+
     .prdDetailOEM{ font-size: 16px;}
 .butParent {
     height: 40px;
