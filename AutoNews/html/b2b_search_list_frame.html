@@ -78,10 +78,10 @@
     {{~it:value:index}}
     <section class="product">
         <section class="picProduct">
-            <a onclick="openDetail({{=value.ProductID}},'{{=value.ProductName}}','{{=value.FilePath}}')" href="javascript:void(0);" class="productTu"><img onload="loadingImgCache(this)" onerror="onErrorHandle(this)" data-url="{{=value.FilePath}}" src="../image/error.png" alt=""/></a>
+            <a onclick="openDetail({{=value.ProductID}},'{{=value.ProductName}}','{{=value.FilePath}}','{{=value.ShareUrl}}')" href="javascript:void(0);" class="productTu"><img onload="loadingImgCache(this)" onerror="onErrorHandle(this)" data-url="{{=value.FilePath}}" src="../image/error.png" alt=""/></a>
         </section>
         <section class="til">
-            <h2><a onclick="openDetail({{=value.ProductID}},'{{=value.ProductName}}','{{=value.FilePath}}')" href="javascript:void(0);">{{=value.ProductNameFormat}}</a></h2>
+            <h2><a onclick="openDetail({{=value.ProductID}},'{{=value.ProductName}}','{{=value.FilePath}}','{{=value.ShareUrl}}')" href="javascript:void(0);">{{=value.ProductNameFormat}}</a></h2>
             {{=value.MemberTypeHtml}}
             {{=value.VerifiedLevelHtml}}
             <a onclick="conctactSupplier({{=value.ProductID}})" href="javascript:void(0);" class="button">Contact Supplier</a>
@@ -221,15 +221,15 @@
     }
 
     // 跳转详情页
-    function openDetail(productID,productName,productImage) {
-
+    function openDetail(productID,productName,productImage,ShareUrl) {
         api.openWin({
             name: 'productdetail_'+productID,
             url: './product_detail.html',
             pageParam: {
                 productID: productID,
                 title:productName,
-                logo:productImage
+                logo:productImage,
+                ShareUrl:ShareUrl
             },
             animation:{
                 type: "fade"
