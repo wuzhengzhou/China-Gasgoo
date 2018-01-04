@@ -23,6 +23,14 @@
                     url: './html/main.html'
                 }
             });
+
+            // 百度统计初始化
+            BaiduMTJInit();
+        }
+
+        function BaiduMTJInit() {
+            var baiduMTJ = api.require('baiduMTJ');
+            baiduMTJ.init({}, function(ret, err) {});
         }
     </script>
 </body>

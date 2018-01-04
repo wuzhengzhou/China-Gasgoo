@@ -1,11 +1,9 @@
-<widget id="A6068039290641" version="0.0.1">
+<widget id="A6068037105424" version="0.0.1">
     <name>ChinaAuto Gasgoo.com</name>
     <description>
-        ChinaAuto Gasgoo.com
+        Automotive News_Gasgoo covers news of China auto industry and bridges China auto market with the global one. China Auto News, China Auto Media, China Auto Industry Report, Foreign Carmakers in China, China Auto Supplier News
     </description>
-    <author email="qix@gasgoo.com" href="http://www.gasgoo.com">
-        qix
-    </author>
+    <author email="qix@gasgoo.com" href="http://www.gasgoo.com">qix</author>
     <content src="index.html"/>
     <access origin="*"/>
     <preference name="pageBounce" value="false"/>
@@ -32,9 +30,9 @@
         <param name="urlScheme" value="wx819b02614b8b2748"/>
     </feature>
     <feature name="baiduMTJ">
-        <param name="android_appkey" value="8f855a5c7c"/>
-        <param name="ios_appkey" value="af3080e30a"/>
-        <param name="android_channel" value="apicloud"/>
+        <param name="android_appkey" value="2eb523daaf"/>
+        <param name="ios_appkey" value="386d1c3d40"/>
+        <param name="android_channel" value="applink"/>
         <param name="ios_channel" value="appstore"/>
     </feature>
 </widget>
