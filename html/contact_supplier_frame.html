@@ -17,44 +17,19 @@
     .qtitle b{ font-size:16px;}
     .qbox{ background:#fff;}
     .qbox dl{display: -webkit-box; padding:10px; border-bottom:1px solid #eee; font-size:14px;}
-    .qbox dl dt{ width:110px; line-height:40px;}
+    .qbox dl dt{ width:90px; line-height:20px;}
     .qbox dl dd{ width:100%;  -webkit-box-flex: 1; }
     .qbox dl dd input{ border-radius:2px; display:block; height:40px; border:1px solid #ddd; width:100%;}
     .qbox dl.mess dd input{ height:100px; margin-bottom:5px;}
     .qbox dl dt span{ color:#ff0000;}
     .qbox dl dd span{ color:#999;}
 
-    .qbut a{ display:block; background:#c7000a; height:40px; margin:20px auto; color:#fff; line-height:40px; font-size:18px; font-weight:bold; text-align:center; }
+    .qbut{ height:40px; }
+    .qbut a{ position:fixed; display:block; background:#c7000a; height:40px;  color:#fff; line-height:40px; font-size:18px; font-weight:bold; text-align:center; width:100%; bottom: 0px; }
+
     </style>
 </head>
 <body>
-    <!-- <div id="InfoBox">
-        
-    </div>
-   <div id="MessageBox" style="display: none;">
-    <dl>
-        <dt>*Message:</dt>
-        <dd><textarea id="message" rows="5" maxlength="3000"></textarea><span>20 characters at least. </span></dd>
-    </dl>
-    <dl>
-        <dt>*Your Email:</dt>
-        <dd><input id="email" type="text" name=""></dd>
-    </dl>
-    <dl>
-        <dt>*Your Name:</dt>
-        <dd><input id="usermae" type="text" name=""></dd>
-    </dl>
-    <dl>
-        <dt><span>*</span>Country/Region:</dt>
-        <dd>
-            <div id="countryPicker" class="HUI_Icons HUI_Icons_down" style="padding-top: 3px; border-radius: 10px; display: block; height: 30px; text-align: center; border: 1px solid #ddd; width: 100%;" >
-                        --Select country/region--
-             </div>
-             <input type="hidden" id="hiddenValue" value="-1" runat="server" />
-        </dd>
-    </dl>
-    <div class="qbut"><a onclick="sendMessage()" href="javascript:void(0);">Send</a></div>
-    </div> -->
     <section class="qtitle">
         <span>* Required information</span>
         <b>Send Inquiry</b>
@@ -101,7 +76,7 @@
     </dl>
      <dl>
         <dt>
-            <span>*</span>Country/Region:
+            <span>*</span>Country/<br/>Region:
         </dt>
         <dd>
             <div id="countryPicker" class="HUI_Icons HUI_Icons_down" style="margin-top: 5px;padding-top: 3px; border-radius: 10px; display: block; height: 30px; text-align: center; border: 1px solid #ddd; width: 100%;" >
