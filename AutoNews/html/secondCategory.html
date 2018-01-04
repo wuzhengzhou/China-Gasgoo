@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
     <title>title</title>
-    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
     <style>
-        
-
         .header {
             position: relative;
             width: 100%;
@@ -33,56 +32,57 @@
         }
     </style>
 </head>
+
 <body>
-     <header class="header" id="header">
+    <header class="header" id="header">
         <div class="refh" tapmode="hover" onclick="closeWin()"></div>
         <div class="title"></div>
     </header>
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript">
-	var headerH, winHeight;
-    apiready = function(){
-    	var parentID=api.pageParam.parentID;
+    var headerH, winHeight;
+    apiready = function() {
+        var parentID = api.pageParam.parentID;
         Init();
         openFrame(parentID);
     };
 
-    function Init(){
-            var header = $api.byId('header');
-            headerH = $api.offset(header).h;
-            winHeight = api.winHeight;
-            var systemType = api.systemType;
+    function Init() {
+        var header = $api.byId('header');
+        headerH = $api.offset(header).h;
+        winHeight = api.winHeight;
+        var systemType = api.systemType;
 
-            $api.fixStatusBar(header);
-            if (systemType == "ios") {
-                headerH += 20;
-            } else {
-                headerH += 26;
-            }
+        $api.fixStatusBar(header);
+        if (systemType == "ios") {
+            headerH += 20;
+        } else {
+            headerH += 26;
+        }
     }
 
-    function openFrame(parentID){
-    	api.openFrame({
-    	    name: 'secondCategory_frame',
-    	    url: './secondCategory_frame.html',
-    	    rect: {
-    	        x: 0,
-    	        y: headerH,
-    	        w: 'auto',
-    	        h: winHeight-headerH
-    	    },
-    	    pageParam: {
-    	        parentID:parentID
-    	    },
-    	    bounces: true,
-    	    // bgColor: 'rgba(0,0,0,0)',
-    	    // vScrollBarEnabled: true,
-    	    // hScrollBarEnabled: true
-    	});
+    function openFrame(parentID) {
+        api.openFrame({
+            name: 'secondCategory_frame',
+            url: './secondCategory_frame.html',
+            rect: {
+                x: 0,
+                y: headerH,
+                w: 'auto',
+                h: winHeight - headerH
+            },
+            pageParam: {
+                parentID: parentID
+            },
+            bounces: true,
+            // bgColor: 'rgba(0,0,0,0)',
+            // vScrollBarEnabled: true,
+            // hScrollBarEnabled: true
+        });
     }
 
-    function closeWin(){
+    function closeWin() {
         api.closeWin();
     }
 
@@ -100,4 +100,5 @@
     //     });
     // }
 </script>
+
 </html>

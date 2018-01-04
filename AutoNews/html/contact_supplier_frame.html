@@ -1,106 +1,169 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
     <title>title</title>
-    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
 
-    <link rel="stylesheet" type="text/css" href="../css/mui.min.css"/>
-    <link rel="stylesheet" type="text/css" href="../css/app.css"/>
-    <link rel="stylesheet" type="text/css" href="../css/mui.picker.css"/>
-    <link rel="stylesheet" type="text/css" href="../css/mui.poppicker.css"/>
-    <link rel="stylesheet" type="text/css" href="../css/hui.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/mui.min.css" />
+    <link rel="stylesheet" type="text/css" href="../css/app.css" />
+    <link rel="stylesheet" type="text/css" href="../css/mui.picker.css" />
+    <link rel="stylesheet" type="text/css" href="../css/mui.poppicker.css" />
+    <link rel="stylesheet" type="text/css" href="../css/hui.css" />
     <style>
-    .qtitle{ height:40px; background:#005490; padding:0 10px; font-size:14px; color:#fff; line-height:40px;}
-    .qtitle span{ float:right;}
-    .qtitle b{ font-size:16px;}
-    .qbox{ background:#fff;}
-    .qbox dl{display: -webkit-box; padding:10px; border-bottom:1px solid #eee; font-size:14px;}
-    .qbox dl dt{ width:90px; line-height:20px;}
-    .qbox dl dd{ width:100%;  -webkit-box-flex: 1; }
-    .qbox dl dd input{ border-radius:2px; display:block; height:40px; border:1px solid #ddd; width:100%;}
-    .qbox dl.mess dd input{ height:100px; margin-bottom:5px;}
-    .qbox dl dt span{ color:#ff0000;}
-    .qbox dl dd span{ color:#999;}
+        .qtitle {
+            height: 40px;
+            background: #005490;
+            padding: 0 10px;
+            font-size: 14px;
+            color: #fff;
+            line-height: 40px;
+        }
 
-    .qbut{ height:40px; }
-    .qbut a{ position:fixed; display:block; background:#c7000a; height:40px;  color:#fff; line-height:40px; font-size:18px; font-weight:bold; text-align:center; width:100%; bottom: 0px; }
+        .qtitle span {
+            float: right;
+        }
 
+        .qtitle b {
+            font-size: 16px;
+        }
+
+        .qbox {
+            background: #fff;
+        }
+
+        .qbox dl {
+            display: -webkit-box;
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+            font-size: 14px;
+        }
+
+        .qbox dl dt {
+            width: 90px;
+            line-height: 20px;
+        }
+
+        .qbox dl dd {
+            width: 100%;
+            -webkit-box-flex: 1;
+        }
+
+        .qbox dl dd input {
+            border-radius: 2px;
+            display: block;
+            height: 40px;
+            border: 1px solid #ddd;
+            width: 100%;
+        }
+
+        .qbox dl.mess dd input {
+            height: 100px;
+            margin-bottom: 5px;
+        }
+
+        .qbox dl dt span {
+            color: #ff0000;
+        }
+
+        .qbox dl dd span {
+            color: #999;
+        }
+
+        .qbut {
+            height: 40px;
+        }
+
+        .qbut a {
+            position: fixed;
+            display: block;
+            background: #c7000a;
+            height: 40px;
+            color: #fff;
+            line-height: 40px;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            width: 100%;
+            bottom: 0px;
+        }
     </style>
 </head>
+
 <body>
     <section class="qtitle">
         <span>* Required information</span>
         <b>Send Inquiry</b>
     </section>
     <section class="qbox">
-    <div id="emptyBox" style="display: none;">
-     <dl class="project">
-        <dt>To:</dt>
-        <dd id="toText"></dd>
-    </dl>
-     <dl>
-        <dt>
+        <div id="emptyBox" style="display: none;">
+            <dl class="project">
+                <dt>To:</dt>
+                <dd id="toText"></dd>
+            </dl>
+            <dl>
+                <dt>
             <span>*</span>Subject:
         </dt>
-        <dd>
-            <input type="text" id="subject" />
-        </dd>
-    </dl>
-    
-     <dl class="mess">
-        <dt>
+                <dd>
+                    <input type="text" id="subject" />
+                </dd>
+            </dl>
+
+            <dl class="mess">
+                <dt>
             <span>*</span>Message:
         </dt>
-        <dd>
-            <textarea id="message" rows="5" maxlength="3000"></textarea>
-            <span>20 characters at least. </span>
-        </dd>
-    </dl>
-     <dl>
-        <dt>
+                <dd>
+                    <textarea id="message" rows="5" maxlength="3000"></textarea>
+                    <span>20 characters at least. </span>
+                </dd>
+            </dl>
+            <dl>
+                <dt>
             <span>*</span>Your Email:
         </dt>
-        <dd>
-            <input type="text" id="email" />
-        </dd>
-    </dl>
-     <dl>
-        <dt>
+                <dd>
+                    <input type="text" id="email" />
+                </dd>
+            </dl>
+            <dl>
+                <dt>
             <span>*</span>Your Name:
         </dt>
-        <dd>
-            <input type="text" id="name" />
-        </dd>
-    </dl>
-     <dl>
-        <dt>
+                <dd>
+                    <input type="text" id="name" />
+                </dd>
+            </dl>
+            <dl>
+                <dt>
             <span>*</span>Country/<br/>Region:
         </dt>
-        <dd>
-            <div id="countryPicker" class="HUI_Icons HUI_Icons_down" style="margin-top: 5px;padding-top: 3px; border-radius: 10px; display: block; height: 30px; text-align: center; border: 1px solid #ddd; width: 100%;" >
+                <dd>
+                    <div id="countryPicker" class="HUI_Icons HUI_Icons_down" style="margin-top: 5px;padding-top: 3px; border-radius: 10px; display: block; height: 30px; text-align: center; border: 1px solid #ddd; width: 100%;">
                         --Select country/region--
-             </div>
-             <input type="hidden" id="hiddenValue" value="-1" runat="server" />
-        </dd>
-    </dl>
-    
-    <div class="qbut"><a onclick="sendMessage()" href="javascript:void(0);">Send</a></div>
-    </div>
+                    </div>
+                    <input type="hidden" id="hiddenValue" value="-1" runat="server" />
+                </dd>
+            </dl>
+
+            <div class="qbut"><a onclick="sendMessage()" href="javascript:void(0);">Send</a></div>
+        </div>
     </section>
 </body>
 
 <script type="text/template" id="InfoBox_template">
     {{~it:value:index}}
-     <dl>
+    <dl>
         <dt>To:</dt>
         <dd id="toText">{{=value.ProductName}}{{=value.CompanyName}}</dd>
     </dl>
     <dl>
         <dt>*Subject:</dt>
-        <dd >
-        <input id="subject" type="text" name="" value="Inquiry about {{=value.ProductName}}" />
+        <dd>
+            <input id="subject" type="text" name="" value="Inquiry about {{=value.ProductName}}" />
         </dd>
     </dl>
     {{~}}
@@ -117,14 +180,14 @@
 <script type="text/javascript" src="../script/jquery.cookie.min.js"></script>
 
 <script type="text/javascript">
-    var productID,Countries;
-    apiready = function(){
-        productID=api.pageParam.productID;
+    var productID, Countries;
+    apiready = function() {
+        productID = api.pageParam.productID;
         getProductByID(productID);
     };
 
 
-    function getProductByID(productID){
+    function getProductByID(productID) {
         //友好加载
         api.showProgress({
             style: 'default',
@@ -134,28 +197,30 @@
             modal: false
         });
         api.ajax({
-            url: 'https://api.gasgoo.com/api/mbgasgoo/get_ContactSupplier_Product/'+productID,
+            url: 'https://api.gasgoo.com/api/mbgasgoo/get_ContactSupplier_Product/' + productID,
             method: 'get',
-        },function(ret, err){
+        }, function(ret, err) {
             if (ret) {
-               $api.html($api.byId('toText'), ret[0].ProductName+ret[0].CompanyName);
-               $api.val($api.byId('subject'), "Inquiry about "+ret[0].ProductName);
-               $api.css($api.byId('emptyBox'), 'display:block;');
-               var tmp=ret[0].Countries;
-               Countries=[
-               ];
+                $api.html($api.byId('toText'), ret[0].ProductName + ret[0].CompanyName);
+                $api.val($api.byId('subject'), "Inquiry about " + ret[0].ProductName);
+                $api.css($api.byId('emptyBox'), 'display:block;');
+                var tmp = ret[0].Countries;
+                Countries = [];
 
-               for (var i = 0; i <tmp.length; i++) {
-                 var country={value:tmp[i].RefID,text:tmp[i].Name};
-                 Countries[i]=country;
-               }
-               showCountry(Countries);
-               if($.cookie('emailCookie')!=undefined && $.cookie('emailCookie')!=""){
-                  $api.val($api.byId('email'), $.cookie('emailCookie'));
-               }
-               if ($.cookie('nameCookie')!=undefined && $.cookie('nameCookie')!="") {
-                  $api.val($api.byId('name'), $.cookie('nameCookie'));
-               }
+                for (var i = 0; i < tmp.length; i++) {
+                    var country = {
+                        value: tmp[i].RefID,
+                        text: tmp[i].Name
+                    };
+                    Countries[i] = country;
+                }
+                showCountry(Countries);
+                if ($.cookie('emailCookie') != undefined && $.cookie('emailCookie') != "") {
+                    $api.val($api.byId('email'), $.cookie('emailCookie'));
+                }
+                if ($.cookie('nameCookie') != undefined && $.cookie('nameCookie') != "") {
+                    $api.val($api.byId('name'), $.cookie('nameCookie'));
+                }
             } else {
                 api.toast({
                     msg: 'Error',
@@ -168,33 +233,38 @@
     }
 
 
-    function showCountry(Countries){
+    function showCountry(Countries) {
         function huiFormCheckAttach() {
-        //Check region
-            var curRegion = $("#hdnCountry").val()//jQuery('#countryPicker').attr("data-value");
+            //Check region
+            var curRegion = $("#hdnCountry").val() //jQuery('#countryPicker').attr("data-value");
             if (curRegion == -1) {
-                hui.toast('Please select the country/region of your country'); return false;
+                hui.toast('Please select the country/region of your country');
+                return false;
             }
             return true;
         }
 
-        (function ($, doc, $$) {
-            function changeCookie(cookieValue,cookieName) {
+        (function($, doc, $$) {
+            function changeCookie(cookieValue, cookieName) {
                 if (cookieValue != null && cookieValue != "") {
-                    $$.cookie(cookieName, cookieValue, { expires: 1000 });
+                    $$.cookie(cookieName, cookieValue, {
+                        expires: 1000
+                    });
                 } else if ($$.cookie(cookieName) != undefined && $$.cookie(cookieName) != "") {
                     $$.removeCookie(cookieName);
                 }
             }
             $.init();
-            $.ready(function () {
+            $.ready(function() {
                 //普通示例
-                var userPicker = new $.PopPicker({ buttons: ['Cancel', 'OK'] });
+                var userPicker = new $.PopPicker({
+                    buttons: ['Cancel', 'OK']
+                });
                 userPicker.setData(Countries);
                 var showUserPickerButton = doc.getElementById('countryPicker');
                 //var userResult = doc.getElementById('userResult');
-                showUserPickerButton.addEventListener('tap', function (event) {
-                    userPicker.show(function (items) {
+                showUserPickerButton.addEventListener('tap', function(event) {
+                    userPicker.show(function(items) {
                         //userResult.innerText = JSON.stringify(items[0]);
                         $$('#countryPicker').html(items[0].text);
                         //$$('#countryPicker').attr("data-value", items[0].value);
@@ -208,13 +278,15 @@
                 if ($$.cookie('gs-mb-prodiqy-country') != undefined && $$.cookie('gs-mb-prodiqy-country') != "") {
                     userPicker.pickers[0].setSelectedValue($$.cookie('gs-mb-prodiqy-country'));
                     if (!!userPicker.getSelectedItems()[0])
-                    $$('#countryPicker').text(userPicker.getSelectedItems()[0].text);
+                        $$('#countryPicker').text(userPicker.getSelectedItems()[0].text);
                     $$("#hiddenValue").val($$.cookie('gs-mb-prodiqy-country'));
                 }
             });
 
-            hui.ready(function () { hui.formInit(); });
-            $$(function () {
+            hui.ready(function() {
+                hui.formInit();
+            });
+            $$(function() {
 
                 // if ($$.cookie('gs-mb-prodiqy-email') != undefined && $$.cookie('gs-mb-prodiqy-email') != "") {
                 //     $$("#email").val($$.cookie('gs-mb-prodiqy-email'));
@@ -225,34 +297,38 @@
 
                 // $$("#email").on("input propertychange", function() { changeCookie(this.value,"gs-mb-prodiqy-email") });
                 // $$("#name").on("input propertychange", function() { changeCookie(this.value,"gs-mb-prodiqy-uname") });
-               
+
             });
-           
+
         })(mui, document, jQuery);
     }
 
-    function addCookie(_userName,_userEmail,_nameCookie,_emailCookie){
-        if (_userEmail!=null && _userEmail!="") {
-            $.cookie(_emailCookie, _userEmail, { expires: 1000 });
+    function addCookie(_userName, _userEmail, _nameCookie, _emailCookie) {
+        if (_userEmail != null && _userEmail != "") {
+            $.cookie(_emailCookie, _userEmail, {
+                expires: 1000
+            });
         } else if ($.cookie(_emailCookie) != undefined && $.cookie(_emailCookie) != "") {
             $.removeCookie(_emailCookie);
         }
 
-        if(_userName != null && _userName != ""){
-            $.cookie(_nameCookie, _userName, { expires: 1000 });
-        }else if ($.cookie(_nameCookie) != undefined && $.cookie(_nameCookie) != "") {
+        if (_userName != null && _userName != "") {
+            $.cookie(_nameCookie, _userName, {
+                expires: 1000
+            });
+        } else if ($.cookie(_nameCookie) != undefined && $.cookie(_nameCookie) != "") {
             $.removeCookie(_nameCookie);
         }
     }
 
-    function sendMessage(){
-        var  Subject=$api.val($api.byId('subject'));
+    function sendMessage() {
+        var Subject = $api.val($api.byId('subject'));
 
-        var  Message=$api.val($api.byId('message'));
-        var  Email=$api.val($api.byId('email'));
-        var  userName=$api.val($api.byId('name'));
-        var  countryRefID=$api.val($api.byId('hiddenValue'));
-        if(Subject==''){
+        var Message = $api.val($api.byId('message'));
+        var Email = $api.val($api.byId('email'));
+        var userName = $api.val($api.byId('name'));
+        var countryRefID = $api.val($api.byId('hiddenValue'));
+        if (Subject == '') {
             api.toast({
                 msg: 'Please enter your message subject',
                 duration: 2000,
@@ -260,7 +336,7 @@
             });
             return;
         }
-        if (Message=="" || Message.length<20) {
+        if (Message == "" || Message.length < 20) {
             api.toast({
                 msg: 'Please enter your message(at least 20 characters)',
                 duration: 2000,
@@ -268,16 +344,16 @@
             });
             return;
         }
-        if(Email==""){
+        if (Email == "") {
             api.toast({
                 msg: 'Please enter your valid email address',
                 duration: 2000,
                 location: 'bottom'
             });
             return;
-        }else{
+        } else {
             var r_email = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
-            if(!r_email.test(Email.trim())){
+            if (!r_email.test(Email.trim())) {
                 api.toast({
                     msg: 'Please enter your valid email address',
                     duration: 2000,
@@ -286,7 +362,7 @@
                 return;
             }
         }
-        if (userName=="") {
+        if (userName == "") {
             api.toast({
                 msg: 'Please enter your Name',
                 duration: 2000,
@@ -294,7 +370,7 @@
             });
             return;
         }
-        if(countryRefID==-1){
+        if (countryRefID == -1) {
             api.toast({
                 msg: 'Please select country/region of your country',
                 duration: 2000,
@@ -311,17 +387,19 @@
                 "Content-Type": 'application/json; charset=utf-8',
             },
             data: {
-                body: "{ 'subject':'" + Subject + "','email':'" + Email + "','messageText':'"+Message+"','userName':'"+userName+"','productId':'"+productID+"','refId':'"+countryRefID+"'}"
+                body: "{ 'subject':'" + Subject + "','email':'" + Email + "','messageText':'" + Message + "','userName':'" + userName + "','productId':'" + productID + "','refId':'" + countryRefID + "'}"
             }
-        },function(ret, err){
+        }, function(ret, err) {
             if (ret) {
-                addCookie(userName,Email,'nameCookie','emailCookie');
+                BaiduMTJPage();
+                addCookie(userName, Email, 'nameCookie', 'emailCookie');
                 api.openWin({
                     name: 'contact_supplier_success',
                     url: './contact_supplier_success.html',
                 });
-                
+
             } else {
+                alert(JSON.stringify(err))
                 api.toast({
                     msg: 'Error',
                     duration: 4000,
@@ -329,11 +407,17 @@
                 });
             }
         });
-        
+
     }
 
-
-   
+    function BaiduMTJPage() {
+        var baiduMTJ = api.require('baiduMTJ');
+        baiduMTJ.onEvent({
+            eventid: 'contact_supplier',
+            label: productID + ''
+        });
+    }
 </script>
 <!-- <script type="text/javascript" src="../script/proiqr.js"></script> -->
+
 </html>

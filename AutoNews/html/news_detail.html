@@ -90,10 +90,7 @@
 
         articleId = api.pageParam.ArticleId;
         title = api.pageParam.Title;
-        logo = api.pageParam.Logo;
-        if (logo == 'undefined') {
-            logo = "http://c2.gasgoo.com/auto/images/weixin_share_default_logo.jpg";
-        }
+        logo = api.pageParam.Logo == '' ? "http://c2.gasgoo.com/auto/images/weixin_share_default_logo.jpg" : api.pageParam.Logo;
     }
 
     function openDetailFrame() {

@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
     <title>title</title>
-    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
     <style>
         /*body{
             background: #f2f2f2;
         }*/
-         .loading_more {
+
+        .loading_more {
             display: block;
             width: 100%;
             text-align: center;
@@ -35,135 +37,246 @@
         .red {
             color: #fe7a18;
         }
-        .list .title{ font-size:14px; padding:0.7em; display:block;}
-        .list .title b{ font-weight:normal; color:#c4020c;}
-        .list .title a{ float:right; background:url(../image/refine.png) no-repeat; background-size:1.2em; padding-left:30px; height:1.5em; color:#333;}
 
-        .product{ background:#fff; padding:0.7em; position:relative; overflow:hidden; margin-bottom:0.5em;display:-webkit-box; display:-webkit-flex; display:flex; -webkit-box-orient:horizontal;  -webkit-flex-flow:row; flex-flow:row;}
-        .product .picProduct{display:block;/* position:absolute;*/width:76px; height:92px;}
-        .product .productTu{width:3.75em; height:4.5em; border:1px solid #e0e0e0; 
-        display:table-cell;vertical-align:middle;text-align:center;*display:block;*font-size:87px;}
-        .product .productTu img{ width:100%; vertical-align:middle;}
-        .product .til{ -webkit-box-flex:1; -webkit-flex:1; flex:1; }
-        .product .til h2{ font-size:14px; }
-        .product .til h2 a{ color:#333;}
-        .product .til p{ font-size:14px; color:#b3373c; margin-top:0.3em; }
-        .product .til a.button{ border-radius:6px; color:#333; padding:9px 8px; font-size:14px; border:1px solid #E8E8E8; margin-top:0px;}
-        .product .til .medal{ background:url(../image/medal.png) no-repeat; padding-left:1.3em;}
-        .product .til .diamonds{ background:url(../image/member.gif) no-repeat 0em 0.2em; padding-left:1.3em;}
-        .product .til .nd,.product .til .rd,.product .til .st,.product .til .th{ width:2.2em; padding-right:4.4em;  height:2em; display:inline-block; padding-left:1.3em; font-size:0.8em; line-height:1.6em; text-align:center;}
-        .product .til .nd{ background:url(../image/nd.png) no-repeat; }
-        .product .til .rd{ background:url(../image/rd.png) no-repeat;}
-        .product .til .st{ background:url(../image/st.png) no-repeat;}
-        .product .til .th{ background:url(../image/th.png) no-repeat;}
-        .product .til .iconVer{ background:url(../image/member.gif) no-repeat 0em -70px; padding-left:1.3em;}
-        .product .til .iconVerifiedSupplier{ background:url(../image/member.gif) no-repeat 0em -281px; padding-left:1.3em;}
+        .list .title {
+            font-size: 14px;
+            padding: 0.7em;
+            display: block;
+        }
+
+        .list .title b {
+            font-weight: normal;
+            color: #c4020c;
+        }
+
+        .list .title a {
+            float: right;
+            background: url(../image/refine.png) no-repeat;
+            background-size: 1.2em;
+            padding-left: 30px;
+            height: 1.5em;
+            color: #333;
+        }
+
+        .product {
+            background: #fff;
+            padding: 0.7em;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 0.5em;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-orient: horizontal;
+            -webkit-flex-flow: row;
+            flex-flow: row;
+        }
+
+        .product .picProduct {
+            display: block;
+            /* position:absolute;*/
+            width: 76px;
+            height: 92px;
+        }
+
+        .product .productTu {
+            width: 3.75em;
+            height: 4.5em;
+            border: 1px solid #e0e0e0;
+            display: table-cell;
+            vertical-align: middle;
+            text-align: center;
+            *display: block;
+            *font-size: 87px;
+        }
+
+        .product .productTu img {
+            width: 100%;
+            vertical-align: middle;
+        }
+
+        .product .til {
+            -webkit-box-flex: 1;
+            -webkit-flex: 1;
+            flex: 1;
+        }
+
+        .product .til h2 {
+            font-size: 14px;
+        }
+
+        .product .til h2 a {
+            color: #333;
+        }
+
+        .product .til p {
+            font-size: 14px;
+            color: #b3373c;
+            margin-top: 0.3em;
+        }
+
+        .product .til a.button {
+            border-radius: 6px;
+            color: #333;
+            padding: 9px 8px;
+            font-size: 14px;
+            border: 1px solid #E8E8E8;
+            margin-top: 0px;
+        }
+
+        .product .til .medal {
+            background: url(../image/medal.png) no-repeat;
+            padding-left: 1.3em;
+        }
+
+        .product .til .diamonds {
+            background: url(../image/member.gif) no-repeat 0em 0.2em;
+            padding-left: 1.3em;
+        }
+
+        .product .til .nd,
+        .product .til .rd,
+        .product .til .st,
+        .product .til .th {
+            width: 2.2em;
+            padding-right: 4.4em;
+            height: 2em;
+            display: inline-block;
+            padding-left: 1.3em;
+            font-size: 0.8em;
+            line-height: 1.6em;
+            text-align: center;
+        }
+
+        .product .til .nd {
+            background: url(../image/nd.png) no-repeat;
+        }
+
+        .product .til .rd {
+            background: url(../image/rd.png) no-repeat;
+        }
+
+        .product .til .st {
+            background: url(../image/st.png) no-repeat;
+        }
+
+        .product .til .th {
+            background: url(../image/th.png) no-repeat;
+        }
+
+        .product .til .iconVer {
+            background: url(../image/member.gif) no-repeat 0em -70px;
+            padding-left: 1.3em;
+        }
+
+        .product .til .iconVerifiedSupplier {
+            background: url(../image/member.gif) no-repeat 0em -281px;
+            padding-left: 1.3em;
+        }
     </style>
 </head>
+
 <body>
     <!-- <div onclick="closeRefine()" id="Occlusion" style="position: fixed;height: 100%;width: 100%;display: none;z-index: 1100;"></div> -->
     <article class="list">
         <div class="title" id="Count" style="display: none;"></div>
         <div id="productList">
-            
+
         </div>
     </article>
 
-     <section class="loading_more" id="loadingMoreSection">
-        
+    <section class="loading_more" id="loadingMoreSection">
+
     </section>
 </body>
 <script type="text/template" id="productListTemplate">
-    {{~it:value:index}}
-    {{~it:value:index}}
+    {{~it:value:index}} {{~it:value:index}}
     <section class="product">
         <section class="picProduct">
-            <a onclick="openDetail({{=value.ProductID}},'{{=value.ProductName}}','{{=value.FilePath}}','{{=value.ShareUrl}}')" href="javascript:void(0);" class="productTu"><img onload="loadingImgCache(this)" onerror="onErrorHandle(this)" data-url="{{=value.FilePath}}" src="../image/error.png" alt=""/></a>
+            <a onclick="openDetail({{=value.ProductID}},'{{=value.ProductName}}','{{=value.FilePath}}','{{=value.ShareUrl}}')" href="javascript:void(0);" class="productTu"><img onload="loadingImgCache(this)" onerror="onErrorHandle(this)" data-url="{{=value.FilePath}}" src="../image/error.png" alt="" /></a>
         </section>
         <section class="til">
-            <h2><a onclick="openDetail({{=value.ProductID}},'{{=value.ProductName}}','{{=value.FilePath}}','{{=value.ShareUrl}}')" href="javascript:void(0);">{{=value.ProductNameFormat}}</a></h2>
-            {{=value.MemberTypeHtml}}
-            {{=value.VerifiedLevelHtml}}
+            <h2><a onclick="openDetail({{=value.ProductID}},'{{=value.ProductName}}','{{=value.FilePath}}','{{=value.ShareUrl}}')" href="javascript:void(0);">{{=value.ProductNameFormat}}</a></h2> {{=value.MemberTypeHtml}} {{=value.VerifiedLevelHtml}}
             <a onclick="conctactSupplier({{=value.ProductID}})" href="javascript:void(0);" class="button">Contact Supplier</a>
         </section>
     </section>
-    {{~}}
-    {{~}}
+    {{~}} {{~}}
 </script>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript" src="../script/doT.min.js"></script>
 <script type="text/javascript">
-    var keyword,page=0,refresh=true,isMore=true;
+    var keyword, page = 0,
+        refresh = true,
+        isMore = true;
     var headerH;
-    var application,productCategory,province;
-    var applicationID=0,
-        categoryID=0,
-        provinceID=0;
-    apiready = function(){
-        keyword=api.pageParam.keyword;
-        headerH=api.pageParam.headerH;
-        applicationID=api.pageParam.applicationID;
-        categoryID=api.pageParam.categoryID;
-        provinceID=api.pageParam.provinceID;
+    var application, productCategory, province;
+    var applicationID = 0,
+        categoryID = 0,
+        provinceID = 0;
+    apiready = function() {
+        keyword = api.pageParam.keyword;
+        headerH = api.pageParam.headerH;
+        applicationID = api.pageParam.applicationID;
+        categoryID = api.pageParam.categoryID;
+        provinceID = api.pageParam.provinceID;
         refreshPage();
         loadingMore();
         getList();
     };
 
-    function getList(){
-       if (refresh) {
-        api.showProgress({
-            style: 'default',
-            animationType: 'fade',
-            title: 'Loading...',
-            text: ' ',
-            modal: false
-        });
-       }
-       if(isMore){
-        api.ajax({
-            url: 'https://api.gasgoo.com/api/mbgasgoo/get_Search_Product_List/'+page+'/'+encodeURI(keyword)+'/'+applicationID+'/'+categoryID+'/'+provinceID,
-            method: 'get',
-            cache:true
-        },function(ret, err){
-            if (ret) {
-                var tempEn=doT.template($api.byId('productListTemplate').innerHTML);
-                if(page!=0){
-                    $api.append( $api.byId('productList'), tempEn(ret[0].ProductList));
-                }else{
-                    application=ret[0].AppWords;
-                    productCategory=ret[0].CategoryList;
-                    province=ret[0].ProvinceList;
-                    $api.html( $api.byId('productList'), tempEn(ret[0].ProductList));
+    function getList() {
+        if (refresh) {
+            api.showProgress({
+                style: 'default',
+                animationType: 'fade',
+                title: 'Loading...',
+                text: ' ',
+                modal: false
+            });
+        }
+        if (isMore) {
+            api.ajax({
+                url: 'https://api.gasgoo.com/api/mbgasgoo/get_Search_Product_List/' + page + '/' + encodeURI(keyword) + '/' + applicationID + '/' + categoryID + '/' + provinceID,
+                method: 'get',
+                cache: true
+            }, function(ret, err) {
+                if (ret) {
+                    var tempEn = doT.template($api.byId('productListTemplate').innerHTML);
+                    if (page != 0) {
+                        $api.append($api.byId('productList'), tempEn(ret[0].ProductList));
+                    } else {
+                        application = ret[0].AppWords;
+                        productCategory = ret[0].CategoryList;
+                        province = ret[0].ProvinceList;
+                        $api.html($api.byId('productList'), tempEn(ret[0].ProductList));
 
-                    $api.html($api.byId('Count'), '<b id="Count">'+ret[0].ProductList[0].totalCount+'</b>  '+keyword+' Products');
-                    $api.css($api.byId('Count'), 'display:block;');
-                    $api.css($api.dom('body'), 'background: #f2f2f2;');
-                    var loadingHtml="<div><i id='loadImg'></i>";
-                    loadingHtml+="<span id='pushStatus'>loading...</span></div>";
-                    $api.append($api.byId('loadingMoreSection'), loadingHtml);
+                        $api.html($api.byId('Count'), '<b id="Count">' + ret[0].ProductList[0].totalCount + '</b>  ' + keyword + ' Products');
+                        $api.css($api.byId('Count'), 'display:block;');
+                        $api.css($api.dom('body'), 'background: #f2f2f2;');
+                        var loadingHtml = "<div><i id='loadImg'></i>";
+                        loadingHtml += "<span id='pushStatus'>loading...</span></div>";
+                        $api.append($api.byId('loadingMoreSection'), loadingHtml);
+                    }
+                    refresh = false;
+                    if (ret[0].ProductList.length < 16) {
+                        //无更多数据
+                        var status = $api.byId('pushStatus');
+                        status.innerHTML = "No more";
+                        $api.css($api.byId('loadImg'), 'display:none');
+                        isMore = false;
+                    }
+                    api.hideProgress();
+                    api.refreshHeaderLoadDone();
+                    api.parseTapmode();
+                } else {
+                    api.toast({
+                        msg: 'ErrorError',
+                        duration: 2000,
+                        location: 'bottom'
+                    });
                 }
-                page++;
-                refresh=false;
-                if(ret[0].ProductList.length<16){
-                    //无更多数据
-                    var status = $api.byId('pushStatus');
-                    status.innerHTML = "No more";
-                    $api.css($api.byId('loadImg'), 'display:none');
-                    isMore=false;
-                }
-                api.hideProgress();
-                api.refreshHeaderLoadDone();
-                api.parseTapmode();
-            } else {
-                api.toast({
-                    msg: 'ErrorError',
-                    duration: 2000,
-                    location: 'bottom'
-                });
-            }
-        });
-       }
+            });
+        }
     }
 
     function refreshPage() {
@@ -180,7 +293,7 @@
         }, function(ret, err) {
             page = 0;
             isMore = true;
-            $api.html($api.byId('loadingMoreSection'),"");
+            $api.html($api.byId('loadingMoreSection'), "");
             getList();
         });
     }
@@ -194,11 +307,14 @@
                 threshold: 300 //设置距离底部多少距离时触发
             }
         }, function(ret, err) {
-            getList();
+            setTimeout(function() {
+                page++;
+                getList();
+            }, 500)
         });
     }
 
-     // 缓存图片
+    // 缓存图片
     function loadingImgCache(_this) {
         var data_url = $api.attr(_this, 'data-url');
         if (data_url) {
@@ -221,23 +337,23 @@
     }
 
     // 跳转详情页
-    function openDetail(productID,productName,productImage,ShareUrl) {
+    function openDetail(productID, productName, productImage, ShareUrl) {
         api.openWin({
-            name: 'productdetail_'+productID,
+            name: 'productdetail_' + productID,
             url: './product_detail.html',
             pageParam: {
                 productID: productID,
-                title:productName,
-                logo:productImage,
-                ShareUrl:ShareUrl
+                title: productName,
+                logo: productImage,
+                ShareUrl: ShareUrl
             },
-            animation:{
+            animation: {
                 type: "fade"
             }
         });
     }
 
-    function openRefine(){
+    function openRefine() {
         $api.css($api.byId('Occlusion'), 'display:block;');
         api.openFrame({
             name: 'refine',
@@ -245,34 +361,34 @@
             rect: {
                 x: 40,
                 y: headerH,
-                w: api.winWidth-40,
-                h: api.winHeight-headerH
+                w: api.winWidth - 40,
+                h: api.winHeight - headerH
             },
             animation: {
-                    type: "movein",
-                    subType: "from_right",
-                    duration: 200
+                type: "movein",
+                subType: "from_right",
+                duration: 200
             },
             pageParam: {
-                headerH:headerH,
-                keyword:keyword,
-                application:application,
-                productCategory:productCategory,
-                province:province
+                headerH: headerH,
+                keyword: keyword,
+                application: application,
+                productCategory: productCategory,
+                province: province
             },
             bounces: true,
         });
     }
 
 
-    function closeRefine(){
+    function closeRefine() {
         $api.css($api.byId('Occlusion'), 'display:none;');
         api.closeFrame({
             name: 'refine'
         });
     }
-    
-    function conctactSupplier(productID){
+
+    function conctactSupplier(productID) {
         api.openWin({
             name: 'conctactSupplier',
             url: './contact_supplier.html',
@@ -281,6 +397,6 @@
             }
         });
     }
-
 </script>
+
 </html>

@@ -263,14 +263,29 @@
 
 <script>
     var headerH,
-        winHeight,
-        apiready = function() {
-            api.lockSlidPane();
-            showBannerImage();
+        winHeight;
 
-            refreshPage();
-            api.parseTapmode();
-        };
+    apiready = function() {
+        api.lockSlidPane();
+        showBannerImage();
+
+        refreshPage();
+        api.parseTapmode();
+
+        BaiduMTJPage();
+    };
+
+    function BaiduMTJPage() {
+        var baiduMTJ = api.require('baiduMTJ');
+        baiduMTJ.onPageStart({
+            pagename: 'b2b'
+        });
+        setTimeout(function() {
+            baiduMTJ.onPageEnd({
+                pagename: 'b2b'
+            });
+        }, 100)
+    }
 
     function showBannerImage() {
         api.ajax({
