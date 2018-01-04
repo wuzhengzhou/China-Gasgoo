@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
     <title>title</title>
-    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
     <style>
-         /*body{
+        /*body{
             background-color: #fff;
          }*/
 
@@ -35,6 +36,7 @@
         }
     </style>
 </head>
+
 <body>
     <header class="header" id="header">
         <div class="refh" tapmode="hover" onclick="closeWin()"></div>
@@ -43,50 +45,48 @@
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript">
-	var headerH,winHeight;
-    apiready = function(){
-    	Init();
+    var headerH, winHeight;
+    apiready = function() {
+        Init();
         openFrame();
     };
 
 
-	function Init(){
-		    var header = $api.byId('header');
-	        headerH = $api.offset(header).h;
-	        winHeight = api.winHeight;
-	        var systemType = api.systemType;
+    function Init() {
+        var header = $api.byId('header');
+        headerH = $api.offset(header).h;
+        winHeight = api.winHeight;
+        var systemType = api.systemType;
 
-	        $api.fixStatusBar(header);
-	        if (systemType == "ios") {
-	            headerH += 20;
-	        } else {
-	            headerH += 26;
-	        }
-	}
+        $api.fixStatusBar(header);
+        if (systemType == "ios") {
+            headerH += 20;
+        } else {
+            headerH += 26;
+        }
+    }
 
-	function openFrame(){
-		api.openFrame({
-		    name: 'firstCategory_frame',
-		    url: './firstCategory_frame.html',
-		    rect: {
-		        x: 0,
-		        y: headerH,
-		        w: 'auto',
-		        h: winHeight-headerH
-		    },
-		    bounces: true,
-		    // bgColor: 'rgba(0,0,0,0)',
-		    // vScrollBarEnabled: true,
-		    // hScrollBarEnabled: true
-		});
-	}
-
-
-	function closeWin() {
-        api.closeWin();
+    function openFrame() {
+        api.openFrame({
+            name: 'firstCategory_frame',
+            url: './firstCategory_frame.html',
+            rect: {
+                x: 0,
+                y: headerH,
+                w: 'auto',
+                h: winHeight - headerH
+            },
+            bounces: true,
+            // bgColor: 'rgba(0,0,0,0)',
+            // vScrollBarEnabled: true,
+            // hScrollBarEnabled: true
+        });
     }
 
 
-
+    function closeWin() {
+        api.closeWin();
+    }
 </script>
+
 </html>

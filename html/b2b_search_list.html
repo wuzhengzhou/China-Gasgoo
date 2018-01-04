@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
     <title>title</title>
-    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
     <style>
-     .header {
+        .header {
             position: relative;
             width: 100%;
             height: 44px;
@@ -31,6 +32,7 @@
         }
     </style>
 </head>
+
 <body>
     <header class="header" id="header">
         <div class="refh" tapmode="hover" onclick="closeWin()"></div>
@@ -39,34 +41,34 @@
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript">
-    var headerH, winHeight,keyword;
-    var  applicationID=0,
-         categoryID=0,
-         provinceID=0;
-    apiready = function(){
-        keyword=api.pageParam.keyword;
-        applicationID=api.pageParam.applicationID;
-        categoryID=api.pageParam.categoryID;
-        provinceID=api.pageParam.provinceID;
+    var headerH, winHeight, keyword;
+    var applicationID = 0,
+        categoryID = 0,
+        provinceID = 0;
+    apiready = function() {
+        keyword = api.pageParam.keyword;
+        applicationID = api.pageParam.applicationID;
+        categoryID = api.pageParam.categoryID;
+        provinceID = api.pageParam.provinceID;
         Init();
-        openFrame(keyword,applicationID,categoryID,provinceID);
+        openFrame(keyword, applicationID, categoryID, provinceID);
     };
 
-    function Init(){
-         var header = $api.byId('header');
-            headerH = $api.offset(header).h;
-            winHeight = api.winHeight;
-            var systemType = api.systemType;
+    function Init() {
+        var header = $api.byId('header');
+        headerH = $api.offset(header).h;
+        winHeight = api.winHeight;
+        var systemType = api.systemType;
 
-            $api.fixStatusBar(header);
-            if (systemType == "ios") {
-                headerH += 20;
-            } else {
-                headerH += 26;
-            }
+        $api.fixStatusBar(header);
+        if (systemType == "ios") {
+            headerH += 20;
+        } else {
+            headerH += 26;
+        }
     }
 
-    function openFrame(keyword,applicationID,categoryID,provinceID){
+    function openFrame(keyword, applicationID, categoryID, provinceID) {
         api.openFrame({
             name: 'search_list_frame',
             url: './b2b_search_list_frame.html',
@@ -74,22 +76,22 @@
                 x: 0,
                 y: headerH,
                 w: 'auto',
-                h: winHeight-headerH
+                h: winHeight - headerH
             },
             pageParam: {
                 keyword: keyword,
                 headerH: headerH,
-                applicationID:applicationID,
-                categoryID:categoryID,
-                provinceID:provinceID,
+                applicationID: applicationID,
+                categoryID: categoryID,
+                provinceID: provinceID,
             },
             bounces: true,
         });
     }
 
-    function closeWin(){
+    function closeWin() {
         api.closeWin();
     }
-
 </script>
+
 </html>

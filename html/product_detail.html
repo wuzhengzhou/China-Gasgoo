@@ -53,7 +53,7 @@
     </header>
     <footer id="footer">
         <div class="but" id="contactsupplier">
-            
+
         </div>
     </footer>
 </body>
@@ -66,10 +66,8 @@
         productID=api.pageParam.productID;
         Init();
         title=api.pageParam.title;
-        logo=api.pageParam.logo;
-        if (logo == 'undefined') {
-            logo = "http://c2.gasgoo.com/auto/images/weixin_share_default_logo.jpg";
-        }
+        logo = api.pageParam.logo == '' ? "http://c2.gasgoo.com/auto/images/weixin_share_default_logo.jpg" : api.pageParam.logo;
+        
         ShareUrl=api.pageParam.ShareUrl;
         openFrame(productID);
     };

@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
     <title>title</title>
-    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
     <style>
         body {
             background-color: #eeeeee;
@@ -16,7 +17,7 @@
             height: 44px;
             background-color: #fefdfd;
             text-align: center;
-            border-bottom:1px solid #eee
+            border-bottom: 1px solid #eee
         }
 
         .header .refh {
@@ -44,6 +45,7 @@
             font-weight: bold;
             line-height: 44px;
         }
+
         .header .textp {
             position: absolute;
             bottom: 0;
@@ -56,91 +58,145 @@
             font-size: 16px;
             color: #333333;
         }
-		.qbox{ background:#fff;}
-		.qbox dl{display: -webkit-box; padding:10px; border-bottom:1px solid #eee; font-size:14px;}
-		.qbox dl dt{ width:100px; line-height:20px;}
-		.qbox dl dd{ width:100%;  -webkit-box-flex: 1; }
-		.qbox dl dd input{ padding-left: 5%;padding-right: 5%; border-radius:2px; display:block; height:40px; border:1px solid #ddd; width:90%;}
-		.textarea{ height:100px; margin-bottom:5px;border-radius:2px; display:block;border:1px solid #ddd; width:90%;padding:5%;}
-		.qbox dl dt span{ color:#ff0000;}
-		.qbox dl dd span{ color:#999;}
-		.qbox dl.mess dd input{ height:100px; margin-bottom:5px;}
+
+        .qbox {
+            background: #fff;
+        }
+
+        .qbox dl {
+            display: -webkit-box;
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+            font-size: 14px;
+        }
+
+        .qbox dl dt {
+            width: 100px;
+            line-height: 20px;
+        }
+
+        .qbox dl dd {
+            width: 100%;
+            -webkit-box-flex: 1;
+        }
+
+        .qbox dl dd input {
+            padding-left: 5%;
+            padding-right: 5%;
+            border-radius: 2px;
+            display: block;
+            height: 40px;
+            border: 1px solid #ddd;
+            width: 90%;
+        }
+
+        .textarea {
+            height: 100px;
+            margin-bottom: 5px;
+            border-radius: 2px;
+            display: block;
+            border: 1px solid #ddd;
+            width: 90%;
+            padding: 5%;
+        }
+
+        .qbox dl dt span {
+            color: #ff0000;
+        }
+
+        .qbox dl dd span {
+            color: #999;
+        }
+
+        .qbox dl.mess dd input {
+            height: 100px;
+            margin-bottom: 5px;
+        }
     </style>
 </head>
+
 <body>
     <header id="header" class="header">
-    	<div class="refh" tapmode="hover" onclick="closeWin()"></div>
+        <div class="refh" tapmode="hover" onclick="closeWin()"></div>
         <div class="title">Verified Supplier</div>
         <div class="textp" tapmode="hover" onclick="submit()"><a>Send</a></div>
     </header>
     <section class="qbox">
-		<dl><dt><span>*</span>Name:</dt><dd><input type="text" id="userName" /></dd></dl>
-		<dl><dt><span>*</span>Company Name:</dt><dd><input type="text" id="companyName" /></dd></dl>
-		<dl><dt><span>*</span>Moblie Phone:</dt><dd><input type="text" id="mobliePhone" /></dd></dl>
-		<dl><dt><span>*</span>Email:</dt><dd><input type="text" id="userEmail" /></dd></dl>
-		<dl class="mess">
-			<dt>
+        <dl><dt><span>*</span>Name:</dt>
+            <dd><input type="text" id="userName" /></dd>
+        </dl>
+        <dl><dt><span>*</span>Company Name:</dt>
+            <dd><input type="text" id="companyName" /></dd>
+        </dl>
+        <dl><dt><span>*</span>Moblie Phone:</dt>
+            <dd><input type="text" id="mobliePhone" /></dd>
+        </dl>
+        <dl><dt><span>*</span>Email:</dt>
+            <dd><input type="text" id="userEmail" /></dd>
+        </dl>
+        <dl class="mess">
+            <dt>
 				<span>*</span>Message:
 			</dt>
-			<dd>
-				<textarea class="textarea" id="userMessage" rows="5" maxlength="3000"></textarea>
+            <dd>
+                <textarea class="textarea" id="userMessage" rows="5" maxlength="3000"></textarea>
                 <span>20 characters at least. </span>
-			</dd>
-		</dl>
+            </dd>
+        </dl>
     </section>
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript">
-    apiready = function(){
+    apiready = function() {
         $api.fixStatusBar($api.byId('header'));
         $api.css($api.dom('body'), 'height:' + (api.winHeight) + 'px;');
     };
 
-    function closeWin(){
-    	api.closeWin();
+    function closeWin() {
+        api.closeWin();
     }
 
 
-    function submit(){
-    	var userName=$api.val($api.byId('userName'));
-    	var companyName=$api.val($api.byId('companyName'));
-    	var mobliePhone=$api.val($api.byId('mobliePhone'));
-    	var userEmail=$api.val($api.byId('userEmail'));
-    	var userMessage=$api.val($api.byId('userMessage'));
-    	if(userName==""){
-    		api.toast({
-    		    msg: 'Please enter your name',
-    		    duration: 2000,
-    		    location: 'middle'
-    		});
-    		return;
-    	}
-    	if (companyName=="") {
-    		api.toast({
-    		    msg: 'Please enter your companyname',
-    		    duration: 2000,
-    		    location: 'middle'
-    		});
-    		return;
-    	}
-    	if (mobliePhone=="") {
-    		api.toast({
-    		    msg: 'Please enter your phone number',
-    		    duration: 2000,
-    		    location: 'middle'
-    		});
-    		return;
-    	}
-    	if (userEmail=="") {
-    		api.toast({
-    		    msg: 'Please enter your valid email address',
-    		    duration: 2000,
-    		    location: 'middle'
-    		});
-    		return;
-    	}else{
-    		var r_email = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
-            if(!r_email.test(userEmail.trim())){
+    function submit() {
+        var userName = $api.val($api.byId('userName'));
+        var companyName = $api.val($api.byId('companyName'));
+        var mobliePhone = $api.val($api.byId('mobliePhone'));
+        var userEmail = $api.val($api.byId('userEmail'));
+        var userMessage = $api.val($api.byId('userMessage'));
+        if (userName == "") {
+            api.toast({
+                msg: 'Please enter your name',
+                duration: 2000,
+                location: 'middle'
+            });
+            return;
+        }
+        if (companyName == "") {
+            api.toast({
+                msg: 'Please enter your companyname',
+                duration: 2000,
+                location: 'middle'
+            });
+            return;
+        }
+        if (mobliePhone == "") {
+            api.toast({
+                msg: 'Please enter your phone number',
+                duration: 2000,
+                location: 'middle'
+            });
+            return;
+        }
+        if (userEmail == "") {
+            api.toast({
+                msg: 'Please enter your valid email address',
+                duration: 2000,
+                location: 'middle'
+            });
+            return;
+        } else {
+            var r_email = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
+            if (!r_email.test(userEmail.trim())) {
                 api.toast({
                     msg: 'Please enter your valid email address',
                     duration: 2000,
@@ -148,48 +204,49 @@
                 });
                 return;
             }
-    	}
-    	if (userMessage=="" || userMessage.length<20) {
-    		api.toast({
-    		    msg: 'Please enter your message(at least 20 characters)',
-    		    duration: 2000,
-    		    location: 'middle'
-    		});
-    		return;
-    	}
-    	api.ajax({
-    	    url: 'https://api.gasgoo.com/api/mbgasgoo/Suppliers_Recruit',
-    	    method: 'post',
-    	    dataType: 'text',
+        }
+        if (userMessage == "" || userMessage.length < 20) {
+            api.toast({
+                msg: 'Please enter your message(at least 20 characters)',
+                duration: 2000,
+                location: 'middle'
+            });
+            return;
+        }
+        api.ajax({
+            url: 'https://api.gasgoo.com/api/mbgasgoo/Suppliers_Recruit',
+            method: 'post',
+            dataType: 'text',
             headers: {
                 "Content-Type": 'application/json; charset=utf-8',
             },
             data: {
-                body: "{ 'userName':'" + userName + "','companyName':'" + companyName + "','mobilePhone':'"+mobliePhone+"','userEmail':'"+userEmail+"','userMessage':'"+userMessage+"'}"
+                body: "{ 'userName':'" + userName + "','companyName':'" + companyName + "','mobilePhone':'" + mobliePhone + "','userEmail':'" + userEmail + "','userMessage':'" + userMessage + "'}"
             }
-    	},function(ret, err){
-    	    if (ret) {
-    	    	api.toast({
+        }, function(ret, err) {
+            if (ret) {
+                api.toast({
                     msg: 'The submission is successful. Gasgoo will contact you within 24 hours',
                     location: 'middle',
-                    duration:  8000
+                    duration: 8000
                 });
-    	        setTimeout(function() {
-    	        	$api.val($api.byId('userName'),"");
-	    			$api.val($api.byId('companyName'),"");
-	    			$api.val($api.byId('mobliePhone'),"");
-	    			$api.val($api.byId('userEmail'),"");
-	    			$api.val($api.byId('userMessage'),"");
+                setTimeout(function() {
+                    $api.val($api.byId('userName'), "");
+                    $api.val($api.byId('companyName'), "");
+                    $api.val($api.byId('mobliePhone'), "");
+                    $api.val($api.byId('userEmail'), "");
+                    $api.val($api.byId('userMessage'), "");
                     closeWin();
                 }, 1000);
-    	    }else {
-    	        api.toast({
-    	            msg: 'Error',
-    	            duration: 2000,
-    	            location: 'bottom'
-    	        });
-    	    }
-    	});
+            } else {
+                api.toast({
+                    msg: 'Error',
+                    duration: 2000,
+                    location: 'bottom'
+                });
+            }
+        });
     }
 </script>
+
 </html>

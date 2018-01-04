@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
 
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
@@ -213,6 +212,8 @@
                 // 绑定数据
                 $api.html($api.dom('.footerNav ul'), tmp_NavList(ret.data));
                 $api.addCls($api.dom('.footerNav ul li:nth-child(1) a'), 'active');
+                var color = ret.data[0].SelectedColor;
+                $api.css($api.dom('.footerNav ul li:nth-child(1) a'), 'color:' + color + '');
                 api.parseTapmode();
             }
         });
@@ -293,6 +294,10 @@
                     h: winHeight - headerH - footerH
                 },
             });
+            api.execScript({
+                frameName: 'news',
+                script: 'BaiduMTJPage();'
+            });
             api.unlockSlidPane();
         } else if (index == 1) {
             $api.removeCls($api.dom('.b2b'), 'hide');
@@ -305,6 +310,10 @@
                     w: 'auto',
                     h: winHeight - headerH - footerH
                 },
+            });
+            api.execScript({
+                frameName: 'b2b',
+                script: 'BaiduMTJPage();'
             });
             api.lockSlidPane();
         } else {

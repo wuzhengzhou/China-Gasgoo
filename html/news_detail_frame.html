@@ -78,6 +78,8 @@
 <script>
     apiready = function() {
         getArticle();
+
+        BaiduMTJPage();
     }
 
     function getArticle() {
@@ -108,6 +110,24 @@
             // 关闭加载
             api.hideProgress();
         });
+    }
+
+    function BaiduMTJPage() {
+        var baiduMTJ = api.require('baiduMTJ');
+        var articleId = api.pageParam.ArticleId + '';
+        baiduMTJ.onEvent({
+            eventid: 'news_detail',
+            label: articleId
+        });
+
+        baiduMTJ.onPageStart({
+            pagename: 'news_detail'
+        });
+        setTimeout(function() {
+            baiduMTJ.onPageEnd({
+                pagename: 'news_detail'
+            });
+        }, 100)
     }
 </script>
 

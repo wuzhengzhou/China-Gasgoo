@@ -1,50 +1,53 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
     <title>title</title>
-    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
     <style>
+
     </style>
 </head>
+
 <body>
-	<div style="margin-left: 10px;">
-    <div  onclick="showOrhideData('application')">Application</div>
-    <div>
-    	<ul id="application" style="display: none;margin-left: 15px;">
-    		
-    	</ul>
-    </div>
-    <div onclick="showOrhideData('category')">Product Category</div>
-    <div>
-    	<ul id="category" style="display: none;margin-left: 15px;">
-    		
-    	</ul>
-    </div>
-    <div onclick="showOrhideData('province')">Province</div>
-    <div>
-    	<ul id="province" style="display: none;margin-left: 15px;">
-    		
-    	</ul>
-    </div>
-    <div><input type="button" value="Confirm" style="background-color: red;" onclick="Confirm()"></div>
+    <div style="margin-left: 10px;">
+        <div onclick="showOrhideData('application')">Application</div>
+        <div>
+            <ul id="application" style="display: none;margin-left: 15px;">
+
+            </ul>
+        </div>
+        <div onclick="showOrhideData('category')">Product Category</div>
+        <div>
+            <ul id="category" style="display: none;margin-left: 15px;">
+
+            </ul>
+        </div>
+        <div onclick="showOrhideData('province')">Province</div>
+        <div>
+            <ul id="province" style="display: none;margin-left: 15px;">
+
+            </ul>
+        </div>
+        <div><input type="button" value="Confirm" style="background-color: red;" onclick="Confirm()"></div>
     </div>
 </body>
 <script type="text/template" id="tem_application">
-	{{~it:value:index}}
-	<li class="application" onclick="selectValue(this,'application')" data-application="{{=value.AppID}}"><a >{{=value.AppWord_}}({{=value.ProdCount}})</a></li>
-	{{~}}
+    {{~it:value:index}}
+    <li class="application" onclick="selectValue(this,'application')" data-application="{{=value.AppID}}"><a>{{=value.AppWord_}}({{=value.ProdCount}})</a></li>
+    {{~}}
 </script>
 <script type="text/template" id="tem_category">
-	{{~it:value:index}}
-	<li onclick="selectValue(this,'category')" data-category="{{=value.CategoryID}}"><a>{{=value.Title}}({{=value.Count}})</a></li>
-	{{~}}
+    {{~it:value:index}}
+    <li onclick="selectValue(this,'category')" data-category="{{=value.CategoryID}}"><a>{{=value.Title}}({{=value.Count}})</a></li>
+    {{~}}
 </script>
 <script type="text/template" id="tem_province">
-	{{~it:value:index}}
-	<li onclick="selectValue(this,'province')" data-province="{{=value.ProvinceID}}"><a>{{=value.Province}}({{=value.Count}})</a></li>
-	{{~}}
+    {{~it:value:index}}
+    <li onclick="selectValue(this,'province')" data-province="{{=value.ProvinceID}}"><a>{{=value.Province}}({{=value.Count}})</a></li>
+    {{~}}
 </script>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript" src="../script/doT.min.js"></script>
@@ -54,194 +57,198 @@
 
 
 <script type="text/javascript">
-	var keyword;
-	var application,productCategory,province;
-	var applicationID=0,categoryID=0,provinceID=0;
-	var headerH;
-    apiready = function(){
-        keyword=api.pageParam.keyword;
-        application=api.pageParam.application;
-        productCategory=api.pageParam.productCategory;
-        province=api.pageParam.province;
-        headerH=api.pageParam.headerH;
+    var keyword;
+    var application, productCategory, province;
+    var applicationID = 0,
+        categoryID = 0,
+        provinceID = 0;
+    var headerH;
+    apiready = function() {
+        keyword = api.pageParam.keyword;
+        application = api.pageParam.application;
+        productCategory = api.pageParam.productCategory;
+        province = api.pageParam.province;
+        headerH = api.pageParam.headerH;
         showRefineData();
         Init();
     };
 
-    function showRefineData(){
-    	//获取模板
-	    var tem_application=doT.template($api.byId('tem_application').innerHTML);
-	    var tem_category=doT.template($api.byId('tem_category').innerHTML);
-	    var tem_province=doT.template($api.byId('tem_province').innerHTML);
+    function showRefineData() {
+        //获取模板
+        var tem_application = doT.template($api.byId('tem_application').innerHTML);
+        var tem_category = doT.template($api.byId('tem_category').innerHTML);
+        var tem_province = doT.template($api.byId('tem_province').innerHTML);
         //填充数据
-        $api.html($api.byId('application'),tem_application(application));
+        $api.html($api.byId('application'), tem_application(application));
         $api.html($api.byId('category'), tem_category(productCategory));
         $api.html($api.byId('province'), tem_province(province));
         api.parseTapmode();
     }
 
 
-    function showOrhideData(id){
-      //隐藏则显示  显示则隐藏	
-      if($("#"+id).css('display')=="none"){
-      	$api.css($api.byId(id), 'display:block;');
-      }else{
-      	$api.css($api.byId(id), 'display:none;');
-      }
+    function showOrhideData(id) {
+        //隐藏则显示  显示则隐藏
+        if ($("#" + id).css('display') == "none") {
+            $api.css($api.byId(id), 'display:block;');
+        } else {
+            $api.css($api.byId(id), 'display:none;');
+        }
     }
 
 
-    function selectValue(_this,_id){
-    	// var value=$api.attr(_this, 'data-'+_name);
-    	// if (_name=='application') {
-    	// 	//获取车型编号
-    	// 	applicationID=value;
-    	// 	alert(applicationID);
-    	// }else if (_name=='category') {
-    	// 	//获取类目编号
-    	// 	categoryID=value
-    	// 	alert(categoryID);
-    	// }else{
-    	// 	//获取省份编号
-    	// 	provinceID=value;
-    	// 	alert(provinceID)
-    	// }
+    function selectValue(_this, _id) {
+        // var value=$api.attr(_this, 'data-'+_name);
+        // if (_name=='application') {
+        // 	//获取车型编号
+        // 	applicationID=value;
+        // 	alert(applicationID);
+        // }else if (_name=='category') {
+        // 	//获取类目编号
+        // 	categoryID=value
+        // 	alert(categoryID);
+        // }else{
+        // 	//获取省份编号
+        // 	provinceID=value;
+        // 	alert(provinceID)
+        // }
 
-    	var list=$('#'+_id).find('li');
-    	for (var i = 0; i < list.length; i++) {
-    		if (_this==list[i]) {
-    		  //$api.css(_this, 'display:block;');
-    		  if($(_this).has('span').length<=0){
-    		  	$(_this).children('a').append("<span style='color:red'>*</span>");
-    		  	if (_id=='application') {
-    		  		applicationID=$api.attr(_this, 'data-'+_id);
-    		  	}else if (_id=='category') {
-    		  		categoryID=$api.attr(_this, 'data-'+_id);
-    		  	}else{
-    		  		provinceID=$api.attr(_this, 'data-'+_id);
-    		  	}
-    		  	for (var j = 0; j < list.length; j++) {
-	    		  	if ($(list[j]).has('span').length<=0) {
-	    		  		$api.css(list[j], 'display:none;');
-	    		  	}
-    		    }
-    		  }else{
+        var list = $('#' + _id).find('li');
+        for (var i = 0; i < list.length; i++) {
+            if (_this == list[i]) {
+                //$api.css(_this, 'display:block;');
+                if ($(_this).has('span').length <= 0) {
+                    $(_this).children('a').append("<span style='color:red'>*</span>");
+                    if (_id == 'application') {
+                        applicationID = $api.attr(_this, 'data-' + _id);
+                    } else if (_id == 'category') {
+                        categoryID = $api.attr(_this, 'data-' + _id);
+                    } else {
+                        provinceID = $api.attr(_this, 'data-' + _id);
+                    }
+                    for (var j = 0; j < list.length; j++) {
+                        if ($(list[j]).has('span').length <= 0) {
+                            $api.css(list[j], 'display:none;');
+                        }
+                    }
+                } else {
 
-    		  	$(list[i]).find('span').remove();
-    		  	if (_id=='application') {
-    		  		applicationID=0;
-    		  	}else if (_id=='category') {
-    		  		categoryID=0;
-    		  	}else{
-    		  		provinceID=0;
-    		  	}
-    		  	for (var j = 0; j < list.length; j++) {
-	    		  	$api.css(list[j], 'display:block;');
-    		    }
-    		  }
-    		}
-    	}
+                    $(list[i]).find('span').remove();
+                    if (_id == 'application') {
+                        applicationID = 0;
+                    } else if (_id == 'category') {
+                        categoryID = 0;
+                    } else {
+                        provinceID = 0;
+                    }
+                    for (var j = 0; j < list.length; j++) {
+                        $api.css(list[j], 'display:block;');
+                    }
+                }
+            }
+        }
     }
 
 
-    function Confirm(){
-    	setCookie(applicationID,'application');
-    	setCookie(categoryID,'category');
-    	setCookie(provinceID,'province');
-    	//关闭之前的列表页
-    	api.closeFrame({
-    	    name: 'search_productList_'+keyword
-    	});
-    	api.openFrame({
-    	    name: 'search_productList_'+keyword,
-    	    url: './b2b_search_list_frame.html',
-    	    rect: {
-    	        x: 0,
-    	        y: headerH,
-    	        w: 'auto',
-    	        h: api.winHeight-headerH
-    	    },
+    function Confirm() {
+        setCookie(applicationID, 'application');
+        setCookie(categoryID, 'category');
+        setCookie(provinceID, 'province');
+        //关闭之前的列表页
+        api.closeFrame({
+            name: 'search_productList_' + keyword
+        });
+        api.openFrame({
+            name: 'search_productList_' + keyword,
+            url: './b2b_search_list_frame.html',
+            rect: {
+                x: 0,
+                y: headerH,
+                w: 'auto',
+                h: api.winHeight - headerH
+            },
 
-    	    pageParam: {
-    	    	headerH:headerH,
-    	        keyword:keyword,
-    	        applicationID:applicationID,
-    	        categoryID:categoryID,
-    	        provinceID:provinceID
-    	    },
-    	    bounces: true,
-    	});
-    	//关闭refine页面
-    	api.closeFrame({
-    	    name: 'refine'
-    	});
-    	
+            pageParam: {
+                headerH: headerH,
+                keyword: keyword,
+                applicationID: applicationID,
+                categoryID: categoryID,
+                provinceID: provinceID
+            },
+            bounces: true,
+        });
+        //关闭refine页面
+        api.closeFrame({
+            name: 'refine'
+        });
+
     }
 
 
-    function setCookie(_value,_name){
-    	if (_value != null && _value != "") {
-            $.cookie(_name, _value, { expires: 1000 });
+    function setCookie(_value, _name) {
+        if (_value != null && _value != "") {
+            $.cookie(_name, _value, {
+                expires: 1000
+            });
         } else if ($.cookie(_name) != undefined && $.cookie(_name) != "") {
             $.removeCookie(_name);
         }
     }
 
 
-    function Init(){
-    	if($.cookie('application')!=undefined && $.cookie('application')!=""){
-    		applicationID=$.cookie('application');
-    	}
-    	if($.cookie('category')!=undefined && $.cookie('category')!=""){
-    		categoryID=$.cookie('category');
-    	}
-    	if($.cookie('province')!=undefined && $.cookie('province')!=""){
-    		provinceID=$.cookie('province');
-    	}
+    function Init() {
+        if ($.cookie('application') != undefined && $.cookie('application') != "") {
+            applicationID = $.cookie('application');
+        }
+        if ($.cookie('category') != undefined && $.cookie('category') != "") {
+            categoryID = $.cookie('category');
+        }
+        if ($.cookie('province') != undefined && $.cookie('province') != "") {
+            provinceID = $.cookie('province');
+        }
 
-    	if(applicationID!=0){
-    	   $api.css($api.byId('application'), 'display:block;');
-           var list=$("#application").find('li');
-           for (var i = 0; i < list.length; i++) {
-           	 if(applicationID==$api.attr(list[i], 'data-application')){
-           	 	$(list[i]).children('a').append("<span style='color:red;'>*</span>");
-           	 	for (var j = 0; j<list.length; j++) {
-           	 		if($(list[j]).has('span').length<=0){
-           	 			$api.css(list[j], 'display:none;');
-           	 		}
-           	 	}
-           	 }
-           }
-    	}
-    	if(categoryID!=0){
-    	   $api.css($api.byId('category'), 'display:block;');
-		   var list=$("#category").find('li');
-           for (var i = 0; i < list.length; i++) {
-           	 if(categoryID==$api.attr(list[i], 'data-category')){
-           	 	$(list[i]).children('a').append("<span style='color:red;'>*</span>");
-           	 	for (var j = 0; j<list.length; j++) {
-           	 		if($(list[j]).has('span').length<=0){
-           	 			$api.css(list[j], 'display:none;');
-           	 		}
-           	 	}
-           	 }
-           }
-    	}
-    	if(provinceID!=0){
-    	   $api.css($api.byId('province'), 'display:block;');
-    	   var list=$("#province").find('li');
-           for (var i = 0; i < list.length; i++) {
-           	 if(provinceID==$api.attr(list[i], 'data-province')){
-           	 	$(list[i]).children('a').append("<span style='color:red;'>*</span>");
-           	 	for (var j = 0; j<list.length; j++) {
-           	 		if($(list[j]).has('span').length<=0){
-           	 			$api.css(list[j], 'display:none;');
-           	 		}
-           	 	}
-           	 }
-           }
-    	}
+        if (applicationID != 0) {
+            $api.css($api.byId('application'), 'display:block;');
+            var list = $("#application").find('li');
+            for (var i = 0; i < list.length; i++) {
+                if (applicationID == $api.attr(list[i], 'data-application')) {
+                    $(list[i]).children('a').append("<span style='color:red;'>*</span>");
+                    for (var j = 0; j < list.length; j++) {
+                        if ($(list[j]).has('span').length <= 0) {
+                            $api.css(list[j], 'display:none;');
+                        }
+                    }
+                }
+            }
+        }
+        if (categoryID != 0) {
+            $api.css($api.byId('category'), 'display:block;');
+            var list = $("#category").find('li');
+            for (var i = 0; i < list.length; i++) {
+                if (categoryID == $api.attr(list[i], 'data-category')) {
+                    $(list[i]).children('a').append("<span style='color:red;'>*</span>");
+                    for (var j = 0; j < list.length; j++) {
+                        if ($(list[j]).has('span').length <= 0) {
+                            $api.css(list[j], 'display:none;');
+                        }
+                    }
+                }
+            }
+        }
+        if (provinceID != 0) {
+            $api.css($api.byId('province'), 'display:block;');
+            var list = $("#province").find('li');
+            for (var i = 0; i < list.length; i++) {
+                if (provinceID == $api.attr(list[i], 'data-province')) {
+                    $(list[i]).children('a').append("<span style='color:red;'>*</span>");
+                    for (var j = 0; j < list.length; j++) {
+                        if ($(list[j]).has('span').length <= 0) {
+                            $api.css(list[j], 'display:none;');
+                        }
+                    }
+                }
+            }
+        }
     }
-
 </script>
+
 </html>

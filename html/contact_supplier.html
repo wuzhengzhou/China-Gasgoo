@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
     <title>title</title>
-    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
     <style>
-    .header {
+        .header {
             position: relative;
             width: 100%;
             height: 44px;
@@ -31,6 +32,7 @@
         }
     </style>
 </head>
+
 <body>
     <header class="header" id="header">
         <div class="refh" tapmode="hover" onclick="closeWin()"></div>
@@ -39,46 +41,48 @@
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript">
-	var headerH, winHeight,productID;
-    apiready = function(){
+    var headerH, winHeight, productID;
+    apiready = function() {
         Init();
-        productID=api.pageParam.productID;
+        productID = api.pageParam.productID;
         openFrame(productID);
     };
-    function Init(){
-	    var header = $api.byId('header');
-	    headerH = $api.offset(header).h;
-	    winHeight = api.winHeight;
-	    var systemType = api.systemType;
 
-	    $api.fixStatusBar(header);
-	    if (systemType == "ios") {
-	       headerH += 20;
-	    } else {
-	       headerH += 26;
-	    }
-	 }
+    function Init() {
+        var header = $api.byId('header');
+        headerH = $api.offset(header).h;
+        winHeight = api.winHeight;
+        var systemType = api.systemType;
+
+        $api.fixStatusBar(header);
+        if (systemType == "ios") {
+            headerH += 20;
+        } else {
+            headerH += 26;
+        }
+    }
 
 
-	 function openFrame(productID){
-	 	api.openFrame({
-	 	    name: 'contact_supplier_frame',
-	 	    url: './contact_supplier_frame.html',
-	 	    rect: {
-	 	        x: 0,
-	 	        y: headerH,
-	 	        w: 'auto',
-	 	        h: winHeight-headerH
-	 	    },
-	 	    pageParam: {
-	 	        productID: productID
-	 	    },
-	 	    bounces: false,
-	 	});
-	 }
+    function openFrame(productID) {
+        api.openFrame({
+            name: 'contact_supplier_frame',
+            url: './contact_supplier_frame.html',
+            rect: {
+                x: 0,
+                y: headerH,
+                w: 'auto',
+                h: winHeight - headerH
+            },
+            pageParam: {
+                productID: productID
+            },
+            bounces: false,
+        });
+    }
 
-     function closeWin(){
+    function closeWin() {
         api.closeWin();
-     }
+    }
 </script>
+
 </html>

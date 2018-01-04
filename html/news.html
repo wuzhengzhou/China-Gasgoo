@@ -411,8 +411,20 @@
         getDataCenter();
         // 下拉刷新数据
         refreshPage();
-        // 解析元素 tapmode 属性，优化点击事件处理
-        api.parseTapmode();
+
+        BaiduMTJPage();
+    }
+
+    function BaiduMTJPage() {
+        var baiduMTJ = api.require('baiduMTJ');
+        baiduMTJ.onPageStart({
+            pagename: 'news'
+        });
+        setTimeout(function() {
+            baiduMTJ.onPageEnd({
+                pagename: 'news'
+            });
+        }, 100)
     }
 
     function refreshPage() {
@@ -633,7 +645,6 @@
                 showToast();
             }
         });
-
         // 刷新结束
         api.refreshHeaderLoadDone();
     }
