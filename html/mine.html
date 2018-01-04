@@ -71,14 +71,19 @@
             padding-left: 45px;
         }
 
-        .myinfo ul li a.about {
-            background: url(../image/about.png) no-repeat 10px;
+        .myinfo ul li a.suppliers {
+            background: url(../image/suppliers.png) no-repeat 10px;
             background-size: 25px;
             padding-left: 45px;
         }
 
         .myinfo ul li a.contact {
             background: url(../image/contact.png) no-repeat 10px;
+            background-size: 25px;
+            padding-left: 45px;
+        }
+        .myinfo ul li a.about {
+            background: url(../image/about.png) no-repeat 10px;
             background-size: 25px;
             padding-left: 45px;
         }
@@ -109,10 +114,11 @@
                     <span>Send Feedback</span>
                 </a>
             </li>
-            <li tapmode="hover" onclick="openPage(1)">
-                <a class="about">
+            
+            <li tapmode="hover" onclick="openPage(3)">
+                <a class="suppliers">
                     <span class="hair"></span>
-                    <span>About us</span>
+                    <span>Apply for Verified Supplier</span>
                 </a>
             </li>
         </ul>
@@ -125,12 +131,18 @@
                     <span>Contact us</span>
                 </a>
             </li>
+            <li tapmode="hover" onclick="openPage(1)">
+                <a class="about">
+                    <span class="hair"></span>
+                    <span>About us</span>
+                </a>
+            </li>
         </ul>
     </section>
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
 <script>
-    var paneName = ['feedback', 'aboutus', 'contactus'];
+    var paneName = ['feedback', 'aboutus', 'contactus','Supplier_Recruit'];
 
     apiready = function() {
         api.setStatusBarStyle({
