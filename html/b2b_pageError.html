@@ -56,10 +56,10 @@
         }
 
         /*404*/
-		.Error{  font-family:Arial, Helvetica, sans-serif; zoom:1; width:293px; margin:20px auto; color:#666; margin-top:80px;  display:-webkit-box; display:-webkit-flex; display:flex; -webkit-box-orient:vertical; -webkit-flex-flow:row; flex-flow:row;}
-		.Error:after{clear:both; content:'.'; display:block; width:0; height:0; visibility:hidden;}	
-		.Error em{ background:url(../image/404.png) no-repeat top center; background-size:100px; width:100px; height:44px; display:block; float:left; margin-top:5px;}
-		.Error .ErrornR{ text-align:left; margin-left:10px; -webkit-box-flex:1; -webkit-flex:1; flex:1; }
+		.Error{  font-family:Arial, Helvetica, sans-serif; zoom:1;  margin:20px auto; color:#666; margin-top:80px; display:-webkit-box; display:-webkit-flex; display:flex; -webkit-box-orient:vertical; -webkit-flex-flow:row; flex-flow:row; width: 300px;}
+
+		.Error em{ background:url(../image/404.png) no-repeat top center; background-size:100px 44px; width:100px; height:44px;   margin-top:5px;  }
+		.Error .ErrornR{ text-align:left; -webkit-box-flex:1; -webkit-flex:1; flex:1;}
 		.Error .ErrornR b{ color:#a5bec8; font-size:17px; display:block;}
 		.Error .ErrornR span{ display:block; font-size:12px; line-height:18px; }
 		.Error .ErrornR a{  display:block; color:#005490; font-size:12px; line-height:18px;}
@@ -77,7 +77,7 @@
 	<article class="ErrornR">
 	<b>Page not Found </b>
 	<span>Looks like you've fallen off the grid</span>
-	<a href="javascript:void(0);">Back >></a>
+	<a href="javascript:void(0);" onclick="closeWin()">Back >></a>
 	</article>
 	</section>
 </body>
