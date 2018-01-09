@@ -27,12 +27,17 @@
         <param name="ios_api_key" value="2330c3893daa8"/>
         <param name="ios_api_secret" value="6115bf438366cc7ecdc2576318b33bad"/>
         <param name="urlScheme" value="fb391376804623006"/>
-        <param name="urlScheme" value="wx819b02614b8b2748"/>
+        <param name="urlScheme" value="VVpTYuNnJC4bnsoYLKTGPcBNV"/>
+        <param name="urlScheme" value="wx94a30e81f851dec6"/>
     </feature>
     <feature name="baiduMTJ">
         <param name="android_appkey" value="2eb523daaf"/>
         <param name="ios_appkey" value="386d1c3d40"/>
         <param name="android_channel" value="applink"/>
         <param name="ios_channel" value="appstore"/>
+    </feature>
+    <feature name="ajpush">
+        <param name="channel" value="appstore"/>
+        <param name="app_key" value="912aa84aa6750370718ec9a3"/>
     </feature>
 </widget>

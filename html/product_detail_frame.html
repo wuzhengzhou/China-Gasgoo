@@ -258,6 +258,9 @@
             font-size: 12px;
             line-height: 16px;
         }
+        #productBox{
+            word-break: break-all;
+        }
     </style>
 </head>
 
@@ -389,6 +392,7 @@
 
 
 <script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/jquery-1.10.2.min.js"></script>
 <script type="text/javascript" src="../script/swipe.js"></script>
 <script type="text/javascript" src="../script/doT.min.js"></script>
 <script type="text/javascript">
@@ -458,8 +462,11 @@
                 var tem_application = doT.template($api.byId('tem_application').innerHTML);
                 $api.append($api.byId('AllInfo'), tem_application(ret));
                 //联系卖家
-                var tem_Contact = doT.template($api.byId('tem_Contact').innerHTML);
-                $api.html($api.byId('contactsupplier'), tem_Contact(ret));
+                // var tem_Contact = doT.template($api.byId('tem_Contact').innerHTML);
+                // $api.html($api.byId('contactsupplier'), tem_Contact(ret));
+                // $api.css($api.byId('productBox'), 'width:'+api.winWidth);
+                // $api.css($api.byId('productBox'), 'overflow:hidden');
+                changeTableAndImageSize();
                 //轮播产品图片
                 swipeInit();
             } else {
@@ -534,12 +541,51 @@
         });
     }
 
+    function changeTableAndImageSize(){
+        var container=$('#productBox');
+        var imgs=container.find("img");
+        var tables=container.find("table");
+        if(imgs.length>0){
+            imgs.each(function(i,e){
+                var getIMG=e;
+                var fw = api.winWidth;
+                var fh = api.winWidth;
+                var iw = getIMG.width === 0 ? getIMG.naturalWidth : getIMG.width;
+                var ih = getIMG.height === 0 ? getIMG.naturalHeight : getIMG.height;
+                if(iw>fw){
+                    $(e).removeAttr("style");
+                    var m = iw / fw;
+                    var n = ih / fh;
+                    if (m >= 1 && n <= 1) {
+                        iw = Math.ceil(iw / m);
+                        ih = Math.ceil(ih / m);
+                        getIMG.width = iw;
+                        getIMG.height = ih;
+                    }
+                    else if (m <= 1 && n >= 1) {
+                        iw = Math.ceil(iw / n);
+                        ih = Math.ceil(ih / n);
+                        getIMG.width = iw;
+                        getIMG.height = ih;
+                    }
+                    else if (m >= 1 && n >= 1) {
+                        getMAX = Math.max(m, n);
+                        iw = Math.ceil(iw / getMAX);
+                        ih = Math.ceil(ih / getMAX);
+                        getIMG.width = iw;
+                        getIMG.height = ih;
+                    }
+                }
+            })
+        }
 
-    function scrollToTop() {
-        alert("回到顶部");
-        $("html,body").animate({
-            scrollTop: 0
-        }, 500);
+        if (tables.length > 0) {
+            tables.each(function (i, e) {
+                $(e).find("td").each(function (i, e) {
+                    $(e).removeAttr("nowrap");
+                });
+            });
+        }
     }
 </script>
 

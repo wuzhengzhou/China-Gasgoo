@@ -170,11 +170,24 @@
     // UISearchBar独立搜索模块
     var UISearchBar;
 
+    var jpush = null;
+
     apiready = function() {
         init();
         getNavList();
         openFrameGroup();
+
+        jpush = api.require('ajpush');
+        initJPush();
     };
+
+    function initJPush() {
+        jpush.init(function(ret, err) {
+            if (ret && ret.status) {
+                console.log('推送初始化操作成功');
+            }
+        });
+    }
 
     // init.
     function init() {
@@ -191,6 +204,8 @@
         }, function(ret, err) {
             api.closeWidget();
         });
+
+        // api.unlockSlidPane();
 
         // 窗口宽高
         winWidth = api.winWidth;
@@ -273,7 +288,7 @@
         }
         $api.addCls(footList[index], 'active');
         $api.css(footList[index], 'color:' + selectedColor + '');
-        setCurrentFrame(index)
+        setCurrentFrame(index);
     }
 
     // 设置FrameGroup属性
@@ -392,6 +407,8 @@
             pageParam: {
                 keyword: keyword
             },
+            slidBackEnabled: true,
+            slidBackType: 'full',
             animation: {
                 trpe: 'fade'
             }

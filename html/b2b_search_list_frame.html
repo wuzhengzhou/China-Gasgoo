@@ -235,8 +235,9 @@
             });
         }
         if (isMore) {
+
             api.ajax({
-                url: 'https://api.gasgoo.com/api/mbgasgoo/get_Search_Product_List/' + page + '/' + encodeURI(keyword) + '/' + applicationID + '/' + categoryID + '/' + provinceID,
+                url: 'https://api.gasgoo.com/api/mbgasgoo/get_Search_Product_List/' + page + '/' + encodeURI($api.trim(keyword)) + '/' + applicationID + '/' + categoryID + '/' + provinceID,
                 method: 'get',
                 cache: true
             }, function(ret, err) {
@@ -293,7 +294,7 @@
                         api.parseTapmode();
                 } else {
                     api.toast({
-                        msg: 'ErrorError',
+                        msg: 'Error',
                         duration: 2000,
                         location: 'bottom'
                     });
