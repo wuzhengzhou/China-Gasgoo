@@ -245,29 +245,52 @@
                     if (page != 0) {
                         $api.append($api.byId('productList'), tempEn(ret[0].ProductList));
                     } else {
-                        application = ret[0].AppWords;
-                        productCategory = ret[0].CategoryList;
-                        province = ret[0].ProvinceList;
-                        $api.html($api.byId('productList'), tempEn(ret[0].ProductList));
+                        if(ret[0].AppWords!=null){
+                            application = ret[0].AppWords;
+                        }
+                        if(ret[0].CategoryList){
+                            productCategory = ret[0].CategoryList;
+                        }
+                        if(ret[0].ProvinceList){
+                            province = ret[0].ProvinceList;
+                        }
+                        if(ret[0].ProductList!=null && ret[0].ProductList!=""){
+                            $api.html($api.byId('productList'), tempEn(ret[0].ProductList));
 
-                        $api.html($api.byId('Count'), '<b id="Count">' + ret[0].ProductList[0].totalCount + '</b>  ' + keyword + ' Products');
-                        $api.css($api.byId('Count'), 'display:block;');
-                        $api.css($api.dom('body'), 'background: #f2f2f2;');
-                        var loadingHtml = "<div><i id='loadImg'></i>";
-                        loadingHtml += "<span id='pushStatus'>loading...</span></div>";
-                        $api.append($api.byId('loadingMoreSection'), loadingHtml);
-                    }
-                    refresh = false;
-                    if (ret[0].ProductList.length < 16) {
-                        //无更多数据
-                        var status = $api.byId('pushStatus');
-                        status.innerHTML = "No more";
-                        $api.css($api.byId('loadImg'), 'display:none');
-                        isMore = false;
-                    }
-                    api.hideProgress();
-                    api.refreshHeaderLoadDone();
-                    api.parseTapmode();
+                            $api.html($api.byId('Count'), '<b id="Count">' + ret[0].ProductList[0].totalCount + '</b>  ' + keyword + ' Products');
+                            $api.css($api.byId('Count'), 'display:block;');
+                            $api.css($api.dom('body'), 'background: #f2f2f2;');
+                            var loadingHtml = "<div><i id='loadImg'></i>";
+                            loadingHtml += "<span id='pushStatus'>loading...</span></div>";
+                            $api.append($api.byId('loadingMoreSection'), loadingHtml);
+                        }else{
+                            $api.html($api.byId('Count'), '<b id="Count">' + 0 + '</b>  ' + keyword + ' Products');
+                            $api.css($api.byId('Count'), 'display:block;');
+                            $api.css($api.dom('body'), 'background: #f2f2f2;');
+                            var loadingHtml = "<div><i id='loadImg'></i>";
+                            loadingHtml += "<span id='pushStatus'>loading...</span></div>";
+                            $api.append($api.byId('loadingMoreSection'), loadingHtml);
+                         }
+                        }
+                        refresh = false;
+                        if(ret[0].ProductList!=null && ret[0].ProductList!=""){
+                            if (ret[0].ProductList.length < 16) {
+                            //无更多数据
+                            var status = $api.byId('pushStatus');
+                            status.innerHTML = "No more";
+                            $api.css($api.byId('loadImg'), 'display:none');
+                            isMore = false;
+                          }
+                        }else{
+                            var status = $api.byId('pushStatus');
+                            status.innerHTML = "No more";
+                            $api.css($api.byId('loadImg'), 'display:none');
+                            $api.css($api.dom('body'), 'background: #ffffff;');
+                            isMore = false;
+                        }
+                        api.hideProgress();
+                        api.refreshHeaderLoadDone();
+                        api.parseTapmode();
                 } else {
                     api.toast({
                         msg: 'ErrorError',

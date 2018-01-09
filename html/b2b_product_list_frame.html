@@ -335,18 +335,28 @@
     }
 
     // 跳转详情页
+    // function openDetail(productID, productName, productImage, ShareUrl) {
+    //     api.openWin({
+    //         name: 'productdetail_' + productID,
+    //         url: './product_detail.html',
+    //         pageParam: {
+    //             productID: productID,
+    //             title: productName,
+    //             logo: productImage,
+    //             ShareUrl: ShareUrl
+    //         },
+    //         animation: {
+    //             type: "fade"
+    //         }
+    //     });
+    // }
+
+    // 跳转详情页
     function openDetail(productID, productName, productImage, ShareUrl) {
         api.openWin({
-            name: 'productdetail_' + productID,
-            url: './product_detail.html',
+            name: 'pageError',
+            url: './b2b_pageError.html',
             pageParam: {
-                productID: productID,
-                title: productName,
-                logo: productImage,
-                ShareUrl: ShareUrl
-            },
-            animation: {
-                type: "fade"
             }
         });
     }
