@@ -10,6 +10,8 @@
 
 <body>
     <script>
+        var jpush = null;
+
         apiready = function() {
             // 侧滑
             api.openSlidLayout({
@@ -26,8 +28,46 @@
 
             // 百度统计初始化
             BaiduMTJInit();
+
+            jpush = api.require('ajpush');
+
+            //监听通知被点击后收到的数据 android
+            api.addEventListener({
+                    name: 'appintent'
+                }, function(ret, err) {
+                    console.log(JSON.stringify(ret));
+                })
+                //监听通知被点击后收到的数据 ios
+            api.addEventListener({
+                    name: 'noticeclicked'
+                }, function(ret, err) {
+                    console.log(JSON.stringify(ret));
+                })
+                //监听应用进入后台，通知jpush暂停事件
+            api.addEventListener({
+                    name: 'pause'
+                }, function(ret, err) {
+                    onPause();
+                })
+                //监听应用恢复到前台，通知jpush恢复事件
+            api.addEventListener({
+                name: 'resume'
+            }, function(ret, err) {
+                onResume();
+            })
         }
 
+        //统计-app恢复
+        function onResume() {
+            jpush.onResume();
+        }
+
+        //统计-app暂停
+        function onPause() {
+            jpush.onPause();
+        }
+
+        // 百度移动统计
         function BaiduMTJInit() {
             var baiduMTJ = api.require('baiduMTJ');
             baiduMTJ.init({}, function(ret, err) {});

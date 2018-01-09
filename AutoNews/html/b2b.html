@@ -238,9 +238,9 @@
 
 <script type="text/template" id="tmp_focusImg">
     {{~it:value:index}}
-    <div onclick="openBannerURL('{{=value.Link}}')">
-        <a data-article-logo="{{=value.Pic}}">
-            <img onload="loadingImgCache(this)" data-url="{{=value.Pic}}" width="100%" src="../image/focus_error.png">
+    <div onclick="openBannerURL('{{=value.Type}}')">
+        <a data-link="{{=value.Link}}" data-title="{{=value.Title}}" data-logo="{{=value.Logo}}">
+            <img onload="loadingImgCache(this)" data-url="{{=value.Logo}}" width="100%" src="../image/focus_error.png">
         </a>
     </div>
     {{~}}
@@ -266,7 +266,6 @@
         winHeight;
 
     apiready = function() {
-        api.lockSlidPane();
         showBannerImage();
 
         refreshPage();
@@ -289,7 +288,7 @@
 
     function showBannerImage() {
         api.ajax({
-            url: 'https://api.gasgoo.com/api/mbgasgoo/get_Home_BannerImage',
+            url: 'https://api.gasgoo.com/api/autonews/get_ad_list',
             cache: true,
             method: 'get',
         }, function(ret, err) {
@@ -422,22 +421,60 @@
 
     function showToast() {
         api.toast({
-            msg: 'Error',
+            msg: 'Network anomaly',
             duration: 4000,
             location: 'bottom'
         });
     }
 
-    function openBannerURL(url) {
-        api.openWin({
-            name: 'web_url',
-            url: './webUrl.html',
-            pageParam: {
-                webUrl: url
-            }
-        });
-    }
+    function openBannerURL(type) {
+        var index = _swipe.getPos();
+        var a_list = $api.domAll($api.dom(".bannerTU"), "a");
 
+        var link = $api.attr(a_list[index], 'data-link');
+        var title = $api.attr(a_list[index], 'data-title');
+        var logo = $api.attr(a_list[index], 'data-logo');
+
+        if (type == 'news') {
+            api.openWin({
+                name: 'detail_' + link,
+                url: './news_detail.html',
+                pageParam: {
+                    ArticleId: link,
+                    Title: title,
+                    Logo: logo
+                },
+                animation: {
+                    type: "fade"
+                }
+            });
+        } else if (type == 'b2b') {
+            api.openWin({
+                name: 'productdetail_' + link,
+                url: './product_detail.html',
+                pageParam: {
+                    productID: link,
+                    title: title,
+                    logo: logo,
+                    ShareUrl: "http://mb.gasgoo.com/product/productdetail.aspx?productid=" + link
+                },
+                animation: {
+                    type: "fade"
+                }
+            });
+        } else {
+            api.openWin({
+                name: 'web_url',
+                url: './webUrl.html',
+                pageParam: {
+                    webUrl: link
+                },
+                animation: {
+                    type: "fade"
+                }
+            });
+        }
+    }
 
     function refreshPage() {
         api.setRefreshHeaderInfo({
