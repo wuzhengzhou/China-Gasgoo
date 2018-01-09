@@ -178,12 +178,14 @@
             float: left;
             overflow: hidden;
             height: 110px;
+            
         }
 
         .product .productWord .productKey {
             width: 100%;
             height: 110px;
         }
+        
 
         .product .productWord .productKey p {
             width: 50%;
@@ -198,14 +200,17 @@
 
         .product .productWord .productKey p a {
             border-left: 1px solid #f1f1f1;
-            padding: 0.5em;
+            padding: 0 0 0 0.25em;
             color: #666;
             font-size: 14px;
             font-weight: bold;
             display: table-cell;
             vertical-align: middle;
             font-weight: normal;
-            word-break: break-all;
+            /*word-break: break-all;
+            word-wrap: break-word;*/
+            word-wrap: break-word;
+            word-break: normal; 
         }
 
         .product .productWord .productKey p:nth-child(n+4) {
