@@ -463,12 +463,17 @@
                 //轮播产品图片
                 swipeInit();
             } else {
-                alert( JSON.stringify( err ) );
-                api.toast({
-                    msg: 'Error',
-                    duration: 4000,
-                    location: 'bottom'
-                });
+                // api.toast({
+                //     msg: 'Error',
+                //     duration: 4000,
+                //     location: 'bottom'
+                // });
+               api.openWin({
+                   name: 'pageError',
+                   url: './b2b_pageError.html',
+                   pageParam: {
+                   }
+               });
             }
 
             api.hideProgress();
