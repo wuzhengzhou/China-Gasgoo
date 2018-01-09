@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <style>
+       body {
+            background-color: #eeeeee;
+        }
+        html{font-family:sans-serif;}
+		html,body,header,section,footer,div,ul,ol,li,img,a,span,em,del,legend,center,strong,var,fieldset,form,label,dl,dt,dd,cite,input,hr,time,mark,code,figcaption,figure,textarea,h1,h2,h3,h4,h5,h6,p{
+		margin:0;border:0;padding:0;font-style:normal;}
+		html,body {-webkit-touch-callout:none;-webkit-text-size-adjust:none;-webkit-tap-highlight-color:rgba(0, 0, 0, 0);/*消除点击屏幕时屏幕的闪动*/ -webkit-user-select:none; font-family:Arial;}
+		nav,article,aside,details,main,header,footer,section,fieldset,figcaption,figure{display: block;}
+		img,a,button,em,del,strong,var,label,cite,small,time,mark,code,textarea{display:inline-block;}
+		header,section,footer {position:relative;}
+		ol,ul{list-style:none;}
+		input,button,textarea {border:0;margin:0;padding:0;font-size:1em;line-height:1em;	/*-webkit-appearance:none;*/background-color:rgba(0, 0, 0, 0);}
+		span{display:inline-block;}
+		a:active, a:hover { outline:0;}
+		a, a:visited{text-decoration:none;}
+		label, .wordWrap{ word-wrap:break-word; word-break:break-all;}
+		table{border-collapse:collapse; border-spacing:0;}
+		td,th { padding: 0;}
+		.clearfix:after{content: ' ';display: block;clear: both;visibility:hidden;line-height: 0;height:0;}
+		html,body {height:100%; background-color:#eeeeee; }
+		body {display:-webkit-box; display:-webkit-flex; display:flex; -webkit-box-orient:vertical; -webkit-flex-flow:column; flex-flow:column;/*主轴为垂直方向，起点在上沿 */  width:100%;  max-width:640px; margin:0 auto; min-width:320px; }
+		section{-webkit-box-flex:1; -webkit-flex:1; flex:1; }
+		.wid92{ width:92%; margin:0 auto;}
+		.margtop8{ margin-top:8px;}
+
+        .header {
+            position: relative;
+            width: 100%;
+            height: 44px;
+            background-color: #fefdfd;
+            text-align: center;
+            border-bottom: 1px solid #eee
+        }
+
+        .header .refh {
+            position: absolute;
+            box-sizing: border-box;
+            bottom: 0;
+            left: 4%;
+            width: 22px;
+            height: 44px;
+            color: #333333;
+            font-size: 16px;
+            line-height: 44px;
+            background: url(../image/return.png) 0px 12px no-repeat;
+            background-size: 11px 19px;
+            z-index: 2;
+        }
+
+        /*404*/
+		.Error{  font-family:Arial, Helvetica, sans-serif; zoom:1; width:293px; margin:20px auto; color:#666; margin-top:80px;  display:-webkit-box; display:-webkit-flex; display:flex; -webkit-box-orient:vertical; -webkit-flex-flow:row; flex-flow:row;}
+		.Error:after{clear:both; content:'.'; display:block; width:0; height:0; visibility:hidden;}	
+		.Error em{ background:url(../image/404.png) no-repeat top center; background-size:100px; width:100px; height:44px; display:block; float:left; margin-top:5px;}
+		.Error .ErrornR{ text-align:left; margin-left:10px; -webkit-box-flex:1; -webkit-flex:1; flex:1; }
+		.Error .ErrornR b{ color:#a5bec8; font-size:17px; display:block;}
+		.Error .ErrornR span{ display:block; font-size:12px; line-height:18px; }
+		.Error .ErrornR a{  display:block; color:#005490; font-size:12px; line-height:18px;}
+
+    </style>
+</head>
+<body >
+    <header id="header" class="header">
+        <div class="refh" tapmode="hover" onclick="closeWin()"></div>
+        <div class="title"></div>
+    </header>
+    <section class="Error">
+	<em></em>
+
+	<article class="ErrornR">
+	<b>Page not Found </b>
+	<span>Looks like you've fallen off the grid</span>
+	<a href="javascript:void(0);">Back >></a>
+	</article>
+	</section>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript">
+   apiready = function() {
+        $api.fixStatusBar($api.byId('header'));
+        $api.css($api.dom('body'), 'height:' + (api.winHeight) + 'px;');
+    };
+
+    function closeWin() {
+        api.closeWin();
+    }
+</script>
+</html>

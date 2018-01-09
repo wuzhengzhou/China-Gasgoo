@@ -454,29 +454,23 @@
                     $api.html($api.byId('productInfo'), tem_ProductInfo(ret));
                 }
                 //获取application  productdescription
+
                 var tem_application = doT.template($api.byId('tem_application').innerHTML);
                 $api.append($api.byId('AllInfo'), tem_application(ret));
-
-
-
-
-
-
-
-
-
                 //联系卖家
                 var tem_Contact = doT.template($api.byId('tem_Contact').innerHTML);
                 $api.html($api.byId('contactsupplier'), tem_Contact(ret));
                 //轮播产品图片
                 swipeInit();
             } else {
+                alert( JSON.stringify( err ) );
                 api.toast({
                     msg: 'Error',
                     duration: 4000,
                     location: 'bottom'
                 });
             }
+
             api.hideProgress();
         });
     }
