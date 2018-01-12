@@ -97,9 +97,10 @@
             method: 'get'
         }, function(ret, err) {
             if (ret) {
-                description = ret[0].BriefContent;
                 var tmp_detail = doT.template($api.byId('template').innerHTML);
                 $api.html($api.byId('detail'), tmp_detail(ret[0]));
+
+                Pvcount();
             } else {
                 api.toast({
                     msg: 'Network anomaly',
@@ -109,6 +110,20 @@
             }
             // 关闭加载
             api.hideProgress();
+        });
+    }
+
+    function Pvcount() {
+        api.ajax({
+            url: 'https://api.gasgoo.com/api/autonews/pv_count',
+            method: 'post',
+            dataType: 'text',
+            headers: {
+                "Content-Type": 'application/json; charset=utf-8'
+            },
+            data: {
+                body: "{ 'ArticleId':'" + api.pageParam.ArticleId + "'}"
+            }
         });
     }
 

@@ -109,6 +109,106 @@
             width: 10px;
             margin-top: 5px;
         }
+        /*导航*/
+
+        .footer {
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-orient: horizontal;
+            -webkit-flex-flow: row;
+            flex-flow: row;
+            width: 100%;
+            height: 52px;
+            background: #f2f2f2;
+        }
+
+        .footerNav {
+            height: 52px;
+            background: #f2f2f2;
+            border-top: 1px solid #c6c6c6;
+            position: fixed;
+            width: 100%;
+            bottom: 0px;
+        }
+
+        .footerNav ul {
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-orient: horizontal;
+            -webkit-flex-flow: row;
+            flex-flow: row;
+            height: 52px;
+        }
+
+        .footerNav ul li {
+            -webkit-box-flex: 1;
+            -webkit-flex: 1;
+            flex: 1;
+            text-align: center;
+            font-size: 13px;
+            height: 52px;
+        }
+
+        .footerNav ul li a {
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-orient: horizontal;
+            -webkit-flex-flow: column;
+            flex-flow: column;
+            display: block;
+            height: 52px;
+        }
+
+        .footerNav ul li:nth-child(1) a span {
+            background: url(http://c2.gasgoo.com/app/en/image/nav/news.png) no-repeat center;
+            height: 29px;
+            background-size: 25px;
+            display: block;
+            margin-top: 3px;
+        }
+
+        .footerNav ul li:nth-child(2) a span {
+            background: url(http://c2.gasgoo.com/app/en/image/nav/b2b.png) no-repeat center;
+            height: 29px;
+            background-size: 25px;
+            display: block;
+            margin-top: 3px;
+        }
+
+        .footerNav ul li:nth-child(3) a span {
+            background: url(http://c2.gasgoo.com/app/en/image/nav/mine.png) no-repeat center;
+            height: 29px;
+            background-size: 25px;
+            display: block;
+            margin-top: 3px;
+        }
+
+        .footerNav ul li:nth-child(1) a.active span {
+            background: url(http://c2.gasgoo.com/app/en/image/nav/news_active.png) no-repeat center;
+            height: 29px;
+            background-size: 25px;
+            display: block;
+            margin-top: 3px;
+        }
+
+        .footerNav ul li:nth-child(2) a.active span {
+            background: url(http://c2.gasgoo.com/app/en/image/nav/b2b_active.png) no-repeat center;
+            height: 29px;
+            background-size: 25px;
+            display: block;
+            margin-top: 3px;
+        }
+
+        .footerNav ul li:nth-child(3) a.active span {
+            background: url(http://c2.gasgoo.com/app/en/image/nav/mine_active.png) no-repeat center;
+            height: 29px;
+            background-size: 25px;
+            display: block;
+            margin-top: 3px;
+        }
     </style>
 </head>
 
@@ -127,13 +227,13 @@
                 </li>
             </ul>
         </div>
-        <div class="header b2b">
+        <div class="header b2b hide">
             <ul>
                 <li class="search">
                     <a></a>
                 </li>
                 <li class="searchKuan" onclick="openSeachBar('b2b')">
-                    <div class="inputSear"><a> Search Gasgoo B2B</a></div>
+                    <div class="inputSear"><a> Search Gasgoo Auto Parts</a></div>
                 </li>
                 <li class="searchMagnifier" onclick="openSeachBar('b2b')">
                     <a></a>
@@ -142,7 +242,7 @@
         </div>
         <div class="header mine hide"></div>
     </header>
-    <footer>
+    <footer id="footer" class="footer">
         <div class="footerNav">
             <ul>
             </ul>
@@ -163,37 +263,34 @@
 <script>
     // 公共变量
     var headerH,
-        footerH = 50,
-        winWidth,
-        winHeight;
+        footerH;
 
     // UISearchBar独立搜索模块
     var UISearchBar;
-
-    var jpush = null;
 
     apiready = function() {
         init();
         getNavList();
         openFrameGroup();
-
-        jpush = api.require('ajpush');
         initJPush();
     };
 
     function initJPush() {
+        var jpush = api.require('ajpush');
         jpush.init(function(ret, err) {
             if (ret && ret.status) {
-                console.log('推送初始化操作成功');
+                // success
             }
         });
     }
 
     // init.
     function init() {
-        headerH = $api.offset($api.dom($api.byId('header'), '.header')).h + 20;
-
-        $api.fixStatusBar($api.byId('header'));
+        var header = $api.byId('header');
+        var footer = $api.byId('footer');
+        $api.fixStatusBar(header);
+        headerH = $api.offset(header).h;
+        footerH = $api.offset(footer).h;
         api.setStatusBarStyle({
             style: 'dark'
         });
@@ -204,12 +301,6 @@
         }, function(ret, err) {
             api.closeWidget();
         });
-
-        // api.unlockSlidPane();
-
-        // 窗口宽高
-        winWidth = api.winWidth;
-        winHeight = api.winHeight;
 
         // 导入搜索模块
         UISearchBar = api.require("UISearchBar");
@@ -244,23 +335,23 @@
                 x: 0,
                 y: headerH,
                 w: 'auto',
-                h: winHeight - headerH - footerH
+                h: api.winHeight - headerH - footerH
             },
             index: 0,
             frames: [{
                 name: 'news',
                 url: 'news.html',
-                bgColor: '#fff',
+                bgColor: '#eee',
                 bounces: true
             }, {
                 name: 'b2b',
                 url: 'b2b.html',
-                bgColor: '#fff',
+                bgColor: '#eee',
                 bounces: true
             }, {
                 name: 'mine',
                 url: 'mine.html',
-                bgColor: '#fff',
+                bgColor: '#eee',
                 bounces: false
             }]
         }, function(ret, err) {});
@@ -306,7 +397,7 @@
                     x: 0,
                     y: headerH,
                     w: 'auto',
-                    h: winHeight - headerH - footerH
+                    h: api.winHeight - headerH - footerH
                 },
             });
             api.execScript({
@@ -323,7 +414,7 @@
                     x: 0,
                     y: headerH,
                     w: 'auto',
-                    h: winHeight - headerH - footerH
+                    h: api.winHeight - headerH - footerH
                 },
             });
             api.execScript({
@@ -338,7 +429,7 @@
                     x: 0,
                     y: 0,
                     w: 'auto',
-                    h: winHeight - footerH
+                    h: api.winHeight - footerH
                 },
             });
             api.lockSlidPane();
@@ -350,7 +441,7 @@
         if (type == 'news') {
             UISearchBar.open({
                 placeholder: 'Search',
-                historyCount: 10,
+                historyCount: 5,
                 showRecordBtn: false,
                 texts: {
                     cancelText: 'Cancel',

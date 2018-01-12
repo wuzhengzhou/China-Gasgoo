@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
     <title>title</title>
-    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
     <style>
-       .header {
+        .header {
             position: relative;
             width: 100%;
             height: 44px;
@@ -40,13 +41,33 @@
             background-size: 20px;
         }
 
-        footer{ height:48px;background-color: #fff;}
-        footer .but{ position:fixed; bottom:0; text-align:center;  width:100%;}
-        footer .but a{ background:#c7000a; height:45px; font-size:18px; font-weight:bold; line-height:45px; display:block; color:#fff; margin:0 auto;}
+        footer {
+            height: 48px;
+            background-color: #fff;
+        }
+
+        footer .but {
+            position: fixed;
+            bottom: 0;
+            text-align: center;
+            width: 100%;
+        }
+
+        footer .but a {
+            background: #c7000a;
+            height: 45px;
+            font-size: 18px;
+            font-weight: bold;
+            line-height: 45px;
+            display: block;
+            color: #fff;
+            margin: 0 auto;
+        }
     </style>
 </head>
+
 <body>
-     <header class="header" id="header">
+    <header class="header" id="header">
         <div class="refh" tapmode="hover" onclick="closeWin()"></div>
         <div class="title"></div>
         <div class="goshare" tapmode="hover" onclick="showShare()"></div>
@@ -58,56 +79,46 @@
     </footer>
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
-
-
 <script type="text/javascript">
-	var headerH, winHeight,productID,title,logo,footerH,ShareUrl;
-    apiready = function(){
-        productID=api.pageParam.productID;
+    var headerH, winHeight, productID, title, logo, footerH, ShareUrl;
+    apiready = function() {
+        productID = api.pageParam.productID;
         Init();
-        title=api.pageParam.title;
+        title = api.pageParam.title;
         logo = api.pageParam.logo == '' ? "http://c2.gasgoo.com/auto/images/weixin_share_default_logo.jpg" : api.pageParam.logo;
 
-        ShareUrl=api.pageParam.ShareUrl;
+        ShareUrl = api.pageParam.ShareUrl;
         openFrame(productID);
     };
 
-	 function Init(){
-	            var header = $api.byId('header');
-	            headerH = $api.offset(header).h;
-	            winHeight = api.winHeight;
-	            var systemType = api.systemType;
+    function Init() {
+        var header = $api.byId('header');
+        winHeight = api.winHeight;
+        $api.fixStatusBar(header);
+        headerH = $api.offset(header).h;
 
-	            $api.fixStatusBar(header);
-	            if (systemType == "ios") {
-	                headerH += 20;
-	            } else {
-	                headerH += 26;
-	            }
-                $api.html($api.byId('contactsupplier'), "<a onclick='contactsupplier("+productID+")' href='javascript:void(0);'>Contact Supplier</a>");
-                // var footer=$api.byId('footer');
-                // footerH=$api.offset(footerH).h;
-	 }
+        $api.html($api.byId('contactsupplier'), "<a onclick='contactsupplier(" + productID + ")' href='javascript:void(0);'>Contact Supplier</a>");
+    }
 
-	 function openFrame(productID){
-	 	api.openFrame({
-	 	    name: 'detail_'+productID,
-	 	    url: './product_detail_frame.html',
-	 	    rect: {
-	 	        x: 0,
-	 	        y: headerH,
-	 	        w: 'auto',
-	 	        h: winHeight-headerH-48
-	 	    },
-	 	    pageParam: {
-	 	        productID:productID
-	 	    },
-	 	    bounces: true,
-	 	});
-	 }
+    function openFrame(productID) {
+        api.openFrame({
+            name: 'detail_' + productID,
+            url: './product_detail_frame.html',
+            rect: {
+                x: 0,
+                y: headerH,
+                w: 'auto',
+                h: winHeight - headerH - 48
+            },
+            pageParam: {
+                productID: productID
+            },
+            bounces: true,
+        });
+    }
 
 
-     function showShare(){
+    function showShare() {
         var mobSharePlus = api.require('mobSharePlus');
         mobSharePlus.share({
             title: title,
@@ -124,25 +135,25 @@
                 });
             }
         });
-     }
+    }
 
-     function closeWin(){
+    function closeWin() {
         api.closeWin();
-     }
+    }
 
 
-     function contactsupplier(productID){
+    function contactsupplier(productID) {
         api.openWin({
-          name: 'contactsupplier',
-          url: './contact_supplier.html',
-          pageParam: {
-              productID:productID
-          },
-           animation:{
+            name: 'contactsupplier',
+            url: './contact_supplier.html',
+            pageParam: {
+                productID: productID
+            },
+            animation: {
                 type: "fade"
-          }
-      });
-     }
-
+            }
+        });
+    }
 </script>
+
 </html>

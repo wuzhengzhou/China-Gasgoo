@@ -50,18 +50,10 @@
 
     function Init() {
         var header = $api.byId('header');
-        headerH = $api.offset(header).h;
         winHeight = api.winHeight;
-        var systemType = api.systemType;
-
         $api.fixStatusBar(header);
-        if (systemType == "ios") {
-            headerH += 20;
-        } else {
-            headerH += 26;
-        }
+        headerH = $api.offset(header).h;
     }
-
 
     function openFrame(productID) {
         api.openFrame({

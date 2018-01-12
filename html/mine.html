@@ -8,7 +8,7 @@
     <title>mine</title>
     <link rel="stylesheet" type="text/css" href="../css/api.css" />
     <style>
-        body {
+        html,body {
             background-color: #eee;
         }
 
@@ -149,9 +149,7 @@
         api.setStatusBarStyle({
             style: 'dark'
         });
-
-        $api.css($api.dom('body'), 'height:' + (api.winHeight - 50) + 'px;');
-
+        // $api.css($api.dom('body'), 'height:' + (api.winHeight - 52) + 'px;');
         getCacheSize();
     }
 
