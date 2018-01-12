@@ -11,6 +11,7 @@
 <body>
     <script>
         var jpush = null;
+        var title, content, articleId, productId, link;
 
         apiready = function() {
             // 侧滑
@@ -31,38 +32,116 @@
 
             jpush = api.require('ajpush');
 
-            //监听通知被点击后收到的数据 android
+            //监听通知被点击后收到的数据
+            jpush.setListener(
+                function(ret) {
+                    title = ret.title;
+                    content = ret.content;
+                    api.notification({
+                        notify: {
+                            title: title,
+                            content: content,
+                            extra: ret,
+                            updateCurrent: false
+                        }
+                    });
+                }
+            );
             api.addEventListener({
-                    name: 'appintent'
-                }, function(ret, err) {
-                    console.log(JSON.stringify(ret));
-                })
-                //监听通知被点击后收到的数据 ios
+                name: 'appintent'
+            }, function(ret, err) {
+                openPushPage(ret);
+            });
             api.addEventListener({
-                    name: 'noticeclicked'
-                }, function(ret, err) {
-                    console.log(JSON.stringify(ret));
-                })
-                //监听应用进入后台，通知jpush暂停事件
+                name: 'noticeclicked'
+            }, function(ret, err) {
+                openPushPage(ret);
+            });
+
+            //监听应用进入后台，通知jpush暂停事件
             api.addEventListener({
-                    name: 'pause'
-                }, function(ret, err) {
-                    onPause();
-                })
-                //监听应用恢复到前台，通知jpush恢复事件
+                name: 'pause'
+            }, function(ret, err) {
+                onPause();
+            });
+            //监听应用恢复到前台，通知jpush恢复事件
             api.addEventListener({
                 name: 'resume'
             }, function(ret, err) {
                 onResume();
-            })
+            });
         }
 
-        //统计-app恢复
+        function openPushPage(ret) {
+            var systemType = api.systemType;
+
+            if (systemType == "ios") {
+                var value = ret.value;
+                var extra = value.extra;
+
+                content = value.content;
+                title = content;
+                articleId = extra.ArticleId;
+                productId = extra.ProductId;
+                link = extra.link;
+            } else {
+                var ajpush = ret.appParam.ajpush;
+                var extra = ajpush.extra;
+
+                title = ajpush.title;
+                content = ajpush.content;
+                articleId = extra.ArticleId;
+                productId = extra.ProductId;
+                link = extra.link;
+            }
+
+            if (articleId != undefined) {
+                api.openWin({
+                    name: 'detail_' + articleId,
+                    url: './html/news_detail.html',
+                    pageParam: {
+                        ArticleId: articleId,
+                        Title: title,
+                        Logo: ''
+                    }
+                });
+            } else if (productId != undefined) {
+                api.openWin({
+                    name: 'productdetail_' + productId,
+                    url: './html/product_detail.html',
+                    pageParam: {
+                        productID: productId,
+                        title: title,
+                        logo: '',
+                        ShareUrl: "http://mb.gasgoo.com/product/productdetail.aspx?productid=" + productId
+                    }
+                });
+            } else if (link != undefined) {
+                api.openWin({
+                    name: 'web_url',
+                    url: './html/webUrl.html',
+                    pageParam: {
+                        webUrl: link
+                    }
+                });
+            } else {
+                //
+            }
+        }
+
         function onResume() {
             jpush.onResume();
+            jpush.setBadge({
+                badge: 0
+            });
+            api.setAppIconBadge({
+                badge: 0
+            });
+            api.cancelNotification({
+                id: -1
+            });
         }
 
-        //统计-app暂停
         function onPause() {
             jpush.onPause();
         }

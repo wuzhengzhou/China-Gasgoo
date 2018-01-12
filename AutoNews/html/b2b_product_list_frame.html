@@ -7,10 +7,6 @@
     <title>title</title>
     <link rel="stylesheet" type="text/css" href="../css/api.css" />
     <style>
-        /*body{
-            background: #f2f2f2;
-        }*/
-
         .loading_more {
             display: block;
             width: 100%;
@@ -213,7 +209,6 @@
         loadingMore();
     };
 
-
     function getList(categoryID) {
 
         //判断是否是刷新页面
@@ -233,9 +228,7 @@
                 method: 'get',
             }, function(ret, err) {
                 if (ret) {
-
                     var tempEn = doT.template($api.byId('productListTemplate').innerHTML);
-
 
                     if (page != 1) {
                         //页面追加内容

@@ -206,8 +206,8 @@
             border-bottom: 1px solid #ededed;
             font-size: 14px;
             padding: 0.5em;
-            height: 28px;
-            line-height: 28px;
+            height: 30px;
+            line-height: 30px;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
@@ -312,7 +312,7 @@
 </head>
 
 <body>
-    <section id="swipe" class="swipe" tapmode onclick="openDetailByFocusImg()">
+    <section id="swipe" class="swipe" onclick="openDetailByFocusImg()">
         <div class="swipe-wrap">
         </div>
         <ul id="swipeIndicator" class="ulyq">
@@ -341,7 +341,7 @@
 </body>
 <script type="text/template" id="tmp_focusImg">
     {{~it:value:index}}
-    <div>
+    <div onclick="openDetailByFocusImg()">
         <a data-article-id="{{=value.ArticleId}}" data-article-title="{{=value.Title}}" data-article-logo="{{=value.Logo}}">
             <img onload="loadingImgCache(this)" data-url="{{=value.Logo}}" width="100%" src="../image/focus_error.png">
         </a>
@@ -411,6 +411,7 @@
         getDataCenter();
         // 下拉刷新数据
         refreshPage();
+        api.parseTapmode();
 
         BaiduMTJPage();
     }
@@ -554,11 +555,7 @@
                 $api.html($api.dom('.swipe-wrap'), tmp_focusImg(ret));
                 $api.html($api.byId('swipeIndicator'), tmp_focusIndicator(ret));
                 $api.html($api.dom('.ulptext'), tmp_focusText(ret));
-
                 swipeInit();
-
-                api.parseTapmode();
-
             } else {
                 // 异常处理
                 showToast();
@@ -577,8 +574,6 @@
                 var tmp_focusSmallImg = doT.template($api.byId('tmp_focusSmallImg').innerHTML);
                 // 绑定数据
                 $api.html($api.dom('.sales ul'), tmp_focusSmallImg(ret));
-
-                api.parseTapmode();
             } else {
                 // 异常处理
                 showToast();
@@ -597,8 +592,6 @@
                 var tmp_chinaNews = doT.template($api.byId('tmp_newsList').innerHTML);
                 // 绑定数据
                 $api.html($api.dom('.china-news'), tmp_chinaNews(ret));
-
-                api.parseTapmode();
             } else {
                 // 异常处理
                 showToast();
@@ -618,8 +611,6 @@
                 var tmp_newEnergy = doT.template($api.byId('tmp_newsList').innerHTML);
                 // 绑定数据
                 $api.html($api.dom('.new-energy'), tmp_newEnergy(ret));
-
-                api.parseTapmode();
             } else {
                 // 异常处理
                 showToast();
@@ -638,14 +629,11 @@
                 var tmp_dataCenter = doT.template($api.byId('tmp_dataCenter').innerHTML);
                 // 绑定数据
                 $api.html($api.dom('.center'), tmp_dataCenter(ret));
-
-                api.parseTapmode();
             } else {
                 // 异常处理
                 showToast();
             }
         });
-        // 刷新结束
         api.refreshHeaderLoadDone();
     }
 </script>
