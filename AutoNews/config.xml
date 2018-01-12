@@ -1,4 +1,4 @@
-<widget id="A6068037105424" version="0.0.1">
+<widget id="A6068039290641" version="0.0.1">
     <name>ChinaAuto Gasgoo.com</name>
     <description>
         Automotive News_Gasgoo covers news of China auto industry and bridges China auto market with the global one. China Auto News, China Auto Media, China Auto Industry Report, Foreign Carmakers in China, China Auto Supplier News
@@ -38,6 +38,6 @@
     </feature>
     <feature name="ajpush">
         <param name="channel" value="appstore"/>
-        <param name="app_key" value="912aa84aa6750370718ec9a3"/>
+        <param name="app_key" value="19ddfd013dd7673528ee6385"/>
     </feature>
 </widget>
