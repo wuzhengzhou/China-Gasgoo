@@ -173,7 +173,7 @@
 </head>
 
 <body>
-    <!-- <div onclick="closeRefine()" id="Occlusion" style="position: fixed;height: 100%;width: 100%;display: none;z-index: 1100;"></div> -->
+    <div onclick="closeRefine()" id="Occlusion" style="position: fixed;height: 100%;width: 100%;display: none;z-index: 1100;opacity: 0.6;background-color: #000;"></div>
     <article class="list">
         <div class="title" id="Count" style="display: none;"></div>
         <div id="productList">
@@ -209,15 +209,26 @@
     var applicationID = 0,
         categoryID = 0,
         provinceID = 0;
+    var isInit;
     apiready = function() {
         keyword = api.pageParam.keyword;
         headerH = api.pageParam.headerH;
         applicationID = api.pageParam.applicationID;
         categoryID = api.pageParam.categoryID;
         provinceID = api.pageParam.provinceID;
+        isInit=api.pageParam.isInit;
         refreshPage();
         loadingMore();
         getList();
+        api.addEventListener({
+            name: 'closeThisFrame'
+        }, function(ret, err){
+            if( ret ){
+                api.closeFrame({
+                    name: ''
+                });
+            }
+        });
     };
 
     function getList() {
@@ -233,7 +244,8 @@
         if (isMore) {
 
             api.ajax({
-                url: 'https://api.gasgoo.com/api/mbgasgoo/get_Search_Product_List/' + page + '/' + encodeURI($api.trim(keyword)) + '/' + applicationID + '/' + categoryID + '/' + provinceID,
+                // url: 'https://api.gasgoo.com/api/mbgasgoo/get_Search_Product_List/' + page + '/' + encodeURI($api.trim(keyword)) + '/' + applicationID + '/' + categoryID + '/' + provinceID,
+                 url: 'http://192.168.40.20:8090/api/mbgasgoo/get_Search_Product_List/' + page + '/' + encodeURI($api.trim(keyword)) + '/' + applicationID + '/' + categoryID + '/' + provinceID,
                 method: 'get',
                 cache: true
             }, function(ret, err) {
@@ -245,23 +257,23 @@
                         if (ret[0].AppWords != null) {
                             application = ret[0].AppWords;
                         }
-                        if (ret[0].CategoryList) {
+                        if (ret[0].CategoryList!=null) {
                             productCategory = ret[0].CategoryList;
                         }
-                        if (ret[0].ProvinceList) {
+                        if (ret[0].ProvinceList!=null) {
                             province = ret[0].ProvinceList;
                         }
                         if (ret[0].ProductList != null && ret[0].ProductList != "") {
                             $api.html($api.byId('productList'), tempEn(ret[0].ProductList));
 
-                            $api.html($api.byId('Count'), '<b id="Count">' + ret[0].ProductList[0].totalCount + '</b>  ' + keyword + ' Products');
+                            $api.html($api.byId('Count'), '<a href="javascript:void(0)" onclick="openRefine()" id="RefineLogo">Refine</a><b id="Count">' + ret[0].ProductList[0].totalCount + '</b>  ' + keyword + ' Products');
                             $api.css($api.byId('Count'), 'display:block;');
                             $api.css($api.dom('body'), 'background: #f2f2f2;');
                             var loadingHtml = "<div><i id='loadImg'></i>";
                             loadingHtml += "<span id='pushStatus'>loading...</span></div>";
                             $api.append($api.byId('loadingMoreSection'), loadingHtml);
                         } else {
-                            $api.html($api.byId('Count'), '<b id="Count">' + 0 + '</b>  ' + keyword + ' Products');
+                            $api.html($api.byId('Count'), '<a href="javascript:void(0)" onclick="openRefine()" id="RefineLogo">Refine</a><b id="Count">' + 0 + '</b>  ' + keyword + ' Products');
                             $api.css($api.byId('Count'), 'display:block;');
                             $api.css($api.dom('body'), 'background: #f2f2f2;');
                             var loadingHtml = "<div><i id='loadImg'></i>";
@@ -374,14 +386,14 @@
     }
 
     function openRefine() {
-        $api.css($api.byId('Occlusion'), 'display:block;');
+        
         api.openFrame({
-            name: 'refine',
+            name: 'refine_searchRefine',
             url: './b2b_search_refine_frame.html',
             rect: {
                 x: 40,
                 y: headerH,
-                w: api.winWidth - 40,
+                w: api.winWidth-40,
                 h: api.winHeight - headerH
             },
             animation: {
@@ -394,17 +406,28 @@
                 keyword: keyword,
                 application: application,
                 productCategory: productCategory,
-                province: province
+                province: province,
+                isInit:isInit
             },
-            bounces: true,
+            bounces: false,
         });
+
+        setTimeout(function(){
+            $api.css($api.byId('Occlusion'), 'display:block;');
+        },300)
+
     }
+
+   
 
 
     function closeRefine() {
         $api.css($api.byId('Occlusion'), 'display:none;');
         api.closeFrame({
-            name: 'refine'
+            name: 'refine_searchRefine'
+        });
+        api.closeFrame({
+            name: 'application_list'
         });
     }
 

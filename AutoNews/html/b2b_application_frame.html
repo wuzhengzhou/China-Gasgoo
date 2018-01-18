@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <style>
+        body{
+            
+        }
+    </style>
+</head>
+<body>
+    
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="../script/jquery.cookie.min.js"></script>
+
+<script type="text/javascript">
+	var application,applicationID,AppWord_;
+    apiready = function(){
+        application=api.pageParam.application;
+        showApplication();
+    };
+
+    function showApplication(){
+       var UIListCard = api.require('UIListCard');
+       var ApplicationArray=[];
+       if(application !=null && application!=""){
+            for (var i = 0; i < application.length; i++) {
+                var app={
+                    AppID:application[i].AppID,
+                    name:application[i].AppWord_+' ('+application[i].ProdCount+')'
+                };
+                ApplicationArray.push(app);
+            }
+       }
+       UIListCard.open({
+                rect : {
+                    x : 0,
+                    y : 0,
+                    w : api.frameWidth,
+                    h : api.frameHeight
+                },
+                styles:{
+                    sectionTitle: {                
+                    bgColor: '#eee',            
+                    color: '#000',            
+                    size: 12,                   
+                    height: 25                  
+                    },
+                    item: {                         
+                        bgColor: '#fff',            
+                        activeBgColor: '#696969',  
+                        color: '#000',              
+                        size: 14,                   
+                        height: 40                  
+                    }      
+                },
+                contacts:ApplicationArray,
+                fixedOn : api.frameName
+            }, function(ret) {
+                if (ret) {
+                    if(ret.eventType=="click"){
+                        applicationID=ret.contact.AppID;
+                        AppWord_=ret.contact.name;
+                        api.sendEvent({
+                            name: 'receiveApplication',
+                            extra: {
+                                applicationID:applicationID,
+                                AppWord_:AppWord_
+                            }
+                        });
+                        api.closeFrame({
+                            name: 'application_list'
+                        });
+                    }
+                }
+            });
+    }
+</script>
+</html>
