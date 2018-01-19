@@ -173,6 +173,7 @@
 </head>
 
 <body>
+    <div onclick="closeRefine()" id="Occlusion" style="position: fixed;height: 100%;width: 100%;display: none;z-index: 1100;opacity: 0.6;background-color: #000;"></div>
     <article class="list">
         <div class="title" id="Count" style="display: none;"></div>
         <div id="productList">
@@ -203,11 +204,27 @@
     var isMore = true,
         refresh = true;
     var headerH;
+    var isInit;
+    var businessType,marketType,memberType,productproertyID,productproertyValue;
     apiready = function() {
         categoryID = api.pageParam.categoryID;
+        headerH=api.pageParam.headerH;
+        isInit=api.pageParam.isInit;
+        businessType=api.pageParam.businessType;
+        marketType=api.pageParam.marketType;
+        memberType=api.pageParam.memberType;
+        productproertyID=api.pageParam.productproertyID;
+        productproertyValue=api.pageParam.productproertyValue;
         getList(categoryID);
         refreshPage();
         loadingMore();
+        api.addEventListener({
+            name: 'noSelectValue'
+        }, function(ret, err){
+            if( ret ){
+                $api.css($api.byId('Occlusion'), 'display:none'); 
+            }
+        });
     };
 
     function getList(categoryID) {
@@ -222,10 +239,9 @@
                 modal: false
             });
         }
-
         if (isMore) {
             api.ajax({
-                url: 'https://api.gasgoo.com/api/mbgasgoo/get_Product_List/' + categoryID + '/-1/-1/-1/-1/value/' + page,
+                url: 'https://api.gasgoo.com/api/mbgasgoo/get_Product_List/' + categoryID + '/'+businessType+'/'+marketType+'/'+memberType+'/'+productproertyID+'/'+productproertyValue+'/' + page,
                 method: 'get',
             }, function(ret, err) {
                 if (ret) {
@@ -238,7 +254,7 @@
                         //页面绑定新的内容
                         $api.html($api.byId('productList'), tempEn(ret));
                         //获取当前类目产品数量
-                        $api.html($api.byId('Count'), '<b id="Count">' + ret[0].Count + '</b> Products');
+                        $api.html($api.byId('Count'), '<a href="javascript:void(0)" onclick="openRefine()" id="RefineLogo">Refine</a><b id="Count">' + ret[0].Count + '</b> Products');
                         $api.css($api.byId('Count'), 'display:block;');
                         $api.css($api.dom('body'), 'background: #f2f2f2;');
                         //添加loadingmore模块
@@ -258,6 +274,7 @@
                     api.refreshHeaderLoadDone();
                     api.parseTapmode();
                 } else {
+                    alert( JSON.stringify( err ) );
                     api.toast({
                         msg: 'Network anomaly',
                         duration: 4000,
@@ -372,9 +389,22 @@
                 duration: 200
             },
             pageParam: {
-                
+                categoryID:categoryID,
+                headerH:headerH,
+                isInit:isInit
             },
-            bounces: true,
+            bounces: false,
+        });
+        setTimeout(function(){
+            $api.css($api.byId('Occlusion'), 'display:block;');
+        },300)
+    }
+
+
+    function closeRefine(){
+        $api.css($api.byId('Occlusion'), 'display:none;');
+        api.closeFrame({
+            name: 'refine_productRefine'
         });
     }
 </script>
