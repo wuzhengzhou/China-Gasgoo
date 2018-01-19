@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <style>
+        li{
+            list-style: none;
+        }
+    </style>
+</head>
+<body>
+    <div style="margin-left: 10px;">
+        <div id="categoryALL" style="display: none;">
+        <div onclick="showOrhideData('category')">Categories</div>
+        <div>
+            <ul id="category" style="display: none;margin-left: 15px;">
+
+            </ul>
+        </div>
+        </div>
+        <div id="businessALL" style="display: none;">
+        <div onclick="showOrhideData('businessType')">Business Type</div>
+        <div>
+            <ul id="businessType" style="display: none;margin-left: 15px;">
+
+            </ul>
+        </div>
+        </div>
+        <div id="marketALL" style="display: none;">
+        <div onclick="showOrhideData('marketType')">Market Type</div>
+        <div>
+            <ul id="marketType" style="display: none;margin-left: 15px;">
+
+            </ul>
+        </div>
+        </div>
+        <div id="memberALL" style="display: none;">
+        <div onclick="showOrhideData('memberType')">Member Type</div>
+        <div>
+            <ul id="memberType" style="display: none;margin-left: 15px;">
+
+            </ul>
+        </div>
+        </div>
+        <div id="detailALL" style="display: none;">
+        <div onclick="showOrhideData('detail')">Product Details</div>
+        <div id="detail" style="margin-left: 10px;display:none">
+        </div>
+        </div>
+        <div>
+            <input type="button" value="Confirm" style="background-color: red;" onclick="Confirm()">
+        </div>
+        <div>
+            <input type="button" value="Reset" style="background-color: blue;" onclick="Reset()">
+        </div>
+    </div>
+</body>
+<script type="text/template" id="tem_category">
+    {{~it:value:index}}
+    <li onclick="selectValue(this,'category')" data-category="{{=value.ID}}"><a>{{=value.Title}}({{=value.Sum}})</a></li>
+    {{~}}
+</script>
+<script type="text/template" id="tem_business">
+    {{~it:value:index}}
+    <li onclick="selectValue(this,'businessType')" data-bussiness="{{=value.ID}}"><a>{{=value.Title}}({{=value.MatchCount}})</a></li>
+    {{~}}
+</script>
+<script type="text/template" id="tem_market">
+    {{~it:value:index}}
+    <li onclick="selectValue(this,'marketType')" data-market="{{=value.filterID}}"><a>{{=value.title}}({{=value.matchcount}})</a></li>
+    {{~}}
+</script>
+<script type="text/template" id="tem_member">
+    {{~it:value:index}}
+    <li onclick="selectValue(this,'memberType')" data-member="{{=value.filterID}}"><a>{{=value.title}}({{=value.matchcount}})</a></li>
+    {{~}}
+</script>
+<!-- <script type="text/template" id="productD">
+    {{~it:value:index}}
+    <li data-category="{{=value.ID}}">{{=value.Title}}{{==value.Sum}}</li>
+    {{~}}
+</script> -->
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/doT.min.js"></script>
+<script type="text/javascript" src="../script/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="../script/jquery.cookie.min.js"></script>
+<script type="text/javascript">
+    var categoryID,
+        newCategoryID,
+        businessType=-1,
+        marketType=-1,
+        memberType=-1,
+        productPropetyID=-1,
+        productPropetyValue='value';
+    var CategoryList,
+        BusinessTypeList,
+        MarketTypeList,
+        MemberTypeList,
+        ProductProertyList,
+        ProductProertyNameList;
+    var headerH;
+    var isInit;
+
+    apiready = function(){
+        categoryID=api.pageParam.categoryID;
+        headerH=api.pageParam.headerH;
+        newCategoryID=categoryID;
+        isInit=api.pageParam.isInit;
+        getRefineData();
+    };
+
+    function getRefineData(){
+        api.ajax({
+            url: 'http://192.168.40.20:8090/api/mbgasgoo/get_Product_List_Refine/'+categoryID,
+            method: 'get',
+        },function(ret, err){
+            if (ret) {
+               
+                if(ret[0].CategoryList!=null && ret[0].CategoryList!=""){
+                    CategoryList=ret[0].CategoryList;
+                }
+                if(ret[0].BusinessTypeList!=null && ret[0].BusinessTypeList!=""){
+                    BusinessTypeList=ret[0].BusinessTypeList;
+                }
+                if (ret[0].MarketTypeList!=null && ret[0].MarketTypeList!="") {
+                    MarketTypeList=ret[0].MarketTypeList;
+                }
+                if(ret[0].MemberTypeList!=null && ret[0].MemberTypeList!=""){
+                    MemberTypeList=ret[0].MemberTypeList;
+                }
+                if(ret[0].ProductProertyList!=null && ret[0].ProductProertyList!=""){
+                    ProductProertyList=ret[0].ProductProertyList;
+                }
+                if(ret[0].ProductProertyName!=null && ret[0].ProductProertyName!=""){
+                    ProductProertyNameList=ret[0].ProductProertyName;
+                }
+
+                BindRefineData();
+            } else {
+                api.toast({
+                        msg: 'Network anomaly',
+                        duration: 4000,
+                        location: 'bottom'
+                });
+            }
+        });
+    }
+
+
+    function BindRefineData(){
+        if(CategoryList!=null && CategoryList!=""){
+            //获取模板
+            var tempCategory=doT.template($api.byId('tem_category').innerHTML);
+            //填充数据
+            $api.html($api.byId('category'), tempCategory(CategoryList));
+            $api.css($api.byId('categoryALL'), 'display:block');
+        }
+
+        if(BusinessTypeList!=null && BusinessTypeList!=""){
+            var tempBusiness=doT.template($api.byId('tem_business').innerHTML);
+            $api.html($api.byId('businessType'), tempBusiness(BusinessTypeList));
+            $api.css($api.byId('businessALL'), 'display:block');
+        }
+
+        if(MarketTypeList!=null && MarketTypeList!=""){
+            var tempMarket=doT.template($api.byId('tem_market').innerHTML);
+            $api.html($api.byId('marketType'), tempMarket(MarketTypeList));
+            $api.css($api.byId('marketALL'), 'display:block');
+        }
+
+        if(MemberTypeList!=null && MemberTypeList!=""){
+            var tempMember=doT.template($api.byId('tem_member').innerHTML);
+            $api.html($api.byId('memberType'), tempMember(MemberTypeList));
+            $api.css($api.byId('memberALL'), 'display:block');
+        }
+
+
+        if(ProductProertyList!=null && ProductProertyList!=""){
+            if(ProductProertyNameList!=null && ProductProertyNameList!=""){
+                var tempHTML;
+                for (var i = 0; i < ProductProertyNameList.length; i++) {
+                    tempHTML="";
+                    var k=0;
+                    for (var j=0;j<ProductProertyList.length;j++) {
+                        if(ProductProertyList[j].ProductProperyName==ProductProertyNameList[i]){
+                            
+                            if(k==0){
+                                tempHTML+="<ul id='"+i+"' style='margin-left:10px;display:none'>";
+                            }else{
+
+                            }
+                            tempHTML+="<li onclick='selectValue(this,"+i+")' data-proertyID='"+ProductProertyList[j].CategoryProperyID+"' data-proertyValue='"+ProductProertyList[j].ProductProperyValue+"'><a>"+ProductProertyList[j].ProductProperyValue+"("+ProductProertyList[j].Count+")</a></li>";
+                            k++;
+                        }
+                    }
+                    tempHTML+="</ul>";
+                    if(tempHTML!=""){
+                        tempHTML="<div onclick='showProductProertyDetail("+i+")' >"+ProductProertyNameList[i]+"</div>"+tempHTML;
+                    }
+                    $api.append($api.byId('detail'), tempHTML);
+                }
+                $api.css($api.byId('detailALL'), 'display:block');
+            }
+        }
+
+        Init();
+    }
+
+
+    function showOrhideData(_id){
+        if($api.cssVal($api.byId(_id), 'display')=="none"){
+            $api.css($api.byId(_id), 'display:block');
+        }else{
+            $api.css($api.byId(_id), 'display:none');
+        }
+    }
+
+    function showProductProerty(_id){
+        if($api.cssVal($api.byId(_id), 'display')=="none"){
+            $api.css($api.byId(_id), 'display:block');
+        }else{
+             $api.css($api.byId(_id), 'display:none');
+        }
+    }
+
+
+    function showProductProertyDetail(_id){
+        if($api.cssVal($api.byId(_id), 'display')=='none'){
+            $api.css($api.byId(_id), 'display:block');
+        }else{
+            $api.css($api.byId(_id), 'display:none');
+        }
+    }
+
+
+    function selectValue(_this, _id){
+        var list=$('#'+_id).find("li");
+        for (var i = 0; i < list.length; i++) {
+            if(_this==list[i]){
+                if ($(_this).has('span').length<=0) {
+                    $(_this).children('a').append("<span style='color:red'>*</span>");
+                    if (_id=='category') {
+                        newCategoryID=$api.attr(_this, 'data-category');
+                    }else if (_id=='businessType') {
+                        businessType=$api.attr(_this, 'data-bussiness');
+                    }else if (_id=='marketType') {
+                        marketType=$api.attr(_this, 'data-market');
+                    }else if(_id=='memberType'){
+                        memberType=$api.attr(_this, 'data-member');
+                    }else{
+                        productPropetyID=$api.attr(_this, 'data-proertyID');
+                        ProductProperyValue=$api.attr(_this, 'data-proertyValue');
+                        //隐藏当前分类的其他
+                        var ulList=$("#detail").find("ul");
+                        var liList;
+                        for (var j = 0; j < ulList.length; j++) {
+                            liList=$(ulList[j]).find("li");
+                            for (var k = 0; k < liList.length; k++) {
+                                if($(liList[k]).has('span').length<=0){
+                                    $api.css(liList[k], 'display:none');
+                                }
+                            }
+                        }
+                        return;
+                    }
+                    //隐藏没有选中的
+                    for (var j = 0; j < list.length; j++) {
+                        if ($(list[j]).has('span').length <= 0) {
+                            $api.css(list[j], 'display:none;');
+                        }
+                    }
+                }else{
+                    $(list[i]).find('span').remove();
+                    if (_id=='category') {
+                        newCategoryID=categoryID;
+                    }else if(_id=='businessType'){
+                        businessType=-1;
+                    }else if(_id=='marketType'){
+                        marketType=-1;
+                    }else if(_id=='memberType'){
+                        memberType=-1;
+                    }else{
+                        productPropetyID=-1;
+                        ProductProperyValue='';
+                        var ulList=$("#detail").find("ul");
+                        var liList;
+                        for (var j = 0; j < ulList.length; j++) {
+                            liList=$(ulList[j]).find("li");
+                            for (var k = 0; k < liList.length; k++) {
+                                if($(liList[k]).has('span').length<=0){
+                                    $api.css(liList[k], 'display:block');
+                                }
+                            }
+                        }
+                        return;
+                    }
+                    //全部显示
+                    for (var j = 0; j < list.length; j++) {
+                        $api.css(list[j], 'display:block;');
+                    }
+                }
+            }
+        }
+    }
+
+    //confirm button
+    function Confirm(){
+        //判断是否是什么值都没选
+        if(newCategoryID==categoryID && businessType==-1 && marketType==-1 && memberType==-1 && productPropetyValue=='' && productPropetyID==-1){
+            api.closeFrame();
+            api.sendEvent({
+                name: 'noSelectValue',
+            });
+        }else{
+                //set cookie
+                setCookie('categoryProduct',newCategoryID);
+                setCookie('businessType',businessType);
+                setCookie('marketType',marketType);
+                setCookie('memberType',memberType);
+                setCookie('productPropetyID',productPropetyID);
+                //关闭之前的列表页
+                api.closeFrame({
+                    name: 'productList_frame'
+                });
+                //关闭当前refine页面
+                api.closeFrame();
+                //打开新的列表页
+                api.openFrame({
+                name: 'productList_frame',
+                url: './b2b_product_list_frame.html',
+                rect: {
+                    x: 0,
+                    y: headerH,
+                    w: 'auto',
+                    h: api.winHeight - headerH
+                },
+                pageParam: {
+                    categoryID: categoryID,
+                    headerH:headerH,
+                    isInit:true,
+                    businessType:businessType,
+                    marketType:marketType,
+                    memberType:memberType,
+                    productproertyID:productPropetyID,
+                    productproertyValue:productPropetyValue
+                },
+                bounces: true,
+            });
+        }
+    }
+
+    //init refine data
+    function Init(){
+       //判断是否需要初始化选中项
+       if(isInit){
+         if ($.cookie('categoryProduct')!=undefined && $.cookie('categoryProduct')!="") {
+            newCategoryID=$.cookie('categoryProduct')
+            if (newCategoryID!=categoryID) {
+                InitSelectValue(newCategoryID,'category','data-category');
+            }
+         }
+         if ($.cookie('businessType')!=undefined && $.cookie('businessType')!="") {
+            businessType=$.cookie('businessType');
+            if (businessType!=-1) {
+                InitSelectValue(businessType,'businessType','data-bussiness');
+            }
+         }
+         if ($.cookie('marketType')!=undefined && $.cookie('marketType')!="") {
+            marketType=$.cookie('marketType');
+            if (marketType!=-1) {
+                InitSelectValue(marketType,'marketType','data-market');
+            }
+         }
+         if ($.cookie('memberType')!=undefined && $.cookie('memberType')!="") {
+            memberType=$.cookie('memberType');
+            if(memberType!=-1){
+                InitSelectValue(memberType,'memberType','data-member');
+            }
+         }
+         if ($.cookie('productPropetyID')!=undefined && $.cookie('productPropetyID')!="") {
+            productPropetyID=$.cookie('productPropetyID');
+         }
+       }
+    }
+
+    function InitSelectValue(_value,_id,_dataattr){
+        $api.css($api.byId(_id), 'display:block');
+        var list=$('#'+_id).find('li');
+        for (var i = 0; i < list.length; i++) {
+            if(_value==$api.attr(list[i], _dataattr)){
+                $(list[i]).children('a').append("<span style='color:red;'>*</span>");
+                for(var j = 0; j < list.length; j++){
+                    if($(list[j]).has('span').length<=0){
+                        $api.css(list[j], 'display:none');
+                    }
+                }
+            }
+        }
+    }
+    //reset button
+    function Reset(){
+        alert($.cookie('businessType'));
+        var list=['categoryProduct','businessType','marketType','memberType','productPropetyID'];
+        for (var i = 0; i < list.length; i++) {
+            $.removeCookie(list[i]);
+        }
+        alert($.cookie('businessType'));
+        newCategoryID=categoryID;
+        businessType=-1;
+        marketType=-1;
+        memberType=-1;
+        productPropetyID=-1;
+        productPropetyValue="";
+        //clear html
+        $api.html($api.byId('category'), '');
+        $api.html($api.byId('businessType'), '');
+        $api.html($api.byId('marketType'), '');
+        $api.html($api.byId('memberType'), '');
+        $api.html($api.byId('detail'), '');
+        //bind html
+        BindRefineData();
+    }
+
+    function setCookie(_name, _value) {
+        if (_value != null && _value != "") {
+            $.cookie(_name, _value, {
+                expires: 1000
+            });
+        } 
+        else if ($.cookie(_name) != undefined && $.cookie(_name) != "") {
+            $.removeCookie(_name);
+        }
+    }
+</script>
+</html>
