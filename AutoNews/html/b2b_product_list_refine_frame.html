@@ -152,33 +152,38 @@
 
     function BindRefineData(){
         if(CategoryList!=null && CategoryList!=""){
+            $api.css($api.byId('categoryALL'), 'display:block');
             //获取模板
             var tempCategory=doT.template($api.byId('tem_category').innerHTML);
             //填充数据
             $api.html($api.byId('category'), tempCategory(CategoryList));
-            $api.css($api.byId('categoryALL'), 'display:block');
+            
         }
 
         if(BusinessTypeList!=null && BusinessTypeList!=""){
+            $api.css($api.byId('businessALL'), 'display:block');
             var tempBusiness=doT.template($api.byId('tem_business').innerHTML);
             $api.html($api.byId('businessType'), tempBusiness(BusinessTypeList));
-            $api.css($api.byId('businessALL'), 'display:block');
+            
         }
 
         if(MarketTypeList!=null && MarketTypeList!=""){
+            $api.css($api.byId('marketALL'), 'display:block');
             var tempMarket=doT.template($api.byId('tem_market').innerHTML);
             $api.html($api.byId('marketType'), tempMarket(MarketTypeList));
-            $api.css($api.byId('marketALL'), 'display:block');
+            
         }
 
         if(MemberTypeList!=null && MemberTypeList!=""){
+            $api.css($api.byId('memberALL'), 'display:block');
             var tempMember=doT.template($api.byId('tem_member').innerHTML);
             $api.html($api.byId('memberType'), tempMember(MemberTypeList));
-            $api.css($api.byId('memberALL'), 'display:block');
+            
         }
 
 
         if(ProductProertyList!=null && ProductProertyList!=""){
+            $api.css($api.byId('detailALL'), 'display:block');
             if(ProductProertyNameList!=null && ProductProertyNameList!=""){
                 var tempHTML;
                 for (var i = 0; i < ProductProertyNameList.length; i++) {
@@ -201,8 +206,7 @@
                         tempHTML="<div onclick='showProductProertyDetail("+i+")' >"+ProductProertyNameList[i]+"</div>"+tempHTML;
                     }
                     $api.append($api.byId('detail'), tempHTML);
-                }
-                $api.css($api.byId('detailALL'), 'display:block');
+                } 
             }
         }
 
@@ -252,7 +256,7 @@
                         memberType=$api.attr(_this, 'data-member');
                     }else{
                         productPropetyID=$api.attr(_this, 'data-proertyID');
-                        ProductProperyValue=$api.attr(_this, 'data-proertyValue');
+                        productPropetyValue=$api.attr(_this, 'data-proertyValue');
                         //隐藏当前分类的其他
                         var ulList=$("#detail").find("ul");
                         var liList;
@@ -284,7 +288,7 @@
                         memberType=-1;
                     }else{
                         productPropetyID=-1;
-                        ProductProperyValue='';
+                        productPropetyValue='value';
                         var ulList=$("#detail").find("ul");
                         var liList;
                         for (var j = 0; j < ulList.length; j++) {
@@ -309,7 +313,7 @@
     //confirm button
     function Confirm(){
         //判断是否是什么值都没选
-        if(newCategoryID==categoryID && businessType==-1 && marketType==-1 && memberType==-1 && productPropetyValue=='' && productPropetyID==-1){
+        if(newCategoryID==categoryID && businessType==-1 && marketType==-1 && memberType==-1 && productPropetyValue=='value' && productPropetyID==-1){
             api.closeFrame();
             api.sendEvent({
                 name: 'noSelectValue',
@@ -320,7 +324,7 @@
                 setCookie('businessType',businessType);
                 setCookie('marketType',marketType);
                 setCookie('memberType',memberType);
-                setCookie('productPropetyID',productPropetyID);
+                setCookie('productPropetyValue',productPropetyValue);
                 //关闭之前的列表页
                 api.closeFrame({
                     name: 'productList_frame'
@@ -338,7 +342,8 @@
                     h: api.winHeight - headerH
                 },
                 pageParam: {
-                    categoryID: categoryID,
+                    //传递新选择的类目编号
+                    categoryID: newCategoryID,
                     headerH:headerH,
                     isInit:true,
                     businessType:businessType,
@@ -380,21 +385,41 @@
                 InitSelectValue(memberType,'memberType','data-member');
             }
          }
-         if ($.cookie('productPropetyID')!=undefined && $.cookie('productPropetyID')!="") {
-            productPropetyID=$.cookie('productPropetyID');
+         if ($.cookie('productPropetyValue')!=undefined && $.cookie('productPropetyValue')!="") {
+            productPropetyValue=$.cookie('productPropetyValue');
+            if(productPropetyValue!="value"){
+                InitSelectValue(productPropetyValue,'detail','data-proertyValue');
+            }
          }
        }
     }
-
+    //通用初始化选中项方法
     function InitSelectValue(_value,_id,_dataattr){
-        $api.css($api.byId(_id), 'display:block');
-        var list=$('#'+_id).find('li');
-        for (var i = 0; i < list.length; i++) {
-            if(_value==$api.attr(list[i], _dataattr)){
-                $(list[i]).children('a').append("<span style='color:red;'>*</span>");
-                for(var j = 0; j < list.length; j++){
-                    if($(list[j]).has('span').length<=0){
-                        $api.css(list[j], 'display:none');
+        if (_id=='detail') {
+            $api.css($api.byId(_id), 'display:block');
+            var ulList=$('#'+_id).find('ul');
+            for (var i = 0; i < ulList.length; i++) {
+                $api.css(ulList[i], 'display:block');
+                var liList=$(ulList[i]).find("li");
+                for (var j = 0; j < liList.length; j++) {
+                    if (_value==$api.attr(liList[j],_dataattr)) {
+                        $(liList[j]).children('a').append('<span style="color:red;">*</span>');
+                        $api.css(liList[j], 'display:block');
+                    }else{
+                        $api.css(liList[j], 'display:none');
+                    }
+                }
+            }
+        }else{
+            $api.css($api.byId(_id), 'display:block');
+            var list=$('#'+_id).find('li');
+            for (var i = 0; i < list.length; i++) {
+                if(_value==$api.attr(list[i], _dataattr)){
+                    $(list[i]).children('a').append("<span style='color:red;'>*</span>");
+                    for(var j = 0; j < list.length; j++){
+                        if($(list[j]).has('span').length<=0){
+                            $api.css(list[j], 'display:none');
+                        }
                     }
                 }
             }
@@ -402,25 +427,23 @@
     }
     //reset button
     function Reset(){
-        alert($.cookie('businessType'));
-        var list=['categoryProduct','businessType','marketType','memberType','productPropetyID'];
+        var list=['categoryProduct','businessType','marketType','memberType','productPropetyValue'];
         for (var i = 0; i < list.length; i++) {
             $.removeCookie(list[i]);
         }
-        alert($.cookie('businessType'));
         newCategoryID=categoryID;
         businessType=-1;
         marketType=-1;
         memberType=-1;
         productPropetyID=-1;
-        productPropetyValue="";
+        productPropetyValue="value";
         //clear html
         $api.html($api.byId('category'), '');
         $api.html($api.byId('businessType'), '');
         $api.html($api.byId('marketType'), '');
         $api.html($api.byId('memberType'), '');
         $api.html($api.byId('detail'), '');
-        //bind html
+        //bind new html
         BindRefineData();
     }
 
