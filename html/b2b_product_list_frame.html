@@ -251,23 +251,40 @@
                         //页面追加内容
                         $api.append($api.byId('productList'), tempEn(ret));
                     } else {
+                        if(ret!=null && ret!=''){
                         //页面绑定新的内容
-                        $api.html($api.byId('productList'), tempEn(ret));
-                        //获取当前类目产品数量
-                        $api.html($api.byId('Count'), '<a href="javascript:void(0)" onclick="openRefine()" id="RefineLogo">Refine</a><b id="Count">' + ret[0].Count + '</b> Products');
-                        $api.css($api.byId('Count'), 'display:block;');
-                        $api.css($api.dom('body'), 'background: #f2f2f2;');
-                        //添加loadingmore模块
-                        var loadingHtml = "<div><i id='loadImg'></i>";
-                        loadingHtml += "<span id='pushStatus'>loading...</span></div>";
-                        $api.append($api.byId('loadingMoreSection'), loadingHtml);
+                            $api.html($api.byId('productList'), tempEn(ret));
+                            //获取当前类目产品数量
+                            $api.html($api.byId('Count'), '<a href="javascript:void(0)" onclick="openRefine()" id="RefineLogo">Refine</a><b id="Count">' + ret[0].Count + '</b> Products');
+                            $api.css($api.byId('Count'), 'display:block;');
+                            $api.css($api.dom('body'), 'background: #f2f2f2;');
+                            //添加loadingmore模块
+                            var loadingHtml = "<div><i id='loadImg'></i>";
+                            loadingHtml += "<span id='pushStatus'>loading...</span></div>";
+                            $api.append($api.byId('loadingMoreSection'), loadingHtml);
+                        }else{
+                             $api.html($api.byId('Count'), '<a href="javascript:void(0)" onclick="openRefine()" id="RefineLogo">Refine</a><b id="Count">' + 0 + '</b> Products');
+                            $api.css($api.byId('Count'), 'display:block;');
+                            $api.css($api.dom('body'), 'background: #f2f2f2;');
+                            var loadingHtml = "<div><i id='loadImg'></i>";
+                            loadingHtml += "<span id='pushStatus'>loading...</span></div>";
+                            $api.append($api.byId('loadingMoreSection'), loadingHtml);
+                        }
                     }
                     refresh = false;
-                    if (ret.length < 16) {
-                        //无更多数据
+                    if(ret!=null && ret!=''){
+                        if (ret.length < 16) {
+                            //无更多数据
+                            var status = $api.byId('pushStatus');
+                            status.innerHTML = "No more";
+                            $api.css($api.byId('loadImg'), 'display:none');
+                            isMore = false;
+                        }
+                    }else{
                         var status = $api.byId('pushStatus');
                         status.innerHTML = "No more";
                         $api.css($api.byId('loadImg'), 'display:none');
+                        $api.css($api.dom('body'), 'background: #ffffff;');
                         isMore = false;
                     }
                     api.hideProgress();
